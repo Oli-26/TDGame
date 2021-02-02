@@ -201,7 +201,7 @@ SpriteRenderer:
   m_Size: {x: 2.02, y: 2.04}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 0
+  m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!1 &61079478
@@ -377,7 +377,7 @@ SpriteRenderer:
   m_Size: {x: 3.04, y: 1.96}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 0
+  m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!1 &193444236
@@ -865,7 +865,7 @@ SpriteRenderer:
   m_Size: {x: 0.48, y: 0.26}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 0
+  m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!1 &657611365
@@ -942,7 +942,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d0516cabc78b6b44082925a030c1897c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Money: 50
+  money: 50
+  hp: 100
 --- !u!114 &657611370
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -956,6 +957,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MoneyText: {fileID: 533845575}
+  HealthText: {fileID: 1247409681}
 --- !u!114 &657611371
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -972,7 +974,7 @@ MonoBehaviour:
     type: 3}
   knightPrefab: {fileID: 2723001438386188530, guid: 30d3ef9d3f2d2904bae6c0dbe7b1b8fd,
     type: 3}
-  bishopPrefab: {fileID: 4274165116367617290, guid: ccf61ea3e21298046a88ab85e79ebc24,
+  bishopPrefab: {fileID: 4274165116367617290, guid: c3e8a7c0d9907af4fb0c84d491f3a4ea,
     type: 3}
 --- !u!1 &729013993
 GameObject:
@@ -1293,7 +1295,7 @@ SpriteRenderer:
   m_Size: {x: 3.04, y: 1.96}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 0
+  m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!1 &1021014861
@@ -1956,7 +1958,7 @@ SpriteRenderer:
   m_Size: {x: 3.04, y: 1.96}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 0
+  m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!1 &1414216532
@@ -2500,7 +2502,7 @@ SpriteRenderer:
   m_Size: {x: 5.07, y: 3.57}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 0
+  m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!4 &1841567715

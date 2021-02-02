@@ -15,7 +15,7 @@ public class KnightEnemy : BaseEnemy
         base.Start();
         speed = 1.4f;
         health = 3f;
-        value = 4;
+        moneyDropped = 4;
     }
 
     protected override void Update()
@@ -25,13 +25,11 @@ public class KnightEnemy : BaseEnemy
     }
 
     public override void Move(){
-        if(!nextFlagExists){
-            Debug.Log("flag not set, unable to move.");
-            return;
-        }
+        CheckIfFinished();
+
         float movementMultiplier = boosting ? 1.5f : 1f;
         moveBetween(transform.position, nextFlag.transform.position, movementMultiplier);
-        IfHitSetNewFlag();
+        CheckAndChangeDirection();
     }
 
     void HandleBoosting(){

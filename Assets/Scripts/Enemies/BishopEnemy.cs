@@ -11,7 +11,7 @@ public class BishopEnemy : BaseEnemy
         base.Start();
         speed = 0.8f;
         health = 14f;
-        value = 6;
+        moneyDropped = 6;
     }
 
     protected override void Update()
@@ -21,17 +21,15 @@ public class BishopEnemy : BaseEnemy
     }
 
     public override void Move(){
-        if(!nextFlagExists){
-            Debug.Log("flag not set, unable to move.");
-            return;
-        }
+        CheckIfFinished();
+
         moveBetween(transform.position, nextFlag.transform.position, 1f);
-        IfHitSetNewFlag();
+        CheckAndChangeDirection();
     }
 
     protected override void CheckDead(){
         if(health <= 0){
-            control.GetComponent<Stats>().GainMoney(value);
+            control.GetComponent<Stats>().GainMoney(moneyDropped);
             control.GetComponent<RoundManager>().RemoveEnemyFromAliveList(gameObject);
             for(int i = 0; i < splitCount; i++){
                 GameObject newPawn = control.GetComponent<RoundManager>().CreateEnemy(1);

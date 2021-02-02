@@ -14,7 +14,8 @@ public class BaseEnemy : MonoBehaviour
     protected float speed = 1f;
 
     public float health = 1f;
-    protected int value = 1;
+    protected int moneyDropped = 1;
+    protected int damageDealt = 1; 
 
     protected GameObject control;
 
@@ -41,22 +42,29 @@ public class BaseEnemy : MonoBehaviour
     public void SetLastFlag(GameObject flag){
         lastFlag = flag;
         GameObject maybeNextFlag = pathScript.GetNextFlag(lastFlag, out bool flagExists);
+        nextFlagExists = flagExists;
         if(flagExists){
             nextFlagExists = true;
             nextFlag = maybeNextFlag;
         }
     }
 
+    public bool CheckIfFinished() {
+        if(!nextFlagExists){ 
+            control.GetComponent<Stats>().DealDamage(damageDealt);
+            Die();
+        }
+        return !nextFlagExists;
+    } 
+
     public virtual void Move(){
-        if(!nextFlagExists){
-            Debug.Log("flag not set, unable to move.");
-            return;
-        };
+        CheckIfFinished();
+
         moveBetween(transform.position, nextFlag.transform.position, 1f);
-        IfHitSetNewFlag();
+        CheckAndChangeDirection();
     }
 
-    protected void IfHitSetNewFlag(){
+    protected void CheckAndChangeDirection(){
         if(Vector3.Distance(transform.position, nextFlag.transform.position) < 0.04f){
             SetLastFlag(nextFlag);
         }
@@ -77,9 +85,8 @@ public class BaseEnemy : MonoBehaviour
 
     protected virtual void CheckDead(){
         if(health <= 0){
-            control.GetComponent<Stats>().GainMoney(value);
-            control.GetComponent<RoundManager>().RemoveEnemyFromAliveList(gameObject);
-            Destroy(gameObject);
+            control.GetComponent<Stats>().GainMoney(moneyDropped);
+            Die();
         }
     }
 
@@ -91,6 +98,11 @@ public class BaseEnemy : MonoBehaviour
 
     public float GetDistanceTraveled(){
         return distanceTraveled;
+    }
+
+    private void Die() {
+        control.GetComponent<RoundManager>().RemoveEnemyFromAliveList(gameObject);
+        Destroy(gameObject);
     }
 
 }

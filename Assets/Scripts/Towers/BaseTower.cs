@@ -8,7 +8,8 @@ public class BaseTower : MonoBehaviour
     protected float shotCooldown = 1f;
     protected float currentCooldown;
     public float range = 1f;
-
+    
+    protected GameObject control;
     protected bool active = false;
     void Start()
     {

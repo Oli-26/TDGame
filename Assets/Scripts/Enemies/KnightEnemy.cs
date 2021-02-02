@@ -10,23 +10,31 @@ public class KnightEnemy : BaseEnemy
     float boostTime = 1f;
     bool boosting = false;
 
-    void Awake(){
-        speed = 1.4f;
-        health = 3f;
-        value = 4;
-        Debug.Log("knight initated");
-    }
     protected override void Start()
     {
         base.Start();
-        
+        speed = 1.4f;
+        health = 3f;
+        value = 4;
     }
 
-    // Update is called once per frame
     protected override void Update()
     {
         base.Update();
+        HandleBoosting();
+    }
 
+    public override void Move(){
+        if(!nextFlagExists){
+            Debug.Log("flag not set, unable to move.");
+            return;
+        }
+        float movementMultiplier = boosting ? 1.5f : 1f;
+        moveBetween(transform.position, nextFlag.transform.position, movementMultiplier);
+        IfHitSetNewFlag();
+    }
+
+    void HandleBoosting(){
         if(nextBoost > 0 && boostRemaining <= 0){
             nextBoost-= Time.deltaTime;
         }
@@ -42,18 +50,5 @@ public class KnightEnemy : BaseEnemy
         }
     }
 
-    public override void Move(){
-        if(!nextFlagExists){
-            Debug.Log("flag not set, unable to move.");
-            return;
-        }
-        Vector3 pos2 = nextFlag.transform.position;
-        if(boosting){
-            moveBetween(transform.position, pos2, 1.5f);
-        }else{
-            moveBetween(transform.position, pos2, 1f);
-        }
-        
-        IfHitSetNewFlag();
-    }
+  
 }

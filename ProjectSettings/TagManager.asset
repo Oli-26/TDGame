@@ -10,6 +10,7 @@ TagManager:
   - NotBuildable
   - Enemy
   - text
+  - Tower
   layers:
   - Default
   - TransparentFX

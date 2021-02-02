@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -6,15 +6,10 @@ public class RoundManager : MonoBehaviour
 {
     int roundNumber = 1;
     public GameObject path;
-
     bool roundStarted = false;
 
     List<(int, GameObject)> enemyList;
     List<GameObject> aliveEnemyList = new List<GameObject>();
-
-
-    public GameObject pawnPrefab;
-    public GameObject knightPrefab;
 
     private int roundTick = 0;
     private int numberSpawned = 0;
@@ -24,8 +19,6 @@ public class RoundManager : MonoBehaviour
        if(roundStarted){
            
            while(numberSpawned < enemyList.Count && checkIfSpawn()){
-               Debug.Log("Spawned at: " + roundTick.ToString());
-
                numberSpawned++;
            }
        } 
@@ -42,7 +35,6 @@ public class RoundManager : MonoBehaviour
         if(roundStarted){
             return;
         }
-        Debug.Log("Starting round");
         SetEnemiesForRound(roundNumber);
         aliveEnemyList.Clear();
         roundStarted = true;
@@ -51,15 +43,15 @@ public class RoundManager : MonoBehaviour
     }
 
     void SetEnemiesForRound(int round){
-        enemyList = GetComponent<RoundGenerator>().readRoundFromFile(roundNumber);
-        Debug.Log("Spawn times:\n");
-        foreach( var (num,_) in enemyList){
-            Debug.Log(num.ToString());
-        }
+        enemyList = GetComponent<RoundGenerator>().readRoundFromFile(round);
     }
 
     public void RemoveEnemyFromAliveList(GameObject g){
         aliveEnemyList.Remove(g);
+    }
+
+    public void AddEnemyToAliveList(GameObject g){
+        aliveEnemyList.Add(g);
     }
 
 
@@ -69,10 +61,22 @@ public class RoundManager : MonoBehaviour
         Debug.Log(enemyList[numberSpawned]);
         (checkTick,  enemy) = enemyList[numberSpawned];
         if(checkTick == roundTick){
-            aliveEnemyList.Add(Instantiate(enemy, new Vector3(-100f,-100f,0f), Quaternion.identity));
+            aliveEnemyList.Add(CreateEnemy(enemy));
             return true;
         }
         return false;
     }
 
+    public GameObject CreateEnemy(GameObject enemy){
+        return Instantiate(enemy, new Vector3(-100f,-100f,0f), Quaternion.identity);
+    }
+
+    public GameObject CreateEnemy(int enemyNum){
+        GameObject enemy = GetComponent<RoundGenerator>().prefabValueLookUp(enemyNum);
+        return Instantiate(enemy, new Vector3(-100f,-100f,0f), Quaternion.identity);
+    }
+
+    public GameObject[] GetAliveEnemies(){
+        return aliveEnemyList.ToArray();
+    }
 }

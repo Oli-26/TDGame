@@ -18,6 +18,8 @@ public class BaseEnemy : MonoBehaviour
 
     protected GameObject control;
 
+    protected float distanceTraveled = 0f;
+
     protected virtual void Start()
     {
         pathScript = GameObject.FindWithTag("Path").GetComponent<Path>();
@@ -49,9 +51,8 @@ public class BaseEnemy : MonoBehaviour
         if(!nextFlagExists){
             Debug.Log("flag not set, unable to move.");
             return;
-        }
-        Vector3 pos2 = nextFlag.transform.position;
-        moveBetween(transform.position, pos2, 1f);
+        };
+        moveBetween(transform.position, nextFlag.transform.position, 1f);
         IfHitSetNewFlag();
     }
 
@@ -65,6 +66,7 @@ public class BaseEnemy : MonoBehaviour
         Vector3 changeVector = new Vector3(to.x-from.x, to.y-from.y, 0);
         changeVector = Vector3.Normalize(changeVector)*Time.deltaTime*speed*multi;
         transform.position += changeVector;
+        distanceTraveled += Vector3.Distance(new Vector3(0f,0f,0f), changeVector);
     }
 
 
@@ -73,11 +75,22 @@ public class BaseEnemy : MonoBehaviour
         CheckDead();
     }
 
-    protected void CheckDead(){
+    protected virtual void CheckDead(){
         if(health <= 0){
             control.GetComponent<Stats>().GainMoney(value);
             control.GetComponent<RoundManager>().RemoveEnemyFromAliveList(gameObject);
             Destroy(gameObject);
         }
     }
+
+    public void OverRideInitalisationWithNewSpawn(Vector3 pos, GameObject flag){
+        initalFlagSet = true;
+        transform.position = pos;
+        SetLastFlag(flag);
+    }
+
+    public float GetDistanceTraveled(){
+        return distanceTraveled;
+    }
+
 }

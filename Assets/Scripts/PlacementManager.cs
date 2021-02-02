@@ -9,6 +9,7 @@ public class PlacementManager : MonoBehaviour
     float shortPlacementBlocker = 0f;
 
     public GameObject Tower1;
+    public GameObject Tower2;
 
     void Update()
     {
@@ -16,18 +17,16 @@ public class PlacementManager : MonoBehaviour
             shortPlacementBlocker-= Time.deltaTime;
         }
 
-        if(Input.GetKeyDown("1")){
-            CreateTower(1);
-        }
-
         if(towerIndicatorExists){
             towerIndicator.transform.position = GetMouseToWorld();         
         }
 
         if (Input.GetMouseButtonDown(0) && shortPlacementBlocker <= 0 && towerIndicatorExists){
-            if(!IsInsideGameObjectWithTag(GetMouseToWorld(), "NotBuildable")){
+            if(!IsInsideGameObjectWithTag(GetMouseToWorld(), "Tower")){
                 towerIndicatorExists = false;
                 towerIndicator.GetComponent<BaseTower>().Place();
+            }else{
+                Debug.Log("Cannot place tower on a tower");
             }
         }
     }
@@ -52,7 +51,7 @@ public class PlacementManager : MonoBehaviour
     bool IsInsideGameObjectWithTag(Vector3 pos, string tag){
         GameObject[] objects = GameObject.FindGameObjectsWithTag(tag);
         foreach(GameObject obj in objects){
-            if(obj.GetComponent<Collider2D>().bounds.Contains(pos)){
+            if(obj.GetInstanceID() != towerIndicator.GetInstanceID() && obj.GetComponent<Collider2D>().bounds.Contains(pos)){
                 return true;
             }
         }
@@ -68,7 +67,11 @@ public class PlacementManager : MonoBehaviour
                 if(GetComponent<Stats>().SpendMoney(25)){
                     CreateNewTowerIndicator(Tower1);
                 }
-                
+                break;
+            case 2:
+                if(GetComponent<Stats>().SpendMoney(100)){
+                    CreateNewTowerIndicator(Tower1);
+                }
                 break;
             default:
                 break;

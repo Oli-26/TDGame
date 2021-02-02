@@ -8,17 +8,7 @@ public class RoundGenerator : MonoBehaviour
 
     public GameObject pawnPrefab;
     public GameObject knightPrefab;
-    // Start is called before the first frame update
-    void Start()
-    {
-        Application.targetFrameRate = 60;
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    public GameObject bishopPrefab;
 
     public List<(int, GameObject)> readRoundFromFile(int round){
         string tempPath = Application.persistentDataPath + "/rounds/round" + (round.ToString()) +".txt";
@@ -50,12 +40,14 @@ public class RoundGenerator : MonoBehaviour
         return new List<(int, GameObject)>();
     }
 
-    GameObject prefabValueLookUp(int num){
+    public GameObject prefabValueLookUp(int num){
         switch(num){
             case 1:
                 return pawnPrefab;
             case 2:
                 return knightPrefab;
+            case 3:
+                return bishopPrefab;
             default:
                 return pawnPrefab;
         }

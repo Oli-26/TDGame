@@ -12,7 +12,7 @@ public class Pawn : BaseTower
     float damage = 1f;
     void Start()
     {
-        
+        control = GameObject.Find("Control");
     }
 
     // Update is called once per frame
@@ -27,7 +27,7 @@ public class Pawn : BaseTower
 
 
     void Retarget(){
-        GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
+        GameObject[] enemies = control.GetComponent<RoundManager>().GetAliveEnemies();
         for(int i = 0; i<enemies.Length; i++){
             if(Vector3.Distance(enemies[i].transform.position, transform.position) < range){
                 target = enemies[0];

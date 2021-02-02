@@ -1,0 +1,5 @@
+*.meta
+/Library/*
+/Logs/*
+/Packages/*
+/Temp/*

@@ -9,6 +9,7 @@ TagManager:
   - BuildZone
   - NotBuildable
   - Enemy
+  - text
   layers:
   - Default
   - TransparentFX

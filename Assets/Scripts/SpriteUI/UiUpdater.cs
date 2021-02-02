@@ -9,6 +9,6 @@ public class UiUpdater : MonoBehaviour
         UpdateMoney();
     }
     public void UpdateMoney(){
-        MoneyText.GetComponent<TextMesh>().text = GetComponent<Stats>().Money.ToString();
+        MoneyText.GetComponent<TextMesh>().text = "$" + GetComponent<Stats>().Money.ToString();
     }
 }

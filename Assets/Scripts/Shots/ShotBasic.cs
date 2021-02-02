@@ -38,6 +38,7 @@ public class ShotBasic : MonoBehaviour
             col.gameObject.GetComponent<BaseEnemy>().TakeDamage(damage);
             damageInstancesLeft--;
             Destroy(gameObject);
+            
         }
     }
 

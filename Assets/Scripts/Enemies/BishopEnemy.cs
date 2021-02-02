@@ -16,8 +16,7 @@ public class BishopEnemy : BaseEnemy
 
     protected override void Update()
     {
-        base.Update();
-        
+        base.Update();   
     }
 
     public override void Move(){
@@ -29,14 +28,14 @@ public class BishopEnemy : BaseEnemy
 
     protected override void CheckDead(){
         if(health <= 0){
-            control.GetComponent<Stats>().GainMoney(moneyDropped);
-            control.GetComponent<RoundManager>().RemoveEnemyFromAliveList(gameObject);
             for(int i = 0; i < splitCount; i++){
                 GameObject newPawn = control.GetComponent<RoundManager>().CreateEnemy(1);
                 control.GetComponent<RoundManager>().AddEnemyToAliveList(newPawn);
-                newPawn.GetComponent<BaseEnemy>().OverRideInitalisationWithNewSpawn(gameObject.transform.position, lastFlag);
+                Vector3 offset = new Vector3(Random.Range(-0.2f, 0.2f), Random.Range(-0.2f, 0.2f), 0);
+                newPawn.GetComponent<BaseEnemy>().OverRideInitalisationWithNewSpawn(gameObject.transform.position + offset, lastFlag);
             }
-            
+            control.GetComponent<Stats>().GainMoney(moneyDropped);
+            control.GetComponent<RoundManager>().RemoveEnemyFromAliveList(gameObject);
             Destroy(gameObject);
         }
     }

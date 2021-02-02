@@ -91,6 +91,7 @@ public class BaseEnemy : MonoBehaviour
     }
 
     public void OverRideInitalisationWithNewSpawn(Vector3 pos, GameObject flag){
+        pathScript = GameObject.FindWithTag("Path").GetComponent<Path>();
         initalFlagSet = true;
         transform.position = pos;
         SetLastFlag(flag);

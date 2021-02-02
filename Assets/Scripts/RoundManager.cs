@@ -58,7 +58,6 @@ public class RoundManager : MonoBehaviour
     bool checkIfSpawn(){
         int checkTick;
         GameObject enemy;
-        Debug.Log(enemyList[numberSpawned]);
         (checkTick,  enemy) = enemyList[numberSpawned];
         if(checkTick == roundTick){
             aliveEnemyList.Add(CreateEnemy(enemy));

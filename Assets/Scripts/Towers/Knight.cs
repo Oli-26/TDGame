@@ -18,7 +18,7 @@ public class Knight : BaseTower
     protected override void Update()
     {
         base.Update(); 
-        timeUntilNextDoubleAttack -= Time.deltaTime;
+        timeUntilNextDoubleAttack -= TimePassed();
 
         if(currentCooldown <= 0 && active){
             if(Attack()){

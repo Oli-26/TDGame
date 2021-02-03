@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ShotBasic : MonoBehaviour
+public class ShotBasic : TimeEffected
 {
     protected GameObject target;
     protected Vector3 direction;
@@ -32,8 +32,8 @@ public class ShotBasic : MonoBehaviour
     }
 
     public virtual void Move(){
-        Vector3 changeVector = direction *Time.deltaTime*speed;
-        transform.position += changeVector;
+        Vector3 changeVector = direction *TimePassed()*speed;
+        BaseMove(changeVector);
     }
 
     public virtual void OnCollisionEnter2D(Collision2D col){

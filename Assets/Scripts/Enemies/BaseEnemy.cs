@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BaseEnemy : MonoBehaviour
+public class BaseEnemy : TimeEffected
 {
     protected GameObject lastFlag;
     protected GameObject nextFlag;
@@ -74,9 +74,10 @@ public class BaseEnemy : MonoBehaviour
 
     protected void moveBetween(Vector3 from, Vector3 to, float multi){
         Vector3 changeVector = new Vector3(to.x-from.x, to.y-from.y, 0);
-        changeVector = Vector3.Normalize(changeVector)*Time.deltaTime*speed*multi;
-        transform.position += changeVector;
-        distanceTraveled += Vector3.Distance(new Vector3(0f,0f,0f), changeVector);
+        changeVector = Vector3.Normalize(changeVector)*TimePassed()*speed*multi;
+        Vector3 oldPos = transform.position;
+        BaseMove(changeVector);
+        distanceTraveled += Vector3.Distance(oldPos, transform.position);
     }
 
 

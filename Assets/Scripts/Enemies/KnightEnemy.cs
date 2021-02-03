@@ -16,6 +16,7 @@ public class KnightEnemy : BaseEnemy
         speed = 0.9f;
         health = 4f;
         moneyDropped = 2;
+        damageDealt = 2;
     }
 
     protected override void Update()
@@ -33,19 +34,21 @@ public class KnightEnemy : BaseEnemy
     }
 
     void HandleBoosting(){
-        if(nextBoost > 0 && boostRemaining <= 0){
-            nextBoost-= Time.deltaTime;
+        if(nextBoost > 0 && boosting == false){
+            nextBoost-= TimePassed();
         }
-        if(nextBoost <= 0){
+        if(boosting && boostRemaining <= 0){
+            nextBoost = boostCooldown;
+            boosting = false;
+        }
+        if(nextBoost <= 0 && boosting == false){
             boostRemaining = boostTime;
             boosting = true;
         }
-        if(boostRemaining >= 0){
-            boostRemaining -= Time.deltaTime;
+        if(boostRemaining >= 0 && boosting){
+            boostRemaining -= TimePassed();
         }
-        if(nextBoost <= 0 && boostRemaining <= 0){
-            nextBoost = boostCooldown;
-        }
+        
     }
 
   

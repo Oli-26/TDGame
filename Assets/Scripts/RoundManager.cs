@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RoundManager : MonoBehaviour
+public class RoundManager : TimeEffected
 {
     int roundNumber = 1;
     public GameObject path;
@@ -28,7 +28,7 @@ public class RoundManager : MonoBehaviour
            roundNumber++;
        }
 
-       roundTick++;
+       roundTick = Tick(roundTick);
     }
 
     public void StartNextRound(){
@@ -60,7 +60,7 @@ public class RoundManager : MonoBehaviour
         int checkTick;
         GameObject enemy;
         (checkTick,  enemy) = enemyList[numberSpawned];
-        if(checkTick == roundTick){
+        if(checkTick <= roundTick){
             aliveEnemyList.Add(CreateEnemy(enemy));
             return true;
         }

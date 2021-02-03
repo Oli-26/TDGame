@@ -12,6 +12,7 @@ public class BishopEnemy : BaseEnemy
         speed = 0.8f;
         health = 14f;
         moneyDropped = 3;
+        damageDealt = 5;
     }
 
     protected override void Update()

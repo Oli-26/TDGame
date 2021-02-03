@@ -7,6 +7,8 @@ public class SplitShot : ShotBasic
     public GameObject babyShot;
     float range = 2f;
     int splitNumber = 2;
+
+    List<GameObject> cannotTargetAgain;
     void Start()
     {
         base.Start();
@@ -21,6 +23,7 @@ public class SplitShot : ShotBasic
         if(col.gameObject.tag == "Enemy" && damageInstancesLeft >= 1){
             col.gameObject.GetComponent<BaseEnemy>().TakeDamage(damage);
             damageInstancesLeft--;
+            cannotTargetAgain = new List<GameObject>();
             for(int i = 0; i < splitNumber; i++){
                 CreateChildShot();
             }
@@ -40,8 +43,6 @@ public class SplitShot : ShotBasic
             childShot.GetComponent<ShotBasic>().SetSpeed(4f);
             childShot.GetComponent<ShotBasic>().SetDamage(damage/2f);
             childShot.GetComponent<ShotBasic>().SetIgnoreEnemy(target);
-        }else{
-            Debug.Log("No targets to split to");
         }
         
     }
@@ -52,17 +53,31 @@ public class SplitShot : ShotBasic
         List<GameObject> targets = new List<GameObject>();
         for(int i = 0; i<enemies.Length; i++){
             if(enemies[i].GetInstanceID() != target.GetInstanceID() && Vector3.Distance(enemies[i].transform.position, transform.position) < range){
-                targets.Add(enemies[i]);
-                targetFound = true;
+                if(!cannotTargetAgain.Contains(enemies[i])){
+                    targets.Add(enemies[i]);
+                    targetFound = true;
+                }
             }
         }
         if(targetFound){
             int randNumber = Random.Range(0, targets.Count);
+            cannotTargetAgain.Add(targets[randNumber]);
             return targets[randNumber]; 
         }else{
             return null;
         }
             
+    }
+
+    public override void Move(){
+        Vector3 changeVector;
+        if(target != null){
+            changeVector = Vector3.Normalize(target.transform.position-transform.position) *TimePassed()*speed;
+        }else{
+            changeVector = direction *TimePassed()*speed;
+        }
+        
+        transform.position += changeVector;
     }
 
 }

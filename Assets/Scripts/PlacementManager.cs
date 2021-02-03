@@ -11,6 +11,9 @@ public class PlacementManager : MonoBehaviour
     public GameObject Tower1;
     public GameObject Tower2;
 
+    const int tower1Cost = 30;
+    const int tower2Cost = 80;
+
     void Update()
     {
         if(shortPlacementBlocker > 0f){
@@ -61,12 +64,12 @@ public class PlacementManager : MonoBehaviour
     public void CreateTower(int type){
         switch(type){
             case 1:
-                if(GetComponent<Stats>().SpendMoney(25)){
+                if(GetComponent<Stats>().SpendMoney(tower1Cost)){
                     CreateNewTowerIndicator(Tower1);
                 }
                 break;
             case 2:
-                if(GetComponent<Stats>().SpendMoney(50)){
+                if(GetComponent<Stats>().SpendMoney(tower2Cost)){
                     CreateNewTowerIndicator(Tower2);
                 }
                 break;

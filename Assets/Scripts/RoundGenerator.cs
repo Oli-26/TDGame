@@ -24,11 +24,24 @@ public class RoundGenerator : MonoBehaviour
                 
                 List<(int, GameObject)> returnList = new List<(int, GameObject)>();
                 foreach(string line in lines){
-                    string[] valueDouble = line.Split(' ');
-                    int spawnAtTick = 6*int.Parse(valueDouble[0]);
-                    GameObject enemyToSpawn = prefabValueLookUp(int.Parse(valueDouble[1]));
-                    (int, GameObject) pair = (spawnAtTick, enemyToSpawn);
-                    returnList.Add(pair);
+                    string[] values = line.Split(' ');
+                    int spawnAtTick = 6*int.Parse(values[0]);
+                    GameObject enemyToSpawn = prefabValueLookUp(int.Parse(values[1]));
+                    if(values.Length > 2){
+                        int amount = int.Parse(values[2]);
+                        int spawnSeperator = 1;
+                        if(values.Length > 3){
+                            spawnSeperator = int.Parse(values[3]);
+                        }
+                            for(int i = 0; i < amount; i++){
+                                (int, GameObject) pair = (spawnAtTick+i*spawnSeperator*6, enemyToSpawn);
+                                returnList.Add(pair);
+                                //Debug.Log(pair);
+                            }
+                    }else{
+                        (int, GameObject) pair = (spawnAtTick, enemyToSpawn);
+                        returnList.Add(pair);
+                    }
                 }
                 _reader.Close();
                 return returnList;

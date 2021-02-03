@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e35af12b8cdcf9498c4fd866b1faf12, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 6
+  health: 12
 --- !u!1001 &2205332144582544888
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -29,7 +29,7 @@ PrefabInstance:
     - target: {fileID: 2723001438386188530, guid: 30d3ef9d3f2d2904bae6c0dbe7b1b8fd,
         type: 3}
       propertyPath: m_Name
-      value: BishopEnemy Variant
+      value: BishopEnemy
       objectReference: {fileID: 0}
     - target: {fileID: 2723001438386188535, guid: 30d3ef9d3f2d2904bae6c0dbe7b1b8fd,
         type: 3}

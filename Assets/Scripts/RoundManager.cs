@@ -44,6 +44,7 @@ public class RoundManager : MonoBehaviour
 
     void SetEnemiesForRound(int round){
         enemyList = GetComponent<RoundGenerator>().readRoundFromFile(round);
+        sortBySpawnTime();
     }
 
     public void RemoveEnemyFromAliveList(GameObject g){
@@ -77,5 +78,12 @@ public class RoundManager : MonoBehaviour
 
     public GameObject[] GetAliveEnemies(){
         return aliveEnemyList.ToArray();
+    }
+
+    public void sortBySpawnTime(){
+        enemyList.Sort((a, b) => a.Item1.CompareTo(b.Item1));
+        //foreach(var (a,b) in enemyList){
+            //Debug.Log(a);
+        //}
     }
 }

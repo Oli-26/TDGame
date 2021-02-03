@@ -11,7 +11,7 @@ public class BishopEnemy : BaseEnemy
         base.Start();
         speed = 0.8f;
         health = 14f;
-        moneyDropped = 6;
+        moneyDropped = 3;
     }
 
     protected override void Update()

@@ -4,27 +4,31 @@ using UnityEngine;
 
 public class ShotBasic : MonoBehaviour
 {
-    Vector3 target;
-    Vector3 direction;
-    float lifeTime = 4f;
+    protected GameObject target;
+    protected Vector3 direction;
+    protected float lifeTime = 4f;
     public float speed;
-    float damage = 0f;
+    protected float damage = 0f;
 
-    int damageInstancesLeft = 1;
-    void Start()
+    protected GameObject ignoreEnemy;
+    protected bool ignoreEnemySet = false;
+    protected int damageInstancesLeft = 1;
+
+    public void Start()
     {
         Destroy(gameObject, lifeTime);
     }
 
     // Update is called once per frame
-    void Update()
+    public void Update()
     {
         Move();
     }
 
     public void SetTarget(GameObject obj){
-        target = obj.transform.position;
-        direction = Vector3.Normalize(new Vector3(target.x-transform.position.x, target.y-transform.position.y, 0));
+        target = obj;
+        Vector3 targetPos = target.transform.position;
+        direction = Vector3.Normalize(new Vector3(targetPos.x-transform.position.x, targetPos.y-transform.position.y, 0));
     }
 
     public virtual void Move(){
@@ -32,8 +36,14 @@ public class ShotBasic : MonoBehaviour
         transform.position += changeVector;
     }
 
-    public void OnCollisionEnter2D(Collision2D col){
+    public virtual void OnCollisionEnter2D(Collision2D col){
         if(col.gameObject.tag == "Enemy" && damageInstancesLeft >= 1){
+            if(ignoreEnemySet && col.gameObject.GetInstanceID() == ignoreEnemy.GetInstanceID()){
+                return;
+            }
+            if(col.gameObject.GetComponent<BaseEnemy>().IsScheduledForDeath()){
+                return;
+            }
             col.gameObject.GetComponent<BaseEnemy>().TakeDamage(damage);
             damageInstancesLeft--;
             Destroy(gameObject);
@@ -47,5 +57,9 @@ public class ShotBasic : MonoBehaviour
 
     public void SetDamage(float d){
         damage = d;
+    }
+    
+    public void SetIgnoreEnemy(GameObject enemy){
+        ignoreEnemy = enemy;
     }
 }

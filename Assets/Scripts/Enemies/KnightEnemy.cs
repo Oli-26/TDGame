@@ -13,9 +13,9 @@ public class KnightEnemy : BaseEnemy
     protected override void Start()
     {
         base.Start();
-        speed = 1.4f;
-        health = 3f;
-        moneyDropped = 4;
+        speed = 0.9f;
+        health = 4f;
+        moneyDropped = 2;
     }
 
     protected override void Update()
@@ -27,7 +27,7 @@ public class KnightEnemy : BaseEnemy
     public override void Move(){
         CheckIfFinished();
 
-        float movementMultiplier = boosting ? 1.5f : 1f;
+        float movementMultiplier = boosting ? 1.8f : 1f;
         moveBetween(transform.position, nextFlag.transform.position, movementMultiplier);
         CheckAndChangeDirection();
     }

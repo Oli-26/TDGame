@@ -23,9 +23,9 @@ public class Knight : BaseTower
         if(currentCooldown <= 0 && active){
             if(Attack()){
                 if(timeUntilNextDoubleAttack <= 0){
-                    Debug.Log("Double attacking!");
-                    currentCooldown = 0.1f;
-                    timeUntilNextDoubleAttack = doubleAttackCooldown;
+                    //Debug.Log("Double attacking!");
+                    //currentCooldown = 0.1f;
+                    //timeUntilNextDoubleAttack = doubleAttackCooldown;
                 }
             }
         }

@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 25d7c0ec3707e9b4dbc5e83d0b2e8fc0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 3
+  health: 4
 --- !u!1001 &2044608238337504393
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -29,7 +29,7 @@ PrefabInstance:
     - target: {fileID: 4149472485895783547, guid: 69f508eac25fa184faee6468f04b097b,
         type: 3}
       propertyPath: m_Name
-      value: KnightEnemy Variant
+      value: KnightEnemy
       objectReference: {fileID: 0}
     - target: {fileID: 4149472485895783550, guid: 69f508eac25fa184faee6468f04b097b,
         type: 3}

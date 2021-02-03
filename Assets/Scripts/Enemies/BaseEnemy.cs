@@ -21,6 +21,8 @@ public class BaseEnemy : MonoBehaviour
 
     protected float distanceTraveled = 0f;
 
+    bool ScheduledForDeath = false;
+
     protected virtual void Start()
     {
         pathScript = GameObject.FindWithTag("Path").GetComponent<Path>();
@@ -104,6 +106,11 @@ public class BaseEnemy : MonoBehaviour
 
     private void Die() {
         control.GetComponent<RoundManager>().RemoveEnemyFromAliveList(gameObject);
+        ScheduledForDeath = true;
         Destroy(gameObject);
+    }
+
+    public bool IsScheduledForDeath(){
+        return ScheduledForDeath;
     }
 }

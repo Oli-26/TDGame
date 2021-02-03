@@ -11,9 +11,9 @@ GameObject:
   - component: {fileID: 8188926363286838341}
   - component: {fileID: 4329066355782926223}
   - component: {fileID: 6895611828730881259}
-  - component: {fileID: 2652864055556927974}
+  - component: {fileID: 3923455274014550121}
   m_Layer: 0
-  m_Name: Shot
+  m_Name: splitshot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -72,7 +72,7 @@ SpriteRenderer:
   m_SortingLayerID: -1919438241
   m_SortingLayer: 1
   m_SortingOrder: 0
-  m_Sprite: {fileID: 4390470185953898714, guid: 852f6d6559ee2a243a3db3f6bb46b711,
+  m_Sprite: {fileID: 3918706238324363994, guid: 852f6d6559ee2a243a3db3f6bb46b711,
     type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -101,7 +101,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.13, y: 0.13}
+    oldSize: {x: 0.14, y: 0.12}
     newSize: {x: 0.1, y: 0.12}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -110,7 +110,7 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.1, y: 0.12}
   m_EdgeRadius: 0
---- !u!114 &2652864055556927974
+--- !u!114 &3923455274014550121
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -119,7 +119,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 29403588940241166}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 44b97d65e4118744f83454623949a08f, type: 3}
+  m_Script: {fileID: 11500000, guid: 41c49898de06e234ca117b68ce0e479d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 1
+  speed: 8
+  babyShot: {fileID: 29403588940241166, guid: 7a66b0d70eb77a04d969430ea7452d04, type: 3}

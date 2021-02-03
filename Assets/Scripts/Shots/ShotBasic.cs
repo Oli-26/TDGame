@@ -14,7 +14,6 @@ public class ShotBasic : MonoBehaviour
     void Start()
     {
         Destroy(gameObject, lifeTime);
-        speed = 20f;
     }
 
     // Update is called once per frame

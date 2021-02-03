@@ -32,7 +32,7 @@ public class BishopEnemy : BaseEnemy
                 GameObject newPawn = control.GetComponent<RoundManager>().CreateEnemy(1);
                 control.GetComponent<RoundManager>().AddEnemyToAliveList(newPawn);
                 Vector3 offset = new Vector3(Random.Range(-0.2f, 0.2f), Random.Range(-0.2f, 0.2f), 0);
-                newPawn.GetComponent<BaseEnemy>().OverRideInitalisationWithNewSpawn(gameObject.transform.position + offset, lastFlag);
+                newPawn.GetComponent<BaseEnemy>().OverRideInitalisationWithNewSpawn(gameObject.transform.position + offset, lastFlag, GetDistanceTraveled());
             }
             control.GetComponent<Stats>().GainMoney(moneyDropped);
             control.GetComponent<RoundManager>().RemoveEnemyFromAliveList(gameObject);

@@ -58,9 +58,6 @@ public class PlacementManager : MonoBehaviour
         return false;
     }
 
-
-
-
     public void CreateTower(int type){
         switch(type){
             case 1:
@@ -69,8 +66,8 @@ public class PlacementManager : MonoBehaviour
                 }
                 break;
             case 2:
-                if(GetComponent<Stats>().SpendMoney(100)){
-                    CreateNewTowerIndicator(Tower1);
+                if(GetComponent<Stats>().SpendMoney(50)){
+                    CreateNewTowerIndicator(Tower2);
                 }
                 break;
             default:

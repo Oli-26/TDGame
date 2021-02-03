@@ -9,7 +9,6 @@ public class Path : MonoBehaviour
     void Start()
     {
         flags = GetAllChildrenWithTag("pathflag");
-        SetNumbersOfFlags();
         LinkFlags();
     }
 
@@ -32,11 +31,7 @@ public class Path : MonoBehaviour
         return matches.ToArray();
     }
 
-    void SetNumbersOfFlags(){
-        for(int i = 0; i < flags.Length; i++){
-            flags[i].GetComponent<TextMesh>().text = i.ToString();
-        }
-    }
+
 
 
     public GameObject GetNextFlag(GameObject flag, out bool flagExists){

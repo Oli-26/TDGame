@@ -68,6 +68,8 @@ public class Path : MonoBehaviour
             lineComponent.material = new Material(Shader.Find("Sprites/Default"));
             lineComponent.startColor = Color.white;
             lineComponent.endColor = Color.white;
+            line.transform.parent = gameObject.transform;
+            line.name = "drawnline";
 
         }   
     }

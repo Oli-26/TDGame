@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e5b290caeaff54f45b544094f6092bb4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  TowerName: Knight Tower
   range: 3
   shotPrefab: {fileID: 29403588940241166, guid: ac3312ffcd3401f4c90acca3b9c3563f,
     type: 3}

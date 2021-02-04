@@ -1,31 +1,35 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.UI;
 public class TowerUI : TimeEffected
 {
-    // Start is called before the first frame update
+    public string TowerName;
+    protected GameObject control;
+
     protected void Start()
     {
         GetRangeIndicator();
+        control = GameObject.Find("Control");
     }
 
-    // Update is called once per frame
     protected void Update()
     {
-        SetRangeIndicatorOnHover();
+        OnHover();
     }
 
-    // Lets do some UI stuff here for now.
     GameObject rangeIndicator;
 
     void GetRangeIndicator(){
         rangeIndicator = transform.GetChild(0).gameObject;
     }
 
-    void SetRangeIndicatorOnHover(){
+    void OnHover(){
         if(CheckIfMouseInRange()){
             rangeIndicator.SetActive(true);
+            if(Input.GetMouseButtonDown(0)){
+                OpenTowerMenuOnClick();
+            }
         }else{
             rangeIndicator.SetActive(false);
         }
@@ -51,4 +55,11 @@ public class TowerUI : TimeEffected
         }
         return false;
     }
+
+    void OpenTowerMenuOnClick(){
+        control.GetComponent<UiContoller>().towerSelectionPanel.SetActive(true);
+        control.GetComponent<UiContoller>().towerSelectionPanel.GetComponent<TowerSelection>().Populate(TowerName);
+    }
+
+
 }

@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class BaseTower : TowerUI
 {
-    // Start is called before the first frame update
     protected float shotCooldown = 1f;
     protected float currentCooldown;
     public float range = 1f;
@@ -17,11 +16,11 @@ public class BaseTower : TowerUI
     public float shotSpeed = 5f;
     public float damage = 1f;
 
-    protected GameObject control;
+    
     protected bool active = false;
     protected virtual void Start()
     {
-        control = GameObject.Find("Control");
+        
         base.Start();
     }
 
@@ -39,7 +38,6 @@ public class BaseTower : TowerUI
     }
 
 
-    
     protected virtual void Retarget(){
         GameObject[] enemies = control.GetComponent<RoundManager>().GetAliveEnemies();
         float maxDistanceTraveled = 0f;

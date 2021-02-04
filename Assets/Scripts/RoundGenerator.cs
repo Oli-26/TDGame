@@ -36,7 +36,6 @@ public class RoundGenerator : MonoBehaviour
                             for(int i = 0; i < amount; i++){
                                 (int, GameObject) pair = (spawnAtTick+i*spawnSeperator*6, enemyToSpawn);
                                 returnList.Add(pair);
-                                //Debug.Log(pair);
                             }
                     }else{
                         (int, GameObject) pair = (spawnAtTick, enemyToSpawn);

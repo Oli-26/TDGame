@@ -177,6 +177,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d1d599b2944b2d9469ba4f10dd14991b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  TowerName: Pawn Tower
   range: 2
   shotPrefab: {fileID: 29403588940241166, guid: 7a66b0d70eb77a04d969430ea7452d04,
     type: 3}

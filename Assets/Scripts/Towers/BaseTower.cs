@@ -6,21 +6,17 @@ public class BaseTower : TowerUI
 {
     protected float shotCooldown = 1f;
     protected float currentCooldown;
-    public float range = 1f;
-
 
     protected GameObject target;
     protected bool targetSet = false;
     public GameObject shotPrefab;
-
-    public float shotSpeed = 5f;
-    public float damage = 1f;
-
     
     protected bool active = false;
+
+    protected ShotProperties shotProperties = new ShotProperties(5f, 1f, 1f, 1);
+
     protected virtual void Start()
     {
-        
         base.Start();
     }
 
@@ -38,7 +34,7 @@ public class BaseTower : TowerUI
     }
 
 
-    protected virtual void Retarget(){
+    protected virtual void Retarget(float range){
         GameObject[] enemies = control.GetComponent<RoundManager>().GetAliveEnemies();
         float maxDistanceTraveled = 0f;
         targetSet = false;
@@ -57,15 +53,15 @@ public class BaseTower : TowerUI
 
 
     protected virtual bool Attack(){
-        Retarget();
+        
+
+        Retarget(shotProperties.getRange());
         if(!targetSet)
             return false;
         currentCooldown = shotCooldown;    
-        GameObject shot = Instantiate(shotPrefab, transform.position, Quaternion.identity);
-        
-        shot.GetComponent<ShotBasic>().SetTarget(target);
-        shot.GetComponent<ShotBasic>().SetSpeed(shotSpeed);
-        shot.GetComponent<ShotBasic>().SetDamage(damage);
+
+        ShotBasic shot = Instantiate(shotPrefab, transform.position, Quaternion.identity).GetComponent<ShotBasic>();
+        shot.SetProperties(shotProperties);
         return true;
     }
 

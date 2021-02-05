@@ -7,12 +7,11 @@ public class ShotBasic : TimeEffected
     protected GameObject target;
     protected Vector3 direction;
     protected float lifeTime = 4f;
-    public float speed;
-    protected float damage = 0f;
-
     protected GameObject ignoreEnemy;
+
+    public ShotProperties properties;
+
     protected bool ignoreEnemySet = false;
-    protected int damageInstancesLeft = 1;
 
     public void Start()
     {
@@ -32,34 +31,57 @@ public class ShotBasic : TimeEffected
     }
 
     public virtual void Move(){
-        Vector3 changeVector = direction *TimePassed()*speed;
+        Vector3 changeVector = direction * TimePassed() * properties.GetSpeed();
         BaseMove(changeVector);
     }
 
     public virtual void OnCollisionEnter2D(Collision2D col){
-        if(col.gameObject.tag == "Enemy" && damageInstancesLeft >= 1){
+        if(col.gameObject.tag == "Enemy" && properties.getDamageInstances >= 1){
             if(ignoreEnemySet && col.gameObject.GetInstanceID() == ignoreEnemy.GetInstanceID()){
                 return;
             }
             if(col.gameObject.GetComponent<BaseEnemy>().IsScheduledForDeath()){
                 return;
             }
-            col.gameObject.GetComponent<BaseEnemy>().TakeDamage(damage);
-            damageInstancesLeft--;
-            Destroy(gameObject);
+            col.gameObject.GetComponent<BaseEnemy>().TakeDamage(properties.GetDamage());
+            
+            if (properties.decrementDamageInstances() == 0) {
+                Destroy(gameObject);
+            }
             
         }
-    }
-
-    public void SetSpeed(float sp){
-        speed = sp;
-    }
-
-    public void SetDamage(float d){
-        damage = d;
     }
     
     public void SetIgnoreEnemy(GameObject enemy){
         ignoreEnemy = enemy;
     }
+
+    public void setProperties(ShotProperties properties) {
+        this.properties = properties;
+    }
+
+    public ShotProperties getProperties() {
+        return properties;
+    }
+
 }
+
+public class ShotProperties {
+
+        public float Speed {get; set;}
+        public float Range {get; set;}
+        public float Damage {get; set;}
+        public int DamageInstances {get; set;}
+
+        public ShotProperties(float speed, float range, float damage, int damageInstances) {
+            Speed = speed;
+            Range = range;
+            Damage = damage;
+            DamageInstances = damageInstances;
+        }
+
+        public int decrementDamageInstances() {
+            return --DamageInstances;
+        }
+
+    }

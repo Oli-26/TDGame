@@ -81,3 +81,10 @@ public class SplitShot : ShotBasic
     }
 
 }
+
+public class SplitShotProperties : ShotProperties {
+
+        public SplitShotProperties(float speed, float range, float damage, int damageInstances) : base(speed, range, damage, damageInstances) {
+        }
+
+    }

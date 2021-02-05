@@ -8,8 +8,6 @@ public class Pawn : BaseTower
     {
         base.Start();
         shotCooldown = 1f;
-        damage = 1f;
-        shotSpeed = 7f;
     }
 
     protected override void Update()

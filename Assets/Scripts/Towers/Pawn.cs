@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Pawn : BaseTower
 {
-    void Start()
+    new void Start()
     {
         base.Start();
         shotCooldown = 1f;

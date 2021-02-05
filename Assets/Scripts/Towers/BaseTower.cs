@@ -13,15 +13,15 @@ public class BaseTower : TowerUI
     
     protected bool active = false;
 
-    protected ShotProperties shotProperties = new ShotProperties(5f, 1f, 1f, 1);
+    protected ShotProperties shotProperties = new ShotProperties(5f, 2f, 1f, 1);
 
-    protected virtual void Start()
+    
+    protected new virtual void Start()
     {
         base.Start();
     }
 
-    // Update is called once per frame
-    protected virtual void Update()
+    protected new virtual void Update()
     {
         if(currentCooldown > 0){
             currentCooldown -= TimePassed();
@@ -32,7 +32,6 @@ public class BaseTower : TowerUI
     public void Place(){
         active = true;
     }
-
 
     protected virtual void Retarget(float range){
         GameObject[] enemies = control.GetComponent<RoundManager>().GetAliveEnemies();
@@ -51,22 +50,15 @@ public class BaseTower : TowerUI
         }     
     }
 
-
     protected virtual bool Attack(){
-        
-
-        Retarget(shotProperties.getRange());
+        Retarget(shotProperties.Range);
         if(!targetSet)
             return false;
         currentCooldown = shotCooldown;    
 
         ShotBasic shot = Instantiate(shotPrefab, transform.position, Quaternion.identity).GetComponent<ShotBasic>();
-        shot.SetProperties(shotProperties);
+        shot.setProperties(shotProperties);
+        shot.SetTarget(target);
         return true;
     }
-
-
-    
-    
-
 }

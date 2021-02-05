@@ -17,7 +17,7 @@ public class TimeEffected : MonoBehaviour
     protected void BaseMove(Vector3 moveVector){
         if(__control == null)
             setControl();
-        transform.position += moveVector; //*__control.GameSpeed; This is handled by the TimePassed func now
+        transform.position += moveVector; 
     }
 
     protected float TimePassed(){

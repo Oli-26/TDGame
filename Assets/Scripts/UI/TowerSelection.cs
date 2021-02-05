@@ -14,7 +14,7 @@ public class TowerSelection : MonoBehaviour, IPointerEnterHandler, IPointerExitH
     public GameObject NameTag;
 
     public void Update() {
-        if(Input.GetMouseButtonDown(0) &&  mouseIsOver && gameObject.active){
+        if(Input.GetMouseButtonDown(0) &&  mouseIsOver && gameObject.activeSelf){
             dragging = true;
             clickOffset = GetMouseToWorld() - transform.position;
         }

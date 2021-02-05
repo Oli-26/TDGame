@@ -31,19 +31,19 @@ public class ShotBasic : TimeEffected
     }
 
     public virtual void Move(){
-        Vector3 changeVector = direction * TimePassed() * properties.GetSpeed();
+        Vector3 changeVector = direction * TimePassed() * properties.Speed;
         BaseMove(changeVector);
     }
 
     public virtual void OnCollisionEnter2D(Collision2D col){
-        if(col.gameObject.tag == "Enemy" && properties.getDamageInstances >= 1){
+        if(col.gameObject.tag == "Enemy" && properties.DamageInstances >= 1){
             if(ignoreEnemySet && col.gameObject.GetInstanceID() == ignoreEnemy.GetInstanceID()){
                 return;
             }
             if(col.gameObject.GetComponent<BaseEnemy>().IsScheduledForDeath()){
                 return;
             }
-            col.gameObject.GetComponent<BaseEnemy>().TakeDamage(properties.GetDamage());
+            col.gameObject.GetComponent<BaseEnemy>().TakeDamage(properties.Damage);
             
             if (properties.decrementDamageInstances() == 0) {
                 Destroy(gameObject);
@@ -56,8 +56,8 @@ public class ShotBasic : TimeEffected
         ignoreEnemy = enemy;
     }
 
-    public void setProperties(ShotProperties properties) {
-        this.properties = properties;
+    public virtual void setProperties(ShotProperties properties) {
+        this.properties = new ShotProperties(properties.Speed, properties.Range, properties.Damage, properties.DamageInstances);
     }
 
     public ShotProperties getProperties() {

@@ -13,8 +13,8 @@ public class BaseTower : TowerUI
     
     protected bool active = false;
 
-    protected TowerProperties properties = new TowerProperties(1f);
-    protected ShotProperties shotProperties = new ShotProperties(5f, 2f, 1f, 1);
+    protected TowerProperties properties = new TowerProperties(1f, 2f);
+    protected ShotProperties shotProperties = new ShotProperties(5f, 1f, 1, false);
 
     protected new virtual void Start()
     {
@@ -51,7 +51,7 @@ public class BaseTower : TowerUI
     }
 
     protected virtual bool Attack(){
-        Retarget(shotProperties.Range);
+        Retarget(properties.Range);
         if(!targetSet)
             return false;
         currentCooldown = properties.Cooldown;    
@@ -65,8 +65,10 @@ public class BaseTower : TowerUI
 
 public class TowerProperties{
     public float Cooldown {get; set;}
+    public float Range {get; set;}
 
-    public TowerProperties(float cooldown){
+    public TowerProperties(float cooldown, float range){
         Cooldown = cooldown;
+        Range = range;
     }
 }

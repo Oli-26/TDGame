@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class Knight : BaseTower
 {
-
-    protected new SplitShotProperties shotProperties = new SplitShotProperties(6f, 3f, 2f, 1, 2);
+    protected new TowerProperties properties = new TowerProperties(1f, 3f);
+    protected new SplitShotProperties shotProperties = new SplitShotProperties(6f, 2f, 1, true ,2);
 
     new void Start()
     {
@@ -23,7 +23,7 @@ public class Knight : BaseTower
     }
 
     protected override bool Attack(){
-        Retarget(shotProperties.Range);
+        Retarget(properties.Range);
         if(!targetSet)
             return false;
         currentCooldown = shotCooldown;    

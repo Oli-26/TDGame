@@ -31,7 +31,13 @@ public class ShotBasic : TimeEffected
     }
 
     public virtual void Move(){
-        Vector3 changeVector = direction * TimePassed() * properties.Speed;
+        Vector3 changeVector;
+        if(properties.HomingShot && target != null){
+            changeVector = Vector3.Normalize(target.transform.position-transform.position) *TimePassed()*properties.Speed;
+        }else{
+            changeVector = direction *TimePassed()*properties.Speed;
+        }
+        
         BaseMove(changeVector);
     }
 
@@ -57,7 +63,7 @@ public class ShotBasic : TimeEffected
     }
 
     public virtual void setProperties(ShotProperties properties) {
-        this.properties = new ShotProperties(properties.Speed, properties.Range, properties.Damage, properties.DamageInstances);
+        this.properties = new ShotProperties(properties.Speed, properties.Damage, properties.DamageInstances, properties.HomingShot);
     }
 
     public ShotProperties getProperties() {
@@ -69,15 +75,15 @@ public class ShotBasic : TimeEffected
 public class ShotProperties {
 
         public float Speed {get; set;}
-        public float Range {get; set;}
         public float Damage {get; set;}
         public int DamageInstances {get; set;}
+        public bool HomingShot {get; set;}
 
-        public ShotProperties(float speed, float range, float damage, int damageInstances) {
+        public ShotProperties(float speed, float damage, int damageInstances, bool homingShot) {
             Speed = speed;
-            Range = range;
             Damage = damage;
             DamageInstances = damageInstances;
+            HomingShot = homingShot;
         }
 
         public int decrementDamageInstances() {

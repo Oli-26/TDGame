@@ -26,7 +26,7 @@ Transform:
   m_GameObject: {fileID: 4742659188624549984}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0.046, y: 0.131, z: 0}
-  m_LocalScale: {x: 23.18262, y: 22.986094, z: 1}
+  m_LocalScale: {x: 23, y: 23, z: 1}
   m_Children: []
   m_Father: {fileID: 8964692577038969401}
   m_RootOrder: 0
@@ -178,11 +178,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   TowerName: Pawn Tower
-  range: 2
   shotPrefab: {fileID: 29403588940241166, guid: 7a66b0d70eb77a04d969430ea7452d04,
     type: 3}
-  shotSpeed: 8
-  damage: 1
 --- !u!61 &495584238670232628
 BoxCollider2D:
   m_ObjectHideFlags: 0

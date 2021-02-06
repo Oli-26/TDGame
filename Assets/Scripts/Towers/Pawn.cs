@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Pawn : BaseTower
 {
-    new PawnProperties properties = new PawnProperties(1f);
+    new PawnProperties properties = new PawnProperties(1f, 2f);
     List<PawnUpgrade> upgrades = new List<PawnUpgrade>();
 
     new void Start()
@@ -22,8 +22,10 @@ public class Pawn : BaseTower
             pawnUpgrade0_0 up = new pawnUpgrade0_0();
             up.Apply(properties, shotProperties);
 
+
             pawnUpgrade0_1 up2 = new pawnUpgrade0_1();
             up2.Apply(properties, shotProperties);
+            ResizeRangeIndicator(properties.Range);
 
             pawnUpgrade0_2 up3 = new pawnUpgrade0_2();
             up3.Apply(properties, shotProperties);
@@ -35,7 +37,6 @@ public class Pawn : BaseTower
 }
 
 public class PawnProperties : TowerProperties{
-    public PawnProperties(float cooldown) : base(cooldown){
-
+    public PawnProperties(float cooldown, float range) : base(cooldown, range){
     }
 }

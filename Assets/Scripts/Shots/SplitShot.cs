@@ -7,6 +7,8 @@ public class SplitShot : ShotBasic
     public GameObject babyShot;
     List<GameObject> cannotTargetAgain;
 
+    // Until we put it inside splitshotproperties
+    private float splitRange = 1f;
 
     new void Start()
     {
@@ -41,7 +43,7 @@ public class SplitShot : ShotBasic
         if(targetFound){
             Vector3 offset = new Vector3(Random.Range(-0.2f, 0.2f), Random.Range(-0.2f, 0.2f), 0);
             GameObject childShot = Instantiate(babyShot, gameObject.transform.position, Quaternion.identity);
-            childShot.GetComponent<ShotBasic>().setProperties(new ShotProperties(4f, 1f, properties.Damage/2f, 1));
+            childShot.GetComponent<ShotBasic>().setProperties(new ShotProperties(4f, properties.Damage/2f, 1, false));
             childShot.GetComponent<ShotBasic>().SetTarget(maybeTarget);
             childShot.GetComponent<ShotBasic>().SetIgnoreEnemy(target);
         }
@@ -53,7 +55,7 @@ public class SplitShot : ShotBasic
         GameObject[] enemies = GameObject.Find("Control").GetComponent<RoundManager>().GetAliveEnemies();
         List<GameObject> targets = new List<GameObject>();
         for(int i = 0; i<enemies.Length; i++){
-            if(enemies[i].GetInstanceID() != target.GetInstanceID() && Vector3.Distance(enemies[i].transform.position, transform.position) < properties.Range){
+            if(enemies[i].GetInstanceID() != target.GetInstanceID() && Vector3.Distance(enemies[i].transform.position, transform.position) < splitRange){
                 if(!cannotTargetAgain.Contains(enemies[i])){
                     targets.Add(enemies[i]);
                     targetFound = true;
@@ -69,26 +71,16 @@ public class SplitShot : ShotBasic
         }
     }
 
-    public override void Move(){
-        Vector3 changeVector;
-        if(target != null){
-            changeVector = Vector3.Normalize(target.transform.position-transform.position) *TimePassed()*properties.Speed;
-        }else{
-            changeVector = direction *TimePassed()*properties.Speed;
-        }
-        
-        transform.position += changeVector;
-    }
 
     public void setSplitProperties(SplitShotProperties p) {
-        this.properties = new SplitShotProperties(p.Speed, p.Range, p.Damage, p.DamageInstances, p.SplitNumber);
+        this.properties = new SplitShotProperties(p.Speed, p.Damage, p.DamageInstances, p.HomingShot, p.SplitNumber);
     }
 
 }
 
 public class SplitShotProperties : ShotProperties {
     public int SplitNumber {get; set;}
-    public SplitShotProperties(float speed, float range, float damage, int damageInstances, int splitNumber) : base(speed, range, damage, damageInstances) {
+    public SplitShotProperties(float speed, float damage, int damageInstances, bool homingShot, int splitNumber) : base(speed, damage,  damageInstances, homingShot) {
         SplitNumber = splitNumber;    
     }
 

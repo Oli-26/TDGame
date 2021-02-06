@@ -13,9 +13,9 @@ public class BaseTower : TowerUI
     
     protected bool active = false;
 
+    protected TowerProperties properties = new TowerProperties(1f);
     protected ShotProperties shotProperties = new ShotProperties(5f, 2f, 1f, 1);
 
-    
     protected new virtual void Start()
     {
         base.Start();
@@ -54,11 +54,19 @@ public class BaseTower : TowerUI
         Retarget(shotProperties.Range);
         if(!targetSet)
             return false;
-        currentCooldown = shotCooldown;    
+        currentCooldown = properties.Cooldown;    
 
         ShotBasic shot = Instantiate(shotPrefab, transform.position, Quaternion.identity).GetComponent<ShotBasic>();
         shot.setProperties(shotProperties);
         shot.SetTarget(target);
         return true;
+    }
+}
+
+public class TowerProperties{
+    public float Cooldown {get; set;}
+
+    public TowerProperties(float cooldown){
+        Cooldown = cooldown;
     }
 }

@@ -11,6 +11,20 @@ public class Pawn : BaseTower
     {
         base.Start();
         shotCooldown = 1f;
+
+        pawnUpgrade1_0 up = new pawnUpgrade1_0();
+        up.Apply(properties, shotProperties);
+
+
+        pawnUpgrade1_1 up2 = new pawnUpgrade1_1();
+        up2.Apply(properties, shotProperties);
+        
+
+        pawnUpgrade1_2 up3 = new pawnUpgrade1_2();
+        up3.Apply(properties, shotProperties);
+
+
+        ResizeRangeIndicator(properties.Range);
     }
 
     protected override void Update()
@@ -19,19 +33,21 @@ public class Pawn : BaseTower
         if(currentCooldown <= 0 && active){
             Attack();
 
-            pawnUpgrade0_0 up = new pawnUpgrade0_0();
-            up.Apply(properties, shotProperties);
-
-
-            pawnUpgrade0_1 up2 = new pawnUpgrade0_1();
-            up2.Apply(properties, shotProperties);
-            ResizeRangeIndicator(properties.Range);
-
-            pawnUpgrade0_2 up3 = new pawnUpgrade0_2();
-            up3.Apply(properties, shotProperties);
+            
         }
     }
+    protected override bool Attack(){
+        Debug.Log(properties.Range);
+        Retarget(properties.Range);
+        if(!targetSet)
+            return false;
+        currentCooldown = properties.Cooldown;    
 
+        ShotBasic shot = Instantiate(shotPrefab, transform.position, Quaternion.identity).GetComponent<ShotBasic>();
+        shot.setProperties(shotProperties);
+        shot.SetTarget(target);
+        return true;
+    }
 
 
 }

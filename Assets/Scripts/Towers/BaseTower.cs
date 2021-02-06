@@ -51,6 +51,7 @@ public class BaseTower : TowerUI
     }
 
     protected virtual bool Attack(){
+        Debug.Log(properties.Range);
         Retarget(properties.Range);
         if(!targetSet)
             return false;

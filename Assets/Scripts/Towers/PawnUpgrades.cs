@@ -91,7 +91,7 @@ public class pawnUpgrade1_0 : PawnUpgrade{
     }
 
     public override void Apply(PawnProperties p, ShotProperties s){      
-        s.HomingShot = true;
+        p.Range += 1;
         return;
     }
 }
@@ -106,7 +106,7 @@ public class pawnUpgrade1_1 : PawnUpgrade{
     }
 
     public override void Apply(PawnProperties p, ShotProperties s){      
-        s.Damage = 2;
+        s.HomingShot = true;
         return;
     }
 }
@@ -121,7 +121,7 @@ public class pawnUpgrade1_2 : PawnUpgrade{
     }
 
     public override void Apply(PawnProperties p, ShotProperties s){      
-        s.Damage = 2;
+        p.Range += 1;
         return;
     }
 }    

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Knight : BaseTower
 {
-    protected new TowerProperties properties = new TowerProperties(1.5f, 2.5f);
+    protected new KnightProperties properties = new KnightProperties(1.5f, 2.5f);
     protected new SplitShotProperties shotProperties = new SplitShotProperties(6f, 2f, 1, true ,2);
 
     new void Start()
@@ -31,5 +31,10 @@ public class Knight : BaseTower
         shot.setSplitProperties(shotProperties);
         shot.SetTarget(target);
         return true;
+    }
+}
+
+public class KnightProperties : TowerProperties{
+    public KnightProperties(float cooldown, float range) : base(cooldown, range){
     }
 }

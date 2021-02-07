@@ -7,7 +7,6 @@ public class Pawn : BaseTower
     new PawnProperties properties = new PawnProperties(1f, 2f);
 
     protected override List<TowerUpgrade> PossibleUpgrades() {
-        Debug.Log("initialisingUpgradeList");
         List<TowerUpgrade> list = new List<TowerUpgrade>();
         list.Add(pawnUpgrade0_0.GetInstance());
         list.Add(pawnUpgrade0_1.GetInstance());
@@ -23,16 +22,6 @@ public class Pawn : BaseTower
     {
         base.Start();
         Tower = this;
-
-        pawnUpgrade1_0 up = (pawnUpgrade1_0) pawnUpgrade1_0.GetInstance();
-        up.Apply(properties, shotProperties);
-
-        pawnUpgrade1_1 up2 = (pawnUpgrade1_1) pawnUpgrade1_1.GetInstance();
-        up2.Apply(properties, shotProperties);
-        
-
-        pawnUpgrade1_2 up3 = (pawnUpgrade1_2) pawnUpgrade1_2.GetInstance();
-        up3.Apply(properties, shotProperties);
 
         ResizeRangeIndicator(properties.Range);
     }

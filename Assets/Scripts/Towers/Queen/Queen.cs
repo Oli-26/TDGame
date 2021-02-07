@@ -10,6 +10,7 @@ public class Queen : BaseTower
     new void Start()
     {
         base.Start();
+        Tower = this;
 
         ResizeRangeIndicator(properties.Range);
         shotProperties = new ShotProperties(2f, 1f, 3, true);

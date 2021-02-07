@@ -22,7 +22,7 @@ public class Button : MonoBehaviour
 
     protected Vector3 GetMouseToWorld(){
         Vector3 pointTo = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        return new Vector3(pointTo.x, pointTo.y, 0);
+        return new Vector3(pointTo.x, pointTo.y, gameObject.transform.position.z);
     }
 
     public virtual void clicked(){

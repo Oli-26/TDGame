@@ -5,13 +5,10 @@ public enum TargetingMode {First, Strongest, Weakest, Last};
 
 public class BaseTower : TowerUI
 {
-<<<<<<< HEAD
     protected virtual List<TowerUpgrade> PossibleUpgrades() { return new List<TowerUpgrade>(); }
 
     protected List<TowerUpgrade> upgrades = new List<TowerUpgrade>();
     protected float shotCooldown = 1f;
-=======
->>>>>>> 7eb7a6fcdb6f799e2bda87e04e5fb343e06bc914
     protected float currentCooldown;
 
     protected GameObject target;
@@ -150,9 +147,15 @@ public class BaseTower : TowerUI
     }
 
     public List<TowerUpgrade> GetBuyableUpgrades() {
-        List<TowerUpgrade> buyableUpgrades = PossibleUpgrades().FindAll(u => u.IsBuyable(upgrades));
-        buyableUpgrades.Sort(Comparer<TowerUpgrade>.Create((up1, up2) => up1.track.CompareTo(up2.track)));
+        List<TowerUpgrade> buyableUpgrades = PossibleUpgrades().FindAll(u => !upgrades.Contains(u)).FindAll(u => u.IsBuyable(upgrades));
         return buyableUpgrades;        
+    }
+
+    public void BuyUpgrade(TowerUpgrade upgrade) {
+        if (GetBuyableUpgrades().Exists(u => u == upgrade)) {
+            upgrades.Add(upgrade);
+            upgrade.Apply(properties, shotProperties);
+        }
     }
 }
 

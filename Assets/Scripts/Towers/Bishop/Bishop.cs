@@ -10,6 +10,7 @@ public class Bishop : BaseTower
     new void Start()
     {
         base.Start();
+        Tower = this;
 
         ResizeRangeIndicator(properties.Range);
         shotProperties = new ShotProperties(12f, 7f, 3, true);

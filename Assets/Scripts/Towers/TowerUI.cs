@@ -66,8 +66,7 @@ public class TowerUI : TimeEffected
 
     void OpenTowerMenuOnClick(){
         control.GetComponent<UiContoller>().towerSelectionPanel.SetActive(true);
-        control.GetComponent<UiContoller>().towerSelectionPanel.GetComponent<TowerSelection>().Populate(Tower);
-        
+        control.GetComponent<UiContoller>().SelectedTower = Tower;    
     }
 
 

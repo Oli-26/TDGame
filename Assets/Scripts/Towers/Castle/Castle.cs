@@ -10,6 +10,7 @@ public class Castle : BaseTower
     new void Start()
     {
         base.Start();
+        Tower = this;
 
         ResizeRangeIndicator(properties.Range);
         shotProperties = new ShotProperties(7f, 0.3f, 1, true);

@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class BaseTower : TowerUI
 {
+    protected virtual List<TowerUpgrade> PossibleUpgrades() { return new List<TowerUpgrade>(); }
+
+    protected List<TowerUpgrade> upgrades = new List<TowerUpgrade>();
     protected float shotCooldown = 1f;
     protected float currentCooldown;
 
@@ -61,6 +64,12 @@ public class BaseTower : TowerUI
         shot.setProperties(shotProperties);
         shot.SetTarget(target);
         return true;
+    }
+
+    public List<TowerUpgrade> GetBuyableUpgrades() {
+        List<TowerUpgrade> buyableUpgrades = PossibleUpgrades().FindAll(u => u.IsBuyable(upgrades));
+        buyableUpgrades.Sort(Comparer<TowerUpgrade>.Create((up1, up2) => up1.track.CompareTo(up2.track)));
+        return buyableUpgrades;        
     }
 }
 

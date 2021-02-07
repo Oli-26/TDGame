@@ -5,6 +5,8 @@ using UnityEngine.UI;
 public class TowerUI : TimeEffected
 {
     public string TowerName;
+    public BaseTower Tower;
+
     protected GameObject control;
     const float RANGEUNITSIZE = 11.5f;
 
@@ -64,7 +66,7 @@ public class TowerUI : TimeEffected
 
     void OpenTowerMenuOnClick(){
         control.GetComponent<UiContoller>().towerSelectionPanel.SetActive(true);
-        control.GetComponent<UiContoller>().towerSelectionPanel.GetComponent<TowerSelection>().Populate(TowerName);
+        control.GetComponent<UiContoller>().towerSelectionPanel.GetComponent<TowerSelection>().Populate(Tower);
         
     }
 

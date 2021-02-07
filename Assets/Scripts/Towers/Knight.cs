@@ -10,6 +10,7 @@ public class Knight : BaseTower
     new void Start()
     {
         base.Start();
+        Tower = this;
         shotCooldown = 1.5f;
     }
 

@@ -5,22 +5,34 @@ using UnityEngine;
 public class Pawn : BaseTower
 {
     new PawnProperties properties = new PawnProperties(1f, 2f);
-    List<PawnUpgrade> upgrades = new List<PawnUpgrade>();
+
+    protected override List<TowerUpgrade> PossibleUpgrades() {
+        Debug.Log("initialisingUpgradeList");
+        List<TowerUpgrade> list = new List<TowerUpgrade>();
+        list.Add(pawnUpgrade0_0.GetInstance());
+        list.Add(pawnUpgrade0_1.GetInstance());
+        list.Add(pawnUpgrade0_2.GetInstance());
+        list.Add(pawnUpgrade1_0.GetInstance());
+        list.Add(pawnUpgrade1_1.GetInstance());
+        list.Add(pawnUpgrade1_2.GetInstance());
+        list.Add(pawnUpgrade2_0.GetInstance());
+        return list;
+    }
 
     new void Start()
     {
         base.Start();
+        Tower = this;
         shotCooldown = 1f;
 
-        pawnUpgrade1_0 up = new pawnUpgrade1_0();
+        pawnUpgrade1_0 up = (pawnUpgrade1_0) pawnUpgrade1_0.GetInstance();
         up.Apply(properties, shotProperties);
 
-
-        pawnUpgrade1_1 up2 = new pawnUpgrade1_1();
+        pawnUpgrade1_1 up2 = (pawnUpgrade1_1) pawnUpgrade1_1.GetInstance();
         up2.Apply(properties, shotProperties);
         
 
-        pawnUpgrade1_2 up3 = new pawnUpgrade1_2();
+        pawnUpgrade1_2 up3 = (pawnUpgrade1_2) pawnUpgrade1_2.GetInstance();
         up3.Apply(properties, shotProperties);
 
 
@@ -37,7 +49,6 @@ public class Pawn : BaseTower
         }
     }
     protected override bool Attack(){
-        Debug.Log(properties.Range);
         Retarget(properties.Range);
         if(!targetSet)
             return false;
@@ -49,10 +60,17 @@ public class Pawn : BaseTower
         return true;
     }
 
+    public void upgrade(PawnUpgrade upgrade) {
+        if (!upgrades.Contains(upgrade)) {
+            upgrades.Add(upgrade);
+            upgrade.Apply(properties, shotProperties);
+        }
+    }
+
 
 }
 
-public class PawnProperties : TowerProperties{
-    public PawnProperties(float cooldown, float range) : base(cooldown, range){
+public class PawnProperties : TowerProperties {
+    public PawnProperties(float cooldown, float range) : base(cooldown, range) {
     }
 }

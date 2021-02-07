@@ -1,10 +1,10 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+public enum TargetingMode {First, Strongest, Weakest, Last};
 
 public class BaseTower : TowerUI
 {
-    protected float shotCooldown = 1f;
     protected float currentCooldown;
 
     protected GameObject target;
@@ -12,6 +12,7 @@ public class BaseTower : TowerUI
     public GameObject shotPrefab;
     
     protected bool active = false;
+    protected TargetingMode mode = TargetingMode.First;
 
     protected TowerProperties properties = new TowerProperties(1f, 2f);
     protected ShotProperties shotProperties = new ShotProperties(5f, 1f, 1, false);
@@ -33,13 +34,37 @@ public class BaseTower : TowerUI
         active = true;
     }
 
+    public void SetTargetingMode(TargetingMode m){
+        mode = m;
+    }
+
     protected virtual void Retarget(float range){
+          switch(mode){
+                case TargetingMode.First:
+                    TargetFirst(range);
+                    break;
+                case TargetingMode.Strongest:
+                    TargetStrongest(range);
+                    break;
+                case TargetingMode.Weakest:
+                    TargetWeakest(range);
+                    break;
+                case TargetingMode.Last:
+                    TargetLast(range);
+                    break;
+                default:
+                    TargetFirst(range);
+                    break;
+          }
+    }
+
+    protected virtual void TargetFirst(float range){
         GameObject[] enemies = control.GetComponent<RoundManager>().GetAliveEnemies();
         float maxDistanceTraveled = 0f;
         targetSet = false;
 
         for(int i = 0; i<enemies.Length; i++){
-            if(Vector3.Distance(enemies[i].transform.position, transform.position) < range){
+            if(Vector3.Distance(enemies[i].transform.position, transform.position) < properties.Range){
                 float lengthTraveled = enemies[i].GetComponent<BaseEnemy>().GetDistanceTraveled();
                 if(lengthTraveled > maxDistanceTraveled){
                     target = enemies[i];
@@ -47,7 +72,61 @@ public class BaseTower : TowerUI
                     targetSet = true;
                 }
             }
-        }     
+        }   
+    }
+
+    protected virtual void TargetStrongest(float range){
+        GameObject[] enemies = control.GetComponent<RoundManager>().GetAliveEnemies();
+        float highestHealth = 0f;
+        float maxDistanceTraveled = 0f;
+        targetSet = false;
+
+        for(int i = 0; i<enemies.Length; i++){
+            if(Vector3.Distance(enemies[i].transform.position, transform.position) < range){
+                float enemyHealth = enemies[i].GetComponent<BaseEnemy>().health;
+                float lengthTraveled = enemies[i].GetComponent<BaseEnemy>().GetDistanceTraveled();
+                if(enemyHealth > highestHealth && maxDistanceTraveled < lengthTraveled){
+                    target = enemies[i];
+                    highestHealth = enemyHealth;
+                    maxDistanceTraveled = lengthTraveled;
+                    targetSet = true;
+                }
+            }
+        }  
+    }
+
+    protected virtual void TargetWeakest(float range){
+        GameObject[] enemies = control.GetComponent<RoundManager>().GetAliveEnemies();
+        float lowestHealth = 100000000f;
+        targetSet = false;
+
+        for(int i = 0; i<enemies.Length; i++){
+            if(Vector3.Distance(enemies[i].transform.position, transform.position) < range){
+                float enemyHealth = enemies[i].GetComponent<BaseEnemy>().health;
+                if(enemyHealth < lowestHealth){
+                    target = enemies[i];
+                    lowestHealth = enemyHealth;
+                    targetSet = true;
+                }
+            }
+        }  
+    }
+
+    protected virtual void TargetLast(float range){
+        GameObject[] enemies = control.GetComponent<RoundManager>().GetAliveEnemies();
+        float leastDistanceTraveled = 1000f;
+        targetSet = false;
+
+        for(int i = 0; i<enemies.Length; i++){
+            if(Vector3.Distance(enemies[i].transform.position, transform.position) < properties.Range){
+                float lengthTraveled = enemies[i].GetComponent<BaseEnemy>().GetDistanceTraveled();
+                if(lengthTraveled < leastDistanceTraveled){
+                    target = enemies[i];
+                    leastDistanceTraveled = lengthTraveled;
+                    targetSet = true;
+                }
+            }
+        }   
     }
 
     protected virtual bool Attack(){

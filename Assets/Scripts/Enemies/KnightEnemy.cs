@@ -13,7 +13,7 @@ public class KnightEnemy : BaseEnemy
     protected override void Start()
     {
         base.Start();
-        speed = 0.9f;
+        speed = 1f;
         health = 4f;
         moneyDropped = 2;
         damageDealt = 2;
@@ -28,7 +28,7 @@ public class KnightEnemy : BaseEnemy
     public override void Move(){
         CheckIfFinished();
 
-        float movementMultiplier = boosting ? 1.8f : 1f;
+        float movementMultiplier = boosting ? 2.3f : 1f;
         moveBetween(transform.position, nextFlag.transform.position, movementMultiplier);
         CheckAndChangeDirection();
     }

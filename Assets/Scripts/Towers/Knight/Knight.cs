@@ -4,13 +4,12 @@ using UnityEngine;
 
 public class Knight : BaseTower
 {
-    protected new TowerProperties properties = new TowerProperties(1f, 3f);
+    protected new TowerProperties properties = new TowerProperties(1.5f, 2.5f);
     protected new SplitShotProperties shotProperties = new SplitShotProperties(6f, 2f, 1, true ,2);
 
     new void Start()
     {
         base.Start();
-        shotCooldown = 1.5f;
     }
 
     protected override void Update()
@@ -26,7 +25,7 @@ public class Knight : BaseTower
         Retarget(properties.Range);
         if(!targetSet)
             return false;
-        currentCooldown = shotCooldown;    
+        currentCooldown = properties.Cooldown;   
 
         SplitShot shot = Instantiate(shotPrefab, transform.position, Quaternion.identity).GetComponent<SplitShot>();
         shot.setSplitProperties(shotProperties);

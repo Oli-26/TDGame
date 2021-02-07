@@ -10,9 +10,15 @@ public class PlacementManager : MonoBehaviour
 
     public GameObject Tower1;
     public GameObject Tower2;
+    public GameObject Tower3;
+    public GameObject Tower4;
+    public GameObject Tower5;
 
-    const int tower1Cost = 30;
-    const int tower2Cost = 80;
+    const int tower1Cost = 100;
+    const int tower2Cost = 300;
+    const int tower3Cost = 300;
+    const int tower4Cost = 500;
+    const int tower5Cost = 800;
 
     void Update()
     {
@@ -71,6 +77,21 @@ public class PlacementManager : MonoBehaviour
             case 2:
                 if(GetComponent<Stats>().SpendMoney(tower2Cost)){
                     CreateNewTowerIndicator(Tower2);
+                }
+                break;
+            case 3:
+                if(GetComponent<Stats>().SpendMoney(tower3Cost)){
+                    CreateNewTowerIndicator(Tower3);
+                }
+                break;
+            case 4:
+                if(GetComponent<Stats>().SpendMoney(tower4Cost)){
+                    CreateNewTowerIndicator(Tower4);
+                }
+                break;
+            case 5:
+                if(GetComponent<Stats>().SpendMoney(tower5Cost)){
+                    CreateNewTowerIndicator(Tower5);
                 }
                 break;
             default:

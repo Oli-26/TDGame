@@ -21,7 +21,9 @@ public class SplitShot : ShotBasic
     }
 
     public override void OnCollisionEnter2D(Collision2D col){
-       
+        if(col.gameObject.tag == "DamageReduction"){
+            ReduceDamage(col.gameObject);
+        }
         SplitShotProperties tempProperties = (SplitShotProperties)properties;
         if(col.gameObject.tag == "Enemy" && properties.DamageInstances >= 1){
             col.gameObject.GetComponent<BaseEnemy>().TakeDamage(properties.Damage);

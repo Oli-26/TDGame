@@ -10,18 +10,17 @@ public class Pawn : BaseTower
     new void Start()
     {
         base.Start();
-        shotCooldown = 1f;
 
-        pawnUpgrade1_0 up = new pawnUpgrade1_0();
-        up.Apply(properties, shotProperties);
+        //pawnUpgrade1_0 up = new pawnUpgrade1_0();
+        //up.Apply(properties, shotProperties);
 
 
-        pawnUpgrade1_1 up2 = new pawnUpgrade1_1();
-        up2.Apply(properties, shotProperties);
+        //pawnUpgrade1_1 up2 = new pawnUpgrade1_1();
+        //up2.Apply(properties, shotProperties);
         
 
-        pawnUpgrade1_2 up3 = new pawnUpgrade1_2();
-        up3.Apply(properties, shotProperties);
+        //pawnUpgrade1_2 up3 = new pawnUpgrade1_2();
+        //up3.Apply(properties, shotProperties);
 
 
         ResizeRangeIndicator(properties.Range);
@@ -37,7 +36,6 @@ public class Pawn : BaseTower
         }
     }
     protected override bool Attack(){
-        Debug.Log(properties.Range);
         Retarget(properties.Range);
         if(!targetSet)
             return false;

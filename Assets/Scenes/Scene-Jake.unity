@@ -1617,8 +1617,10 @@ MonoBehaviour:
     type: 3}
   bishopPrefab: {fileID: 4274165116367617290, guid: ccf61ea3e21298046a88ab85e79ebc24,
     type: 3}
-  castlePrefab: {fileID: 0}
-  queenPrefab: {fileID: 0}
+  castlePrefab: {fileID: 6356125555347217582, guid: 7640e092f00e60f4493e5068798593a1,
+    type: 3}
+  queenPrefab: {fileID: 5930956034601474313, guid: 2d0c4cd3e4f2c2849b422517d2db7fa2,
+    type: 3}
 --- !u!114 &657611372
 MonoBehaviour:
   m_ObjectHideFlags: 0

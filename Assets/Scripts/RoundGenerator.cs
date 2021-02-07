@@ -9,6 +9,8 @@ public class RoundGenerator : MonoBehaviour
     public GameObject pawnPrefab;
     public GameObject knightPrefab;
     public GameObject bishopPrefab;
+    public GameObject castlePrefab;
+    public GameObject queenPrefab;
 
     public List<(int, GameObject)> readRoundFromFile(int round){
         string tempPath = Application.persistentDataPath + "/rounds/round" + (round.ToString()) +".txt";
@@ -60,6 +62,10 @@ public class RoundGenerator : MonoBehaviour
                 return knightPrefab;
             case 3:
                 return bishopPrefab;
+            case 4:
+                return castlePrefab;
+            case 5:
+                return queenPrefab;
             default:
                 return pawnPrefab;
         }

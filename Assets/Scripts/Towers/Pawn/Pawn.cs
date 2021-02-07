@@ -23,7 +23,6 @@ public class Pawn : BaseTower
     {
         base.Start();
         Tower = this;
-        shotCooldown = 1f;
 
         pawnUpgrade1_0 up = (pawnUpgrade1_0) pawnUpgrade1_0.GetInstance();
         up.Apply(properties, shotProperties);
@@ -34,7 +33,6 @@ public class Pawn : BaseTower
 
         pawnUpgrade1_2 up3 = (pawnUpgrade1_2) pawnUpgrade1_2.GetInstance();
         up3.Apply(properties, shotProperties);
-
 
         ResizeRangeIndicator(properties.Range);
     }

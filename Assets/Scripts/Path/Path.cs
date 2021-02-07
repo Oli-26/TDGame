@@ -8,6 +8,7 @@ public class Path : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        GetComponent<PathGenerator>().CreatePath();
         flags = GetAllChildrenWithTag("pathflag");
         LinkFlags();
     }
@@ -24,7 +25,7 @@ public class Path : MonoBehaviour
         List<GameObject> matches = new List<GameObject>();
         for(int n = 0; n < numberOfChildren; n++){
             GameObject nthChild = gameObject.transform.GetChild(n).gameObject;
-            if(nthChild.transform.tag == tag){
+            if(nthChild.transform.tag == tag && nthChild.activeSelf){
                 matches.Add(nthChild);
             }
         }

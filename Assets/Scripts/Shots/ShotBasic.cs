@@ -18,7 +18,6 @@ public class ShotBasic : TimeEffected
         Destroy(gameObject, lifeTime);
     }
 
-    // Update is called once per frame
     public void Update()
     {
         Move();
@@ -41,7 +40,16 @@ public class ShotBasic : TimeEffected
         BaseMove(changeVector);
     }
 
+    protected void ReduceDamage(GameObject g){
+        GameObject castleEnemy = g.transform.parent.gameObject;
+        CastleEnemy CastleScript = castleEnemy.GetComponent<CastleEnemy>();
+        properties.reduceDamage(CastleScript.GetDamageReduction());
+    }
+
     public virtual void OnCollisionEnter2D(Collision2D col){
+        if(col.gameObject.tag == "DamageReduction"){
+            ReduceDamage(col.gameObject);
+        }
         if(col.gameObject.tag == "Enemy" && properties.DamageInstances >= 1){
             if(ignoreEnemySet && col.gameObject.GetInstanceID() == ignoreEnemy.GetInstanceID()){
                 return;
@@ -78,16 +86,26 @@ public class ShotProperties {
         public float Damage {get; set;}
         public int DamageInstances {get; set;}
         public bool HomingShot {get; set;}
+        public bool DamageReduced {get; set;}
 
         public ShotProperties(float speed, float damage, int damageInstances, bool homingShot) {
             Speed = speed;
             Damage = damage;
             DamageInstances = damageInstances;
             HomingShot = homingShot;
+            DamageReduced = false;
         }
 
         public int decrementDamageInstances() {
             return --DamageInstances;
         }
 
+        public void reduceDamage(float reduceAmount){
+            if(DamageReduced){
+                return;
+            }else{
+                Damage = Damage * (1f-reduceAmount);
+                DamageReduced = true;
+            }
+        }
     }

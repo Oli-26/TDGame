@@ -1,21 +1,21 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &369517009
+--- !u!114 &2382039428591151675
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5746839332372128943}
+  m_GameObject: {fileID: 7305591910117264087}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e5b290caeaff54f45b544094f6092bb4, type: 3}
+  m_Script: {fileID: 11500000, guid: aa833715fb496d844848279e6b597562, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TowerName: Knight Tower
-  shotPrefab: {fileID: 29403588940241166, guid: ac3312ffcd3401f4c90acca3b9c3563f,
+  TowerName: QueenTower
+  shotPrefab: {fileID: 29403588940241166, guid: 7b3e34ef702fca640ab6d15564edf6d8,
     type: 3}
---- !u!1001 &3722264169340571284
+--- !u!1001 &1804343955001499884
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -25,12 +25,12 @@ PrefabInstance:
     - target: {fileID: 8845577543747738274, guid: 134900a19b234834f987697deba78228,
         type: 3}
       propertyPath: m_LocalScale.x
-      value: 28.75
+      value: 34.5
       objectReference: {fileID: 0}
     - target: {fileID: 8845577543747738274, guid: 134900a19b234834f987697deba78228,
         type: 3}
       propertyPath: m_LocalScale.y
-      value: 28.75
+      value: 34.5
       objectReference: {fileID: 0}
     - target: {fileID: 8845577543747738274, guid: 134900a19b234834f987697deba78228,
         type: 3}
@@ -46,7 +46,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: f2e9a10e2f978b04c8856b99de812ce7,
+      objectReference: {fileID: 21300000, guid: 426c1b729cc065b48b78639a05ea43eb,
         type: 3}
     - target: {fileID: 8964692577038969401, guid: 134900a19b234834f987697deba78228,
         type: 3}
@@ -56,12 +56,12 @@ PrefabInstance:
     - target: {fileID: 8964692577038969401, guid: 134900a19b234834f987697deba78228,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -2.8584218
       objectReference: {fileID: 0}
     - target: {fileID: 8964692577038969401, guid: 134900a19b234834f987697deba78228,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 0.915282
       objectReference: {fileID: 0}
     - target: {fileID: 8964692577038969401, guid: 134900a19b234834f987697deba78228,
         type: 3}
@@ -106,14 +106,14 @@ PrefabInstance:
     - target: {fileID: 8964692577038969403, guid: 134900a19b234834f987697deba78228,
         type: 3}
       propertyPath: m_Name
-      value: KnightTower
+      value: QueenTower
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 159029445313515624, guid: 134900a19b234834f987697deba78228, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 134900a19b234834f987697deba78228, type: 3}
---- !u!1 &5746839332372128943 stripped
+--- !u!1 &7305591910117264087 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8964692577038969403, guid: 134900a19b234834f987697deba78228,
     type: 3}
-  m_PrefabInstance: {fileID: 3722264169340571284}
+  m_PrefabInstance: {fileID: 1804343955001499884}
   m_PrefabAsset: {fileID: 0}

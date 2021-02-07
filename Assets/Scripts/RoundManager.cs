@@ -25,10 +25,17 @@ public class RoundManager : TimeEffected
 
        if(roundStarted && aliveEnemyList.Count == 0 && numberSpawned == enemyList.Count){
            roundStarted = false;
+           GetMoneyForRound();
            roundNumber++;
        }
 
        roundTick = Tick(roundTick);
+    }
+    
+    public void GetMoneyForRound(){
+        int moneyGain = 100 + roundNumber*20;
+
+        GetComponent<Stats>().GainMoney(moneyGain);
     }
 
     public void StartNextRound(){

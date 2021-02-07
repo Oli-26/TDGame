@@ -38,7 +38,6 @@ public class PathGenerator : MonoBehaviour
     void CreateNodesInPathAsObjects(List<Node> path){
 
         foreach(Node n in path){
-            //Debug.Log("Node (" + n.position.x + ", " + n.position.y + ")");
             Vector3 flagPosition = new Vector3(xStart + xSize*n.position.x, yStart - ySize*n.position.y, 0f);
             GameObject newFlag = Instantiate(nodeObjectPrefab, flagPosition, Quaternion.identity);
             newFlag.transform.parent = PathObject.transform;
@@ -55,8 +54,7 @@ public class PathGenerator : MonoBehaviour
 
     GridPosition CreateEndPoint(){
         int x = Random.Range(0,7);
-        int y = Random.Range(0,7);
-        return new GridPosition(y,x);
+        return new GridPosition(x,7);
     }
 
     GridPosition CreateStartPoint(){
@@ -84,6 +82,10 @@ public class PathGenerator : MonoBehaviour
 
         while(catchLoops < 100){
             catchLoops += 1;
+
+            Debug.Log("Distance from finish = " + DistanceFromPosition(currentNode, targetPosition));
+            Debug.Log("Current Length:" + currentLength);
+            Debug.Log("CurrentNode : (" + currentNode.position.x + ", " + currentNode.position.y + ")");
             if(length == currentLength)
                 break;
             if(length - currentLength > DistanceFromPosition(currentNode, targetPosition)){
@@ -93,6 +95,7 @@ public class PathGenerator : MonoBehaviour
                 currentLength += 1;
                 currentNode = newNode;
             }else{
+                Debug.Log("Now moving towards endpoint (" + currentNode.position.x + ", " + currentNode.position.y + ")");
                 Node newNode = GetNewNodeTowardsPoint(currentNode, targetPosition);
                 path.Add(newNode);
                 currentLength += 1;
@@ -104,8 +107,8 @@ public class PathGenerator : MonoBehaviour
         
     }
     int DistanceFromPosition(Node currentNode, GridPosition position){
-        int xDiff = position.x - currentNode.position.x;
-        int yDiff = position.y - currentNode.position.y;
+        int xDiff = Mathf.Abs(position.x - currentNode.position.x);
+        int yDiff = Mathf.Abs(position.y - currentNode.position.y);
         return xDiff + yDiff;
     }
 
@@ -133,6 +136,7 @@ public class PathGenerator : MonoBehaviour
                     break;
             }
         }
+        Debug.Log("Get direction exceded loop limit");
         return "";
     }
 
@@ -147,21 +151,22 @@ public class PathGenerator : MonoBehaviour
             case "down":
                 return grid[n.position.y+1, n.position.x];
         }
+        Debug.Log("Direction invalid");
         return n;
     }
 
     Node GetNewNodeTowardsPoint(Node n, GridPosition position){
         int xDiff = position.x - n.position.x;
         int yDiff = position.y - n.position.y;
-        if(yDiff != 0){
-            if(yDiff > 0){
+        if(position.y != n.position.y){
+            if(position.y > n.position.y){
                 return grid[n.position.y+1, n.position.x];
             }else{
                 return grid[n.position.y-1, n.position.x];
             }
         }
-        if(xDiff != 0){
-            if(xDiff > 0){
+        if(position.x != n.position.x){
+            if(position.x > n.position.x){
                 return grid[n.position.y, n.position.x+1];
             }else{
                 return grid[n.position.y, n.position.x-1];

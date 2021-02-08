@@ -1,13 +1,17 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 
-public abstract class TowerUpgrade { 
+public class TowerUpgrade { 
+
     public int cost {set; get;}
     public string name {set; get;}
+    public string description {set; get;}
     public int track {set; get;}
     public int level {set; get;}
+    public Action<TowerProperties, ShotProperties> effect {set; get;}
 
     public virtual bool IsBuyable(List<TowerUpgrade> upgrades) {
         if (level > 0) {
@@ -17,7 +21,7 @@ public abstract class TowerUpgrade {
     }
 
     public virtual void Apply(TowerProperties p, ShotProperties s) {
-        Debug.Log("Apply not overridden in class: " + this.GetType());
+        effect(p, s);
     }
 
     protected virtual bool HasUpgrade(TowerUpgrade upgrade, List<TowerUpgrade> upgrades) {

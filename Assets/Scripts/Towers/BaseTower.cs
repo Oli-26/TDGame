@@ -1,12 +1,11 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 public enum TargetingMode {First, Strongest, Weakest, Last};
 
 public class BaseTower : TowerUI
 {
-    protected virtual List<TowerUpgrade> PossibleUpgrades() { return new List<TowerUpgrade>(); }
-
     protected List<TowerUpgrade> upgrades = new List<TowerUpgrade>();
     protected float shotCooldown = 1f;
     protected float currentCooldown;
@@ -144,6 +143,11 @@ public class BaseTower : TowerUI
         shot.setProperties(shotProperties);
         shot.SetTarget(target);
         return true;
+    }
+
+    protected virtual List<TowerUpgrade> PossibleUpgrades() { 
+        Debug.Log("WARNING: PossibleUpgrades called for BaseTower.");
+        return null;
     }
 
     public List<TowerUpgrade> GetBuyableUpgrades() {

@@ -1,22 +1,12 @@
-﻿using System.Collections;
+﻿using System;
+using System.Reflection;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class Pawn : BaseTower
 {
     new PawnProperties properties = new PawnProperties(1f, 2f);
-
-    protected override List<TowerUpgrade> PossibleUpgrades() {
-        List<TowerUpgrade> list = new List<TowerUpgrade>();
-        list.Add(pawnUpgrade0_0.GetInstance());
-        list.Add(pawnUpgrade0_1.GetInstance());
-        list.Add(pawnUpgrade0_2.GetInstance());
-        list.Add(pawnUpgrade1_0.GetInstance());
-        list.Add(pawnUpgrade1_1.GetInstance());
-        list.Add(pawnUpgrade1_2.GetInstance());
-        list.Add(pawnUpgrade2_0.GetInstance());
-        return list;
-    }
 
     new void Start()
     {
@@ -47,11 +37,15 @@ public class Pawn : BaseTower
         return true;
     }
 
-    public void upgrade(PawnUpgrade upgrade) {
+    public void upgrade(TowerUpgrade upgrade) {
         if (!upgrades.Contains(upgrade)) {
             upgrades.Add(upgrade);
             upgrade.Apply(properties, shotProperties);
         }
+    }
+
+    protected override List<TowerUpgrade> PossibleUpgrades() { 
+        return PawnUpgrades.AllUpgrades();
     }
 
 

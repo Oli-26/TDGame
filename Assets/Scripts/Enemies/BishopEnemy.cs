@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class BishopEnemy : BaseEnemy
 {
-    int splitCount = 6;
+    int splitCount = 4;
 
    protected override void Start()
     {

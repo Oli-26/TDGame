@@ -5,7 +5,7 @@ using UnityEngine;
 public class Knight : BaseTower
 {
     protected new KnightProperties properties = new KnightProperties(1.5f, 2.5f);
-    protected new SplitShotProperties shotProperties = new SplitShotProperties(6f, 2f, 1, true ,2);
+    protected new SplitShotProperties shotProperties = new SplitShotProperties(6f, 3f, 1, true ,2);
 
     new void Start()
     {

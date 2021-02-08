@@ -5,7 +5,7 @@ using UnityEngine;
 public class CastleEnemy : BaseEnemy
 {
    
-    float damageReduction = 0.1f;
+    float damageReduction = 0.5f;
 
     protected override void Start()
     {

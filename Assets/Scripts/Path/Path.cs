@@ -8,7 +8,7 @@ public class Path : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        GetComponent<PathGenerator>().CreatePath();
+        GetComponent<PathGenerator>().CreatePath(25);
         flags = GetAllChildrenWithTag("pathflag");
         LinkFlags();
     }

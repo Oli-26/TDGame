@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Bishop : BaseTower
 {
-    new BishopProperties properties = new BishopProperties(2f, 2.5f);
+    new BishopProperties properties = new BishopProperties(2.2f, 2.5f);
     //List<PawnUpgrade> upgrades = new List<PawnUpgrade>();
 
     new void Start()
@@ -13,7 +13,7 @@ public class Bishop : BaseTower
         Tower = this;
 
         ResizeRangeIndicator(properties.Range);
-        shotProperties = new ShotProperties(12f, 7f, 3, true);
+        shotProperties = new ShotProperties(8f, 4.5f, 2, true);
         mode = TargetingMode.Strongest;
     }
 

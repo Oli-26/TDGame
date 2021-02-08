@@ -20,6 +20,11 @@ public class PlacementManager : MonoBehaviour
     const int tower4Cost = 500;
     const int tower5Cost = 800;
 
+    const float xSize = 1f;
+    const float ySize = 1f;
+    const float xStart = -5.67f;
+    const float yStart = 3f;
+
     void Update()
     {
         if(shortPlacementBlocker > 0f){
@@ -27,13 +32,14 @@ public class PlacementManager : MonoBehaviour
         }
 
         if(towerIndicatorExists){
-            towerIndicator.transform.position = GetMouseToWorld();         
+            towerIndicator.transform.position = GetMouseToGrid();         
         }
 
         if (Input.GetMouseButtonDown(0) && shortPlacementBlocker <= 0 && towerIndicatorExists){
-            if(!IsInsideGameObjectWithTag(GetMouseToWorld(), "Tower")){
+            if(!IsInsideGameObjectWithTag(GetMouseToGrid(), "Tower")){
                 towerIndicatorExists = false;
                 towerIndicator.GetComponent<BaseTower>().Place();
+                towerIndicator.transform.position = GetMouseToGrid();
             }else{
                 Debug.Log("Cannot place tower on a tower");
             }
@@ -54,6 +60,23 @@ public class PlacementManager : MonoBehaviour
     Vector3 GetMouseToWorld(){
         Vector3 pointTo = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         return new Vector3(pointTo.x, pointTo.y, 0);
+    }
+
+    Vector3 GetMouseToGrid(){
+        Vector3 pointTo = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        float x = pointTo.x;
+        float y = pointTo.y;
+        x = x - xStart;
+        y = y - yStart;
+        float gridOffsetX = x/(xSize/2);
+        float gridOffsetY = y/(ySize/2);
+
+        int gridOffSetXNearest = (int)Mathf.Floor(gridOffsetX);
+        int gridOffsetYNearest = (int)Mathf.Floor(gridOffsetY);
+
+        float finalPositionX = xStart + gridOffSetXNearest*(xSize/2) + xSize/4;
+        float finalPositionY = yStart + gridOffsetYNearest*(ySize/2) + ySize/4;
+        return new Vector3(finalPositionX, finalPositionY, 0f);
     }
 
 

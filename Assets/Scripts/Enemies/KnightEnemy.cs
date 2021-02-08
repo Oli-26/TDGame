@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class KnightEnemy : BaseEnemy
 {
-    float boostCooldown = 2f;
+    float boostCooldown = 2.5f;
     float nextBoost = 2f;
     float boostRemaining = 0f;
     float boostTime = 1f;
@@ -28,7 +28,7 @@ public class KnightEnemy : BaseEnemy
     public override void Move(){
         CheckIfFinished();
 
-        float movementMultiplier = boosting ? 2.3f : 1f;
+        float movementMultiplier = boosting ? 3f : 1f;
         moveBetween(transform.position, nextFlag.transform.position, movementMultiplier);
         CheckAndChangeDirection();
     }

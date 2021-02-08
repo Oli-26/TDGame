@@ -10,21 +10,12 @@ public class PathGenerator : MonoBehaviour
     public GameObject RedFlag;
     public GameObject GreenFlag;
 
-    // -6.67 4.00
-    // -20.18 -4
     float xSize = 1f;
     float ySize = 1f;
     float xStart = -5.67f;
     float yStart = 3f;
 
-    void Start()
-    {
-        
-
-        
-    }
-
-    public void CreatePath(){
+    public void CreatePath(int length){
         grid =  new Node[8,8];
         for(int i = 0; i < 8; i++){
             for(int j = 0; j < 8; j++){
@@ -32,7 +23,7 @@ public class PathGenerator : MonoBehaviour
             }
         }
 
-        List<Node> path = CreateRoute(24);
+        List<Node> path = CreateRoute(length);
         CreateNodesInPathAsObjects(path);
     }
     void CreateNodesInPathAsObjects(List<Node> path){
@@ -66,8 +57,6 @@ public class PathGenerator : MonoBehaviour
     List<Node> CreateRoute(int length){
         GridPosition startPosition = CreateStartPoint();
         GridPosition targetPosition = CreateEndPoint();
-        Debug.Log("Start Point : (" + startPosition.x + ", " + startPosition.y + ")");
-        Debug.Log("End Point : (" + targetPosition.x + ", " + targetPosition.y + ")");
         Node currentNode = grid[startPosition.y, startPosition.x];
         
         int currentLength = 0;
@@ -83,9 +72,6 @@ public class PathGenerator : MonoBehaviour
         while(catchLoops < 100){
             catchLoops += 1;
 
-            Debug.Log("Distance from finish = " + DistanceFromPosition(currentNode, targetPosition));
-            Debug.Log("Current Length:" + currentLength);
-            Debug.Log("CurrentNode : (" + currentNode.position.x + ", " + currentNode.position.y + ")");
             if(length == currentLength)
                 break;
             if(length - currentLength > DistanceFromPosition(currentNode, targetPosition)){
@@ -95,7 +81,6 @@ public class PathGenerator : MonoBehaviour
                 currentLength += 1;
                 currentNode = newNode;
             }else{
-                Debug.Log("Now moving towards endpoint (" + currentNode.position.x + ", " + currentNode.position.y + ")");
                 Node newNode = GetNewNodeTowardsPoint(currentNode, targetPosition);
                 path.Add(newNode);
                 currentLength += 1;

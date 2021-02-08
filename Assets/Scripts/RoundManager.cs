@@ -16,7 +16,7 @@ public class RoundManager : TimeEffected
     private int numberSpawned = 0;
 
     void Start(){
-        InvokeRepeating("spawnGhostPawn", 3f, 4f);
+        InvokeRepeating("spawnGhostPawn", 2f, 8f);
     }
 
     void FixedUpdate()

@@ -8,7 +8,7 @@ public class GhostPawn : BaseEnemy
     protected override void Start()
     {
         base.Start();
-        speed =4f;
+        speed =3f;
         health = 0.1f;
         moneyDropped = 0;
         damageDealt = 0; 

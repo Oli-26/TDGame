@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 3923455274014550121}
   m_Layer: 0
   m_Name: splitshot
-  m_TagString: Untagged
+  m_TagString: shot
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -122,5 +122,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 41c49898de06e234ca117b68ce0e479d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 8
   babyShot: {fileID: 29403588940241166, guid: 7a66b0d70eb77a04d969430ea7452d04, type: 3}

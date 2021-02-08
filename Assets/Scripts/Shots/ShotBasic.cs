@@ -11,6 +11,7 @@ public class ShotBasic : TimeEffected
 
     public ShotProperties properties;
 
+    protected bool reverseDirection = false;
     protected bool ignoreEnemySet = false;
 
     public void Start()
@@ -36,7 +37,7 @@ public class ShotBasic : TimeEffected
         }else{
             changeVector = direction *TimePassed()*properties.Speed;
         }
-        
+        changeVector = reverseDirection ? -changeVector : changeVector;
         BaseMove(changeVector);
     }
 
@@ -76,6 +77,17 @@ public class ShotBasic : TimeEffected
 
     public ShotProperties getProperties() {
         return properties;
+    }
+
+    public void Reverse(float chance){
+        if(reverseDirection)
+            return;
+        float rand = Random.Range(0, 1f);
+        if(rand < chance){
+            reverseDirection = true;
+            properties.Speed = properties.Speed*1.4f;
+        }
+        
     }
 
 }

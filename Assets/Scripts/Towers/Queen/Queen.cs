@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Queen : BaseTower
 {
-    new QueenProperties properties = new QueenProperties(3f, 3f);
+    new QueenProperties properties = new QueenProperties(2f, 3f);
     //List<PawnUpgrade> upgrades = new List<PawnUpgrade>();
 
     new void Start()
@@ -13,7 +13,7 @@ public class Queen : BaseTower
         Tower = this;
 
         ResizeRangeIndicator(properties.Range);
-        shotProperties = new ShotProperties(2f, 1f, 3, true);
+        shotProperties = new ShotProperties(3f, 2f, 3, true);
         mode = TargetingMode.Strongest;
     }
 

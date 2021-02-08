@@ -12,6 +12,7 @@ TagManager:
   - text
   - Tower
   - DamageReduction
+  - shot
   layers:
   - Default
   - TransparentFX

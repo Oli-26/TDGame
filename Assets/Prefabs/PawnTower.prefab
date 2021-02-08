@@ -154,7 +154,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 1
-  m_Sprite: {fileID: 21300000, guid: 770b1c3cbc1d19940a82f2cd2b2a45b3, type: 3}
+  m_Sprite: {fileID: -2223498260249388719, guid: 770b1c3cbc1d19940a82f2cd2b2a45b3,
+    type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -178,6 +179,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   TowerName: Pawn Tower
+  Tower: {fileID: 0}
   shotPrefab: {fileID: 29403588940241166, guid: 7a66b0d70eb77a04d969430ea7452d04,
     type: 3}
 --- !u!61 &495584238670232628

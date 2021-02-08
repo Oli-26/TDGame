@@ -13,7 +13,7 @@ public class RoundGenerator : MonoBehaviour
     public GameObject queenPrefab;
 
     public List<(int, GameObject)> readRoundFromFile(int round){
-        string tempPath = Application.persistentDataPath + "/rounds/round" + (round.ToString()) +".txt";
+        string tempPath = Application.dataPath + "/rounds/round" + (round.ToString()) +".txt";
         Debug.Log(tempPath);
         FileInfo t = new FileInfo(tempPath); 
         try{

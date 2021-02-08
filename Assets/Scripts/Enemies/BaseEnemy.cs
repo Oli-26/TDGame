@@ -67,7 +67,7 @@ public class BaseEnemy : TimeEffected
     }
 
     protected void CheckAndChangeDirection(){
-        if(Vector3.Distance(transform.position, nextFlag.transform.position) < 0.04f){
+        if(Vector3.Distance(transform.position, nextFlag.transform.position) < TimeEffect(0.04f)){
             SetLastFlag(nextFlag);
         }
     }

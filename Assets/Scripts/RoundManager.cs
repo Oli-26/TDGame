@@ -6,6 +6,7 @@ public class RoundManager : TimeEffected
 {
     int roundNumber = 1;
     public GameObject path;
+    public GameObject ghostPawn;
     bool roundStarted = false;
 
     List<(int, GameObject)> enemyList;
@@ -13,6 +14,10 @@ public class RoundManager : TimeEffected
 
     private int roundTick = 0;
     private int numberSpawned = 0;
+
+    void Start(){
+        InvokeRepeating("spawnGhostPawn", 3f, 4f);
+    }
 
     void FixedUpdate()
     {
@@ -92,5 +97,11 @@ public class RoundManager : TimeEffected
         //foreach(var (a,b) in enemyList){
             //Debug.Log(a);
         //}
+    }
+    public void spawnGhostPawn(){
+        if(!roundStarted){
+            Debug.Log("spawned a pawn");
+            Instantiate(ghostPawn, new Vector3(-100f,-100f,0f), Quaternion.identity);
+        }
     }
 }

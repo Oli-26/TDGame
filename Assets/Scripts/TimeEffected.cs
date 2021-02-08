@@ -27,6 +27,14 @@ public class TimeEffected : MonoBehaviour
     }
 
     protected int Tick(int currentTick){
+        if(__control == null)
+            setControl();
         return (int)(currentTick + 1 * __control.GameSpeed);
+    }
+
+    protected float TimeEffect(float number){
+        if(__control == null)
+            setControl();
+        return number * __control.GameSpeed;
     }
 }

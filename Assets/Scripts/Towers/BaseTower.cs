@@ -35,7 +35,6 @@ public class BaseTower : TowerUI
     
     public void Place(){
         active = true;
-        ResizeRangeIndicator(properties.Range);
     }
 
     public void SetTargetingMode(TargetingMode m){

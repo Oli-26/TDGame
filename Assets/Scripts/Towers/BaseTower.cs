@@ -17,7 +17,7 @@ public class BaseTower : TowerUI
     protected bool active = false;
     protected TargetingMode mode = TargetingMode.First;
 
-    protected TowerProperties properties = new TowerProperties(1f, 2f);
+    protected TowerProperties properties = new TowerProperties(1f, 2f, 50);
     protected ShotProperties shotProperties = new ShotProperties(5f, 1f, 1, false);
 
     protected new virtual void Start()
@@ -35,6 +35,7 @@ public class BaseTower : TowerUI
     
     public void Place(){
         active = true;
+        ResizeRangeIndicator(properties.Range);
     }
 
     public void SetTargetingMode(TargetingMode m){
@@ -166,9 +167,11 @@ public class BaseTower : TowerUI
 public class TowerProperties{
     public float Cooldown {get; set;}
     public float Range {get; set;}
+    public float Worth {get; set;}
 
-    public TowerProperties(float cooldown, float range){
+    public TowerProperties(float cooldown, float range, int worth){
         Cooldown = cooldown;
         Range = range;
+        Worth = worth;
     }
 }

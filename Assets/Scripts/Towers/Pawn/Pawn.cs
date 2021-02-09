@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class Pawn : BaseTower
 {
-    new PawnProperties properties = new PawnProperties(1f, 2f);
+    new PawnProperties properties = new PawnProperties(1f, 2f, 50);
 
     new void Start()
     {
@@ -52,6 +52,6 @@ public class Pawn : BaseTower
 }
 
 public class PawnProperties : TowerProperties {
-    public PawnProperties(float cooldown, float range) : base(cooldown, range) {
+    public PawnProperties(float cooldown, float range, int worth) : base(cooldown, range, worth) {
     }
 }

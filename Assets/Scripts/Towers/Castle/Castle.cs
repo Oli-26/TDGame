@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Castle : BaseTower
 {
-    new CastleProperties properties = new CastleProperties(0.2f, 1.2f);
+    new CastleProperties properties = new CastleProperties(0.2f, 1.2f, 250);
     //List<PawnUpgrade> upgrades = new List<PawnUpgrade>();
 
     new void Start()
@@ -48,6 +48,6 @@ public class Castle : BaseTower
 }
 
 public class CastleProperties : TowerProperties{
-    public CastleProperties(float cooldown, float range) : base(cooldown, range){
+    public CastleProperties(float cooldown, float range, int worth) : base(cooldown, range, worth){
     }
 }

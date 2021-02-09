@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Bishop : BaseTower
 {
-    new BishopProperties properties = new BishopProperties(2.2f, 2.5f);
+    new BishopProperties properties = new BishopProperties(2.2f, 2.5f, 150);
     //List<PawnUpgrade> upgrades = new List<PawnUpgrade>();
 
     new void Start()
@@ -40,6 +40,6 @@ public class Bishop : BaseTower
 }
 
 public class BishopProperties : TowerProperties{
-    public BishopProperties(float cooldown, float range) : base(cooldown, range){
+    public BishopProperties(float cooldown, float range, int worth) : base(cooldown, range, worth){
     }
 }

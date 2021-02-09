@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Queen : BaseTower
 {
-    new QueenProperties properties = new QueenProperties(2f, 3f);
+    new QueenProperties properties = new QueenProperties(2f, 3f, 400);
     //List<PawnUpgrade> upgrades = new List<PawnUpgrade>();
 
     new void Start()
@@ -41,6 +41,6 @@ public class Queen : BaseTower
 }
 
 public class QueenProperties : TowerProperties{
-    public QueenProperties(float cooldown, float range) : base(cooldown, range){
+    public QueenProperties(float cooldown, float range, int worth) : base(cooldown, range, worth){
     }
 }

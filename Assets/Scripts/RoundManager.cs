@@ -100,7 +100,6 @@ public class RoundManager : TimeEffected
     }
     public void spawnGhostPawn(){
         if(!roundStarted){
-            Debug.Log("spawned a pawn");
             Instantiate(ghostPawn, new Vector3(-100f,-100f,0f), Quaternion.identity);
         }
     }

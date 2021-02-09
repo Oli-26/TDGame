@@ -147,7 +147,7 @@ public class BaseTower : TowerUI
 
     protected virtual List<TowerUpgrade> PossibleUpgrades() { 
         Debug.Log("WARNING: PossibleUpgrades called for BaseTower.");
-        return null;
+        return new List<TowerUpgrade>();
     }
 
     public List<TowerUpgrade> GetBuyableUpgrades() {

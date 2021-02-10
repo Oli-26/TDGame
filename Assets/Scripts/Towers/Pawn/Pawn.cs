@@ -48,7 +48,6 @@ public class Pawn : BaseTower
         return PawnUpgrades.AllUpgrades();
     }
 
-
 }
 
 public class PawnProperties : TowerProperties {

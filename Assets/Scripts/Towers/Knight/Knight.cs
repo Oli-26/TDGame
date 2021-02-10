@@ -11,6 +11,7 @@ public class Knight : BaseTower
     {
         base.Start();
         Tower = this;
+        ResizeRangeIndicator(properties.Range);
 
     }
 
@@ -34,6 +35,19 @@ public class Knight : BaseTower
         shot.SetTarget(target);
         return true;
     }
+
+    protected override List<TowerUpgrade> PossibleUpgrades() { 
+        return KnightUpgrades.AllUpgrades();
+    }
+
+    public void upgrade(TowerUpgrade upgrade) {
+        if (!upgrades.Contains(upgrade)) {
+            upgrades.Add(upgrade);
+            upgrade.Apply(properties, shotProperties);
+        }
+    }
+
+
 }
 
 public class KnightProperties : TowerProperties{

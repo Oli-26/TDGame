@@ -155,7 +155,7 @@ public class BaseTower : TowerUI
         return buyableUpgrades;        
     }
 
-    public void BuyUpgrade(TowerUpgrade upgrade) {
+    public virtual void BuyUpgrade(TowerUpgrade upgrade) {
         if (GetBuyableUpgrades().Exists(u => u == upgrade)) {
             upgrades.Add(upgrade);
             upgrade.Apply(properties, shotProperties);

@@ -11,6 +11,7 @@ public class RoundGenerator : MonoBehaviour
     public GameObject bishopPrefab;
     public GameObject castlePrefab;
     public GameObject queenPrefab;
+    public GameObject magnusPrefab;
 
     public List<(int, GameObject)> readRoundFromFile(int round){
         try{
@@ -60,6 +61,8 @@ public class RoundGenerator : MonoBehaviour
                 return castlePrefab;
             case 5:
                 return queenPrefab;
+            case 6:    
+                return magnusPrefab;
             default:
                 return pawnPrefab;
         }

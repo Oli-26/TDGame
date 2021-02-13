@@ -1623,6 +1623,8 @@ MonoBehaviour:
     type: 3}
   queenPrefab: {fileID: 5930956034601474313, guid: 2d0c4cd3e4f2c2849b422517d2db7fa2,
     type: 3}
+  magnusPrefab: {fileID: 4149472485895783547, guid: b92f3af39578ff34397e8e413f02d1bf,
+    type: 3}
 --- !u!114 &657611372
 MonoBehaviour:
   m_ObjectHideFlags: 0

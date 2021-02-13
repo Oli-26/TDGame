@@ -4,35 +4,34 @@ using UnityEngine;
 
 public class Bishop : BaseTower
 {
-    new BishopProperties properties = new BishopProperties(2.2f, 2.5f, 150);
-    //List<PawnUpgrade> upgrades = new List<PawnUpgrade>();
+    protected override TowerProperties TowerProperties { get; set; } = new BishopProperties(2.2f, 2.5f, 150);
+    protected override ShotProperties ShotProperties { get; set; } = new ShotProperties(8f, 4.5f, 2, true);
 
     new void Start()
     {
         base.Start();
         Tower = this;
 
-        ResizeRangeIndicator(properties.Range);
-        shotProperties = new ShotProperties(8f, 4.5f, 2, true);
-        mode = TargetingMode.Strongest;
+        ResizeRangeIndicator(TowerProperties.Range);
+        Mode = TargetingMode.Strongest;
     }
 
     protected override void Update()
     {
         base.Update(); 
-        if(currentCooldown <= 0 && active){
+        if(CurrentCooldown <= 0 && Active){
             Attack();
         }
     }
     protected override bool Attack(){
-        Retarget(properties.Range);
-        if(!targetSet)
+        Retarget(TowerProperties.Range);
+        if(!TargetSet)
             return false;
-        currentCooldown = properties.Cooldown;    
+        CurrentCooldown = TowerProperties.Cooldown;    
 
         ShotBasic shot = Instantiate(shotPrefab, transform.position, Quaternion.identity).GetComponent<ShotBasic>();
-        shot.setProperties(shotProperties);
-        shot.SetTarget(target);
+        shot.setProperties(ShotProperties);
+        shot.SetTarget(Target);
         return true;
     }
 

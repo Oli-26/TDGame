@@ -4,21 +4,20 @@ using System.Collections.Generic;
 using UnityEngine;
 public enum TargetingMode {First, Strongest, Weakest, Last};
 
-public class BaseTower : TowerUI
+public abstract class BaseTower : TowerUI
 {
-    protected List<TowerUpgrade> upgrades = new List<TowerUpgrade>();
-    protected float shotCooldown = 1f;
-    protected float currentCooldown;
-
-    protected GameObject target;
-    protected bool targetSet = false;
     public GameObject shotPrefab;
     
-    protected bool active = false;
-    protected TargetingMode mode = TargetingMode.First;
+    protected GameObject Target;
+    protected bool TargetSet = false;
 
-    protected TowerProperties properties = new TowerProperties(1f, 2f, 50);
-    protected ShotProperties shotProperties = new ShotProperties(5f, 1f, 1, false);
+    protected TargetingMode Mode = TargetingMode.First;
+    protected bool Active = false;
+    protected float CurrentCooldown;
+
+    protected List<TowerUpgrade> Upgrades { get; set; } = new List<TowerUpgrade>();
+    protected abstract TowerProperties TowerProperties { get; set; }
+    protected abstract ShotProperties ShotProperties { get; set; }
 
     protected new virtual void Start()
     {
@@ -27,22 +26,22 @@ public class BaseTower : TowerUI
 
     protected new virtual void Update()
     {
-        if(currentCooldown > 0){
-            currentCooldown -= TimePassed();
+        if(CurrentCooldown > 0){
+            CurrentCooldown -= TimePassed();
         }
         base.Update();
     }
     
     public void Place(){
-        active = true;
+        Active = true;
     }
 
     public void SetTargetingMode(TargetingMode m){
-        mode = m;
+        Mode = m;
     }
 
     protected virtual void Retarget(float range){
-          switch(mode){
+          switch(Mode){
                 case TargetingMode.First:
                     TargetFirst(range);
                     break;
@@ -64,15 +63,15 @@ public class BaseTower : TowerUI
     protected virtual void TargetFirst(float range){
         GameObject[] enemies = control.GetComponent<RoundManager>().GetAliveEnemies();
         float maxDistanceTraveled = 0f;
-        targetSet = false;
+        TargetSet = false;
 
         for(int i = 0; i<enemies.Length; i++){
-            if(Vector3.Distance(enemies[i].transform.position, transform.position) < properties.Range){
+            if(Vector3.Distance(enemies[i].transform.position, transform.position) < TowerProperties.Range){
                 float lengthTraveled = enemies[i].GetComponent<BaseEnemy>().GetDistanceTraveled();
                 if(lengthTraveled > maxDistanceTraveled){
-                    target = enemies[i];
+                    Target = enemies[i];
                     maxDistanceTraveled = lengthTraveled;
-                    targetSet = true;
+                    TargetSet = true;
                 }
             }
         }   
@@ -82,17 +81,17 @@ public class BaseTower : TowerUI
         GameObject[] enemies = control.GetComponent<RoundManager>().GetAliveEnemies();
         float highestHealth = 0f;
         float maxDistanceTraveled = 0f;
-        targetSet = false;
+        TargetSet = false;
 
         for(int i = 0; i<enemies.Length; i++){
             if(Vector3.Distance(enemies[i].transform.position, transform.position) < range){
                 float enemyHealth = enemies[i].GetComponent<BaseEnemy>().health;
                 float lengthTraveled = enemies[i].GetComponent<BaseEnemy>().GetDistanceTraveled();
                 if(enemyHealth > highestHealth && maxDistanceTraveled < lengthTraveled){
-                    target = enemies[i];
+                    Target = enemies[i];
                     highestHealth = enemyHealth;
                     maxDistanceTraveled = lengthTraveled;
-                    targetSet = true;
+                    TargetSet = true;
                 }
             }
         }  
@@ -101,15 +100,15 @@ public class BaseTower : TowerUI
     protected virtual void TargetWeakest(float range){
         GameObject[] enemies = control.GetComponent<RoundManager>().GetAliveEnemies();
         float lowestHealth = 100000000f;
-        targetSet = false;
+        TargetSet = false;
 
         for(int i = 0; i<enemies.Length; i++){
             if(Vector3.Distance(enemies[i].transform.position, transform.position) < range){
                 float enemyHealth = enemies[i].GetComponent<BaseEnemy>().health;
                 if(enemyHealth < lowestHealth){
-                    target = enemies[i];
+                    Target = enemies[i];
                     lowestHealth = enemyHealth;
-                    targetSet = true;
+                    TargetSet = true;
                 }
             }
         }  
@@ -118,30 +117,30 @@ public class BaseTower : TowerUI
     protected virtual void TargetLast(float range){
         GameObject[] enemies = control.GetComponent<RoundManager>().GetAliveEnemies();
         float leastDistanceTraveled = 1000f;
-        targetSet = false;
+        TargetSet = false;
 
         for(int i = 0; i<enemies.Length; i++){
-            if(Vector3.Distance(enemies[i].transform.position, transform.position) < properties.Range){
+            if(Vector3.Distance(enemies[i].transform.position, transform.position) < TowerProperties.Range){
                 float lengthTraveled = enemies[i].GetComponent<BaseEnemy>().GetDistanceTraveled();
                 if(lengthTraveled < leastDistanceTraveled){
-                    target = enemies[i];
+                    Target = enemies[i];
                     leastDistanceTraveled = lengthTraveled;
-                    targetSet = true;
+                    TargetSet = true;
                 }
             }
         }   
     }
 
     protected virtual bool Attack(){
-        Debug.Log(properties.Range);
-        Retarget(properties.Range);
-        if(!targetSet)
+        Debug.Log(TowerProperties.Range);
+        Retarget(TowerProperties.Range);
+        if(!TargetSet)
             return false;
-        currentCooldown = properties.Cooldown;    
+        CurrentCooldown = TowerProperties.Cooldown;    
 
         ShotBasic shot = Instantiate(shotPrefab, transform.position, Quaternion.identity).GetComponent<ShotBasic>();
-        shot.setProperties(shotProperties);
-        shot.SetTarget(target);
+        shot.setProperties(ShotProperties);
+        shot.SetTarget(Target);
         return true;
     }
 
@@ -151,15 +150,15 @@ public class BaseTower : TowerUI
     }
 
     public List<TowerUpgrade> GetBuyableUpgrades() {
-        List<TowerUpgrade> buyableUpgrades = PossibleUpgrades().FindAll(u => !upgrades.Contains(u)).FindAll(u => u.IsBuyable(upgrades));
+        List<TowerUpgrade> buyableUpgrades = PossibleUpgrades().FindAll(u => !Upgrades.Contains(u)).FindAll(u => u.IsBuyable(Upgrades));
         return buyableUpgrades;        
     }
 
-    public void BuyUpgrade(TowerUpgrade upgrade) {
-        if (GetBuyableUpgrades().Exists(u => u == upgrade)) {
-            upgrades.Add(upgrade);
-            upgrade.Apply(properties, shotProperties);
-        }
+    public void BuyUpgrade(TowerUpgrade upgrade)
+    {
+        if (!GetBuyableUpgrades().Exists(u => u == upgrade)) return;
+        Upgrades.Add(upgrade);
+        upgrade.Apply(TowerProperties, ShotProperties);
     }
 }
 

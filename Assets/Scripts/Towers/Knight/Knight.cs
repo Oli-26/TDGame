@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class Knight : BaseTower
 {
-    protected new KnightProperties properties = new KnightProperties(1.5f, 2.5f, 150);
-    protected new SplitShotProperties shotProperties = new SplitShotProperties(6f, 3f, 1, true ,2);
+    protected override TowerProperties TowerProperties { get; set; } = new KnightProperties(1.5f, 2.5f, 150);
+    protected override ShotProperties ShotProperties { get; set; } = new SplitShotProperties(6f, 3f, 1, true ,2);
 
     new void Start()
     {
@@ -18,21 +18,25 @@ public class Knight : BaseTower
     {
         base.Update(); 
 
-        if(currentCooldown <= 0 && active){
+        if(CurrentCooldown <= 0 && Active){
             Attack();
         }
     }
 
     protected override bool Attack(){
-        Retarget(properties.Range);
-        if(!targetSet)
+        Retarget(TowerProperties.Range);
+        if(!TargetSet)
             return false;
-        currentCooldown = properties.Cooldown;   
+        CurrentCooldown = TowerProperties.Cooldown;   
 
         SplitShot shot = Instantiate(shotPrefab, transform.position, Quaternion.identity).GetComponent<SplitShot>();
-        shot.setSplitProperties(shotProperties);
-        shot.SetTarget(target);
+        shot.setSplitProperties(ShotProperties as SplitShotProperties);
+        shot.SetTarget(Target);
         return true;
+    }
+    
+    protected override List<TowerUpgrade> PossibleUpgrades() { 
+        return KnightUpgrades.AllUpgrades();
     }
 }
 

@@ -6,48 +6,41 @@ using UnityEngine;
 
 public class Pawn : BaseTower
 {
-    new PawnProperties properties = new PawnProperties(1f, 2f, 50);
+    protected override TowerProperties TowerProperties { get; set; } = new PawnProperties(1f, 2f, 50);
+    protected override ShotProperties ShotProperties { get; set; } = new ShotProperties(5f, 1f, 1, false);
 
     new void Start()
     {
         base.Start();
         Tower = this;
 
-        ResizeRangeIndicator(properties.Range);
+        ResizeRangeIndicator(TowerProperties.Range);
     }
 
     protected override void Update()
     {
         base.Update(); 
-        if(currentCooldown <= 0 && active){
+        if(CurrentCooldown <= 0 && Active){
             Attack();
 
             
         }
     }
     protected override bool Attack(){
-        Retarget(properties.Range);
-        if(!targetSet)
+        Retarget(TowerProperties.Range);
+        if(!TargetSet)
             return false;
-        currentCooldown = properties.Cooldown;    
+        CurrentCooldown = TowerProperties.Cooldown;    
 
         ShotBasic shot = Instantiate(shotPrefab, transform.position, Quaternion.identity).GetComponent<ShotBasic>();
-        shot.setProperties(shotProperties);
-        shot.SetTarget(target);
+        shot.setProperties(ShotProperties);
+        shot.SetTarget(Target);
         return true;
-    }
-
-    public void upgrade(TowerUpgrade upgrade) {
-        if (!upgrades.Contains(upgrade)) {
-            upgrades.Add(upgrade);
-            upgrade.Apply(properties, shotProperties);
-        }
     }
 
     protected override List<TowerUpgrade> PossibleUpgrades() { 
         return PawnUpgrades.AllUpgrades();
     }
-
 
 }
 

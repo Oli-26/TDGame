@@ -3,15 +3,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public interface ITowerUpgrade
+{
+    void Apply(TowerProperties p, ShotProperties s);
+}
 
-public class TowerUpgrade { 
+public abstract class TowerUpgrade { 
 
     public int cost {set; get;}
     public string name {set; get;}
     public string description {set; get;}
     public int track {set; get;}
     public int level {set; get;}
-    public Action<TowerProperties, ShotProperties> effect {set; get;}
 
     public virtual bool IsBuyable(List<TowerUpgrade> upgrades) {
         if (level > 0) {
@@ -19,12 +22,12 @@ public class TowerUpgrade {
         }
         return true;
     }
+    
+    public abstract void Apply(TowerProperties p, ShotProperties s);
 
-    public virtual void Apply(TowerProperties p, ShotProperties s) {
-        effect(p, s);
-    }
 
     protected virtual bool HasUpgrade(TowerUpgrade upgrade, List<TowerUpgrade> upgrades) {
         return upgrades.Contains(upgrade);
     }
 }
+

@@ -14,7 +14,7 @@ public class PlacementManager : MonoBehaviour
     public GameObject Tower4;
     public GameObject Tower5;
 
-    const int tower1Cost = 100;
+    const int tower1Cost = 120;
     const int tower2Cost = 300;
     const int tower3Cost = 300;
     const int tower4Cost = 500;

@@ -13,7 +13,7 @@ public class Pawn : BaseTower
     {
         base.Start();
         Tower = this;
-
+        EventCentral.RoundEndEvent.AddListener(RoundReset);
         ResizeRangeIndicator(TowerProperties.Range);
     }
 
@@ -26,16 +26,55 @@ public class Pawn : BaseTower
             
         }
     }
+    public void RoundReset(){
+        PawnProperties p = (PawnProperties)TowerProperties;
+        p.AttackSpeedBonusPercentOfMax = 0;
+    }
+
     protected override bool Attack(){
+        PawnProperties p = (PawnProperties)TowerProperties;
+
         Retarget(TowerProperties.Range);
         if(!TargetSet)
             return false;
-        CurrentCooldown = TowerProperties.Cooldown;    
+        
+        CurrentCooldown = TowerProperties.Cooldown;
+        // Magic to make the gaining of attack speed to work.    
+        CurrentCooldown = p.IncreasingSpeedPerShot ? CurrentCooldown*(1f-p.AttackSpeedBonusMax*(0.01f*p.AttackSpeedBonusPercentOfMax)) : CurrentCooldown;
 
+        float randomNumber = UnityEngine.Random.Range(0,1f);
+        float doubleShotChance = p.DoubleShotChance;
+        if(randomNumber < doubleShotChance){
+            DoubleShoot();
+        }else{
+            Shoot();
+        }
+        
+        return true;
+    }
+    protected void DoubleShoot(){
+        ShotBasic shot = Instantiate(shotPrefab, transform.position + new Vector3(0f,0.1f, 0f), Quaternion.identity).GetComponent<ShotBasic>();
+        shot.setProperties(ShotProperties);
+        shot.SetTarget(Target);
+        shot = Instantiate(shotPrefab, transform.position + new Vector3(0f, -0.1f, 0f), Quaternion.identity).GetComponent<ShotBasic>();
+        shot.setProperties(ShotProperties);
+        shot.SetTarget(Target);
+        increaseAttackSpeedWithShot();
+        increaseAttackSpeedWithShot();
+    }
+
+    protected void Shoot(){
         ShotBasic shot = Instantiate(shotPrefab, transform.position, Quaternion.identity).GetComponent<ShotBasic>();
         shot.setProperties(ShotProperties);
         shot.SetTarget(Target);
-        return true;
+        increaseAttackSpeedWithShot();
+    }
+
+    private void increaseAttackSpeedWithShot(){
+        PawnProperties p = (PawnProperties)TowerProperties;
+        if(p.IncreasingSpeedPerShot && p.AttackSpeedBonusPercentOfMax < 100){
+            p.AttackSpeedBonusPercentOfMax += 2;
+        }
     }
 
     protected override List<TowerUpgrade> PossibleUpgrades() { 
@@ -45,6 +84,19 @@ public class Pawn : BaseTower
 }
 
 public class PawnProperties : TowerProperties {
+    // Upgrade
+    public float DoubleShotChance {get; set;}
+    public bool IncreasingSpeedPerShot {get; set;}
+
+    // Internal
+    public int AttackSpeedBonusPercentOfMax {get; set;}
+    public float AttackSpeedBonusMax {get; set;}
+
     public PawnProperties(float cooldown, float range, int worth) : base(cooldown, range, worth) {
+        DoubleShotChance = 0.0f;
+        IncreasingSpeedPerShot = false;
+        AttackSpeedBonusPercentOfMax = 0;
+        AttackSpeedBonusMax = 0.5f;
+
     }
 }

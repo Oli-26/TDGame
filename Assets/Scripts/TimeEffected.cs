@@ -14,7 +14,9 @@ public class TimeEffected : MonoBehaviour
         __control = GameObject.Find("Control").GetComponent<GeneralController>();
     }
 
+    // DEPRICATED
     protected void BaseMove(Vector3 moveVector){
+        Debug.Log("BaseMove is Depricated!!!");
         if(__control == null)
             setControl();
         transform.position += moveVector; 

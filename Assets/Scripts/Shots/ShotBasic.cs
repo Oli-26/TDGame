@@ -38,7 +38,16 @@ public class ShotBasic : TimeEffected
             changeVector = direction *TimePassed()*properties.Speed;
         }
         changeVector = reverseDirection ? -changeVector : changeVector;
-        BaseMove(changeVector);
+        transform.position += changeVector;
+        
+        gainDamageFromRange(Vector3.Distance(new Vector3(0,0,0), changeVector));
+    }
+
+
+    protected void gainDamageFromRange(float distance){
+        if(properties.GainsDamageWithRange && properties.RangeBonusDamage < 3f){
+            properties.RangeBonusDamage += 1f*(distance);
+        }
     }
 
     protected void ReduceDamage(GameObject g){
@@ -58,7 +67,10 @@ public class ShotBasic : TimeEffected
             if(col.gameObject.GetComponent<BaseEnemy>().IsScheduledForDeath()){
                 return;
             }
-            col.gameObject.GetComponent<BaseEnemy>().TakeDamage(properties.Damage);
+            float bonusAdjustedDamage = properties.Damage + (properties.GainsDamageWithRange ? properties.RangeBonusDamage : 0f);
+            float randomNumber = UnityEngine.Random.Range(0f,1f);
+            float critAdjustedDamage = randomNumber < properties.CritChance ? bonusAdjustedDamage* properties.CritMultiplier : bonusAdjustedDamage;
+            col.gameObject.GetComponent<BaseEnemy>().TakeDamage(critAdjustedDamage);
             
             if (properties.decrementDamageInstances() == 0) {
                 Destroy(gameObject);
@@ -72,12 +84,12 @@ public class ShotBasic : TimeEffected
     }
 
     public virtual void setProperties(ShotProperties properties) {
-        this.properties = new ShotProperties(properties.Speed, properties.Damage, properties.DamageInstances, properties.HomingShot);
+        this.properties = ShotProperties.Duplicate(properties);
     }
 
     public ShotProperties getProperties() {
         return properties;
-    }
+    } 
 
     public void Reverse(float chance){
         if(reverseDirection)
@@ -94,18 +106,32 @@ public class ShotBasic : TimeEffected
 
 public class ShotProperties {
 
+        // Default Properties
         public float Speed {get; set;}
         public float Damage {get; set;}
         public int DamageInstances {get; set;}
         public bool HomingShot {get; set;}
-        public bool DamageReduced {get; set;}
 
+        // Upgraded properties
+        public bool GainsDamageWithRange {get; set;}
+        public float CritChance = 0f;
+        public float CritMultiplier = 0f;
+
+        //Internal Propeties
+        public bool DamageReduced {get; set;}
+        public float RangeBonusDamage {get; set;}
+
+        public ShotProperties(){
+            RangeBonusDamage = 0f;
+            DamageReduced = false;
+        }
         public ShotProperties(float speed, float damage, int damageInstances, bool homingShot) {
             Speed = speed;
             Damage = damage;
             DamageInstances = damageInstances;
             HomingShot = homingShot;
-            DamageReduced = false;
+            DamageReduced = false;         
+            RangeBonusDamage = 0f;       
         }
 
         public int decrementDamageInstances() {
@@ -119,5 +145,22 @@ public class ShotProperties {
                 Damage = Damage * (1f-reduceAmount);
                 DamageReduced = true;
             }
+        }
+
+
+        public static ShotProperties Duplicate(ShotProperties properties){
+            ShotProperties newProperties = new ShotProperties();
+            // Base
+            newProperties.Speed = properties.Speed;
+            newProperties.Damage = properties.Damage;
+            newProperties.DamageInstances = properties.DamageInstances;
+            newProperties.HomingShot = properties.HomingShot;
+
+            // Upgrade     
+            newProperties.GainsDamageWithRange = properties.GainsDamageWithRange;
+            newProperties.CritChance = properties.CritChance;
+            newProperties.CritMultiplier = properties.CritMultiplier;
+
+            return newProperties;
         }
     }

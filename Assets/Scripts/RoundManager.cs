@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class RoundManager : TimeEffected
 {
@@ -14,6 +15,7 @@ public class RoundManager : TimeEffected
 
     private int roundTick = 0;
     private int numberSpawned = 0;
+
 
     void Start(){
         InvokeRepeating("spawnGhostPawn", 2f, 8f);
@@ -30,6 +32,7 @@ public class RoundManager : TimeEffected
 
        if(roundStarted && aliveEnemyList.Count == 0 && numberSpawned == enemyList.Count){
            roundStarted = false;
+           EventCentral.EndRound();
            GetMoneyForRound();
            roundNumber++;
        }
@@ -38,7 +41,7 @@ public class RoundManager : TimeEffected
     }
     
     public void GetMoneyForRound(){
-        int moneyGain = 100 + roundNumber*20;
+        int moneyGain = 100 + roundNumber;
 
         GetComponent<Stats>().GainMoney(moneyGain);
     }
@@ -48,6 +51,7 @@ public class RoundManager : TimeEffected
             return;
         }
         SetEnemiesForRound(roundNumber);
+        Debug.Log("New round: " + roundNumber);
         aliveEnemyList.Clear();
         roundStarted = true;
         numberSpawned = 0;

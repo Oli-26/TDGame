@@ -64,7 +64,6 @@ public class PathGenerator : MonoBehaviour
         List<Node> path = new List<Node>();
         path.Add(currentNode);
 
-        bool NotAtEnd = true;
         string LastDirection = "";
 
         int catchLoops = 0;

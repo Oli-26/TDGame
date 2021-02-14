@@ -20,6 +20,7 @@ public class BaseEnemy : TimeEffected
     protected GameObject control;
 
     protected float distanceTraveled = 0f;
+    protected float stunTime = 0f;
 
     bool ScheduledForDeath = false;
 
@@ -38,7 +39,12 @@ public class BaseEnemy : TimeEffected
                 transform.position = lastFlag.transform.position;
             }   
         }
-        Move();
+        if(stunTime <= 0f){
+            Move();
+        }else{
+            stunTime -= TimePassed();
+        }
+        
     }
 
     public void SetLastFlag(GameObject flag){
@@ -75,9 +81,8 @@ public class BaseEnemy : TimeEffected
     protected void moveBetween(Vector3 from, Vector3 to, float multi){
         Vector3 changeVector = new Vector3(to.x-from.x, to.y-from.y, 0);
         changeVector = Vector3.Normalize(changeVector)*TimePassed()*speed*multi;
-        Vector3 oldPos = transform.position;
-        BaseMove(changeVector);
-        distanceTraveled += Vector3.Distance(oldPos, transform.position);
+        transform.position += changeVector;
+        distanceTraveled += Vector3.Distance(new Vector3(0f, 0f, 0f), changeVector);
     }
 
 
@@ -113,5 +118,9 @@ public class BaseEnemy : TimeEffected
 
     public bool IsScheduledForDeath(){
         return ScheduledForDeath;
+    }
+
+    public void Stun(float time){
+        stunTime += time;
     }
 }

@@ -17,44 +17,44 @@ public class KnightUpgrade : TowerUpgrade
 public class KnightUpgrades {
 
     public static KnightUpgrade knightUpgrade0_0 = new KnightUpgrade {
-        name = "Upgrade 0-0",
-        description = "15% base cooldown reduction",
-        cost = 30,
+        name = "Bonus shots",
+        description = "Split shots now split into 4 projectiles",
+        cost = 100,
         track = 0,
         level = 0,
-        effect = (p, s) => { p.Cooldown -= 0.15f; }
+        effect = (p, s) => { s.SplitNumber += 2; }
     };
 
     public static KnightUpgrade knightUpgrade0_1 = new KnightUpgrade {
-        name = "Upgrade 0-1",
-        description = "50% base range increase",
+        name = "Split damage up",
+        description = "Split damage up to 80% from 50%",
         cost = 50,
         track = 0,
         level = 1,
-        effect = (p, s) => { p.Range += 1; }
+        effect = (p, s) => { s.SplitDamage = 0.8f; }
     };
 
     public static KnightUpgrade knightUpgrade0_2 = new KnightUpgrade {
-        name = "Upgrade 0-2",
-        description = "2x base damage",
+        name = "Split shots split!",
+        description = "Shots now split into shots that split!",
         cost = 70,
         track = 0,
         level = 2,
-        effect = (p, s) => { s.Damage += 1; }
+        effect = (p, s) => { s.SplitRecurrenceNumber += 1; }
     };
 
     public static KnightUpgrade knightUpgrade1_0 = new KnightUpgrade {
-        name = "Upgrade 1-0",
-        description = "50% base range increase",
+        name = "Explosive Shots",
+        description = "Shots now knock enemies about and stun them for 0.2 seconds",
         cost = 50,
         track = 1,
         level = 0,
-        effect = (p, s) => { p.Range += 1; }
+        effect = (p, s) => { s.ExplosiveShots = true; }
     };
 
     public static KnightUpgrade knightUpgrade1_1 = new KnightUpgrade {
-        name = "Upgrade 1-1",
-        description = "Shots home in on target",
+        name = "Ability stripper",
+        description = "Strips the abilities of powerful pieces for 2seconds",
         cost = 50,
         track = 1,
         level = 1,

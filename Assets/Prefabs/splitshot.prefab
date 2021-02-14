@@ -123,3 +123,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   babyShot: {fileID: 29403588940241166, guid: 7a66b0d70eb77a04d969430ea7452d04, type: 3}
+  explosionPNG: {fileID: 6753996589858988543, guid: 632f11c4ffe53a64d940afb93d0af521,
+    type: 3}

@@ -5,7 +5,8 @@ using UnityEngine;
 public class SplitShot : ShotBasic
 {
     public GameObject babyShot;
-    
+    public GameObject explosionPNG;
+
     List<GameObject> cannotTargetAgain;
 
     // Until we put it inside splitshotproperties
@@ -30,9 +31,10 @@ public class SplitShot : ShotBasic
             col.gameObject.GetComponent<BaseEnemy>().TakeDamage(properties.Damage);
 
             // Explosive Shots
-            if(tempProperties.ExplosiveShots){
-                List<GameObject> enemies = FindAllEnemiesInArea(transform.position, 0.3f);
-
+            if(tempProperties.ExplosiveShots && tempProperties.IsFirstInstance){
+                List<GameObject> enemies = FindAllEnemiesInArea(transform.position, 0.5f);
+                
+                Destroy(Instantiate(explosionPNG, col.transform.position, Quaternion.identity), 0.4f);
                 foreach (var enemy in enemies)
                 {
                     enemy.transform.position += new Vector3(Random.Range(-0.3f, 0.3f), Random.Range(-0.3f, 0.3f), 0f);
@@ -72,6 +74,7 @@ public class SplitShot : ShotBasic
             if(p.SplitRecurrenceNumber > 0 ){
                 GameObject childShot = Instantiate(gameObject, gameObject.transform.position, Quaternion.identity);
                 p.SplitRecurrenceNumber--;
+                p.IsFirstInstance = false;
                 childShot.GetComponent<SplitShot>().setSplitProperties(p);
                 childShot.GetComponent<SplitShot>().SetTarget(maybeTarget);
                 childShot.GetComponent<SplitShot>().SetIgnoreEnemy(target);
@@ -79,6 +82,7 @@ public class SplitShot : ShotBasic
                 Vector3 offset = new Vector3(Random.Range(-0.2f, 0.2f), Random.Range(-0.2f, 0.2f), 0);
                 GameObject childShot = Instantiate(babyShot, gameObject.transform.position, Quaternion.identity);
                 childShot.GetComponent<ShotBasic>().setProperties(new ShotProperties(4f, properties.Damage*((SplitShotProperties)properties).SplitDamage, 1, false));
+                childShot.GetComponent<ShotBasic>().properties.ExplodeOutwards = true;
                 childShot.GetComponent<ShotBasic>().SetTarget(maybeTarget);
                 childShot.GetComponent<ShotBasic>().SetIgnoreEnemy(target);
             }
@@ -124,14 +128,15 @@ public class SplitShotProperties : ShotProperties {
 
     // Internal
     public float StunLength {get; set;}
+    public bool IsFirstInstance {get; set;}
 
     public SplitShotProperties(float speed, float damage, int damageInstances, bool homingShot, int splitNumber) : base(speed, damage, damageInstances, homingShot) {
         SplitNumber = splitNumber;    
         SplitDamage = 0.5f;
         SplitRecurrenceNumber = 0;
         ExplosiveShots = false;
-
-        StunLength = 0.2f;
+        IsFirstInstance = true;
+        StunLength = 1f;
     }
     public SplitShotProperties() : base() {  
     }
@@ -150,6 +155,11 @@ public class SplitShotProperties : ShotProperties {
         newProperties.SplitDamage = properties.SplitDamage;
         newProperties.SplitRecurrenceNumber = properties.SplitRecurrenceNumber;
         newProperties.ExplosiveShots = properties.ExplosiveShots;
+        newProperties.StunLength = properties.StunLength;
+
+        //Internal
+        newProperties.IsFirstInstance = properties.IsFirstInstance;
+
         return newProperties; 
     }
 

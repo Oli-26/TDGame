@@ -121,6 +121,9 @@ public class BaseEnemy : TimeEffected
     }
 
     public void Stun(float time){
+        if(stunTime > 0){
+            return;
+        }
         stunTime += time;
     }
 }

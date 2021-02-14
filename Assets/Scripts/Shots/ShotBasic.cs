@@ -14,9 +14,14 @@ public class ShotBasic : TimeEffected
     protected bool reverseDirection = false;
     protected bool ignoreEnemySet = false;
 
+
+    private float explodeOutwardsTime = 0.15f;
+    private Vector3 outwardsVector;
+
     public void Start()
     {
         Destroy(gameObject, lifeTime);
+        outwardsVector = Vector3.Normalize(new Vector3(Random.Range(-1,1), Random.Range(-1,1), 0));
     }
 
     public void Update()
@@ -25,6 +30,8 @@ public class ShotBasic : TimeEffected
     }
 
     public void SetTarget(GameObject obj){
+        if(obj == null)
+            return;
         target = obj;
         Vector3 targetPos = target.transform.position;
         direction = Vector3.Normalize(new Vector3(targetPos.x-transform.position.x, targetPos.y-transform.position.y, 0));
@@ -38,6 +45,18 @@ public class ShotBasic : TimeEffected
             changeVector = direction *TimePassed()*properties.Speed;
         }
         changeVector = reverseDirection ? -changeVector : changeVector;
+        
+
+        // Make split shot look cooler with exploding outwards property
+        if(properties.ExplodeOutwards){
+            if(explodeOutwardsTime >= 0){
+                explodeOutwardsTime -= TimePassed();
+                changeVector = outwardsVector *TimePassed()*properties.Speed;
+            }else{
+                SetTarget(target);
+            }
+            
+        }
         transform.position += changeVector;
         
         gainDamageFromRange(Vector3.Distance(new Vector3(0,0,0), changeVector));
@@ -120,6 +139,7 @@ public class ShotProperties {
         //Internal Propeties
         public bool DamageReduced {get; set;}
         public float RangeBonusDamage {get; set;}
+        public bool ExplodeOutwards {get; set;}
 
         public ShotProperties(){
             RangeBonusDamage = 0f;
@@ -131,7 +151,8 @@ public class ShotProperties {
             DamageInstances = damageInstances;
             HomingShot = homingShot;
             DamageReduced = false;         
-            RangeBonusDamage = 0f;       
+            RangeBonusDamage = 0f;
+            ExplodeOutwards = false;       
         }
 
         public int decrementDamageInstances() {

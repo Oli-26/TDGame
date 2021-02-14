@@ -133,6 +133,10 @@ public class BaseEnemy : TimeEffected
             return;
         }
         stunTime += time;
+       
+        GameObject effect = Instantiate((GameObject)Resources.Load("StunEffect"), gameObject.transform.position, Quaternion.identity);
+        Destroy(effect, stunTime/TimeEffect(1f));
+        effect.transform.parent = gameObject.transform;
     }
 
     public void BlockAbility(float time){

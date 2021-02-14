@@ -33,11 +33,10 @@ public class SplitShot : ShotBasic
             col.gameObject.GetComponent<BaseEnemy>().TakeDamage(properties.Damage);
 
             // Explosive Shots
-            if(tempProperties.AbilityStripping)
             if(tempProperties.ExplosiveShots && tempProperties.IsFirstInstance){
                 List<GameObject> enemies = FindAllEnemiesInArea(transform.position, 1f);
                 
-                Destroy(Instantiate(explosionPNG, col.transform.position, Quaternion.identity), 0.4f);
+                Destroy(Instantiate(explosionPNG, col.transform.position, Quaternion.identity), 0.25f);
                 foreach (var enemy in enemies)
                 {
                     enemy.transform.position += new Vector3(Random.Range(-0.3f, 0.3f), Random.Range(-0.3f, 0.3f), 0f);
@@ -157,7 +156,7 @@ public class SplitShotProperties : ShotProperties {
         SplitRecurrenceNumber = 0;
         ExplosiveShots = false;
         IsFirstInstance = true;
-        StunLength = 0.5f;
+        StunLength = 1f;
         CreateAcidPool = false;
         AcidPoolDamageMultiplier = 0.2f;
         AcidPoolMaxDamage = 30f;

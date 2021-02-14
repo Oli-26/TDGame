@@ -77,8 +77,8 @@ public class Path : MonoBehaviour
 
             lineComponent.SetPosition(0, flags[i].transform.position);
             lineComponent.SetPosition(1, flags[i+1].transform.position);
-            lineComponent.endWidth = 0.1f;
-            lineComponent.startWidth = 0.1f;
+            lineComponent.endWidth = 0.04f;
+            lineComponent.startWidth = 0.04f;
             lineComponent.material = new Material(Shader.Find("Sprites/Default"));
             lineComponent.startColor = Color.white;
             lineComponent.endColor = Color.white;

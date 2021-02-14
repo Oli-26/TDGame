@@ -44,12 +44,12 @@ public class KnightUpgrades {
     };
 
     public static KnightUpgrade knightUpgrade1_0 = new KnightUpgrade {
-        name = "Explosive Shots",
-        description = "Shots now knock enemies about and stun them for 0.2 seconds",
+        name = "Shock Shots",
+        description = "Shots now knock enemies about and stun them for 1 seconds, but slows your attacks by 50%",
         cost = 250,
         track = 1,
         level = 0,
-        effect = (p, s) => { s.ExplosiveShots = true; }
+        effect = (p, s) => { s.ExplosiveShots = true; p.Cooldown += 1.5f;}
     };
 
     public static KnightUpgrade knightUpgrade1_1 = new KnightUpgrade {

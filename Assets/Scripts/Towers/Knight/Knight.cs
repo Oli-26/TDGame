@@ -11,6 +11,7 @@ public class Knight : BaseTower
     {
         base.Start();
         Tower = this;
+        Mode = TargetingMode.Strongest;
 
     }
 

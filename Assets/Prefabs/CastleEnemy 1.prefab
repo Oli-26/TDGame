@@ -111,6 +111,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 1
+  effectField: {fileID: 4887292233927425027}
 --- !u!1001 &9079105002955484252
 PrefabInstance:
   m_ObjectHideFlags: 0

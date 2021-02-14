@@ -6,6 +6,7 @@ public class CastleEnemy : BaseEnemy
 {
    
     float damageReduction = 0.5f;
+    public GameObject effectField;
 
     protected override void Start()
     {
@@ -19,6 +20,13 @@ public class CastleEnemy : BaseEnemy
     protected override void Update()
     {
         base.Update();
+        if(blockedAbilityTime >= 0){
+            effectField.SetActive(false);
+            blockedAbilityTime -= TimePassed();
+        }else{
+            effectField.SetActive(true);
+        }
+
     }
 
     public float GetDamageReduction(){

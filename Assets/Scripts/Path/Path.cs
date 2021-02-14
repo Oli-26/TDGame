@@ -5,11 +5,24 @@ using UnityEngine;
 public class Path : MonoBehaviour
 {
     GameObject[] flags;
+
+    public GameObject EasyPath;
+    public string Mode = "easy";
     // Start is called before the first frame update
     void Start()
     {
-        GetComponent<PathGenerator>().CreatePath(25);
-        flags = GetAllChildrenWithTag("pathflag");
+        switch(Mode){
+            case "easy":
+                Debug.Log("Easy map");
+                GameObject p = Instantiate(EasyPath, new Vector3(0f,0f,0f), Quaternion.identity);
+                p.transform.parent = gameObject.transform;
+                break;
+            default:
+                GetComponent<PathGenerator>().CreatePath(25);
+                break;
+        }
+
+        flags = GameObject.FindGameObjectsWithTag("pathflag");
         LinkFlags();
     }
 

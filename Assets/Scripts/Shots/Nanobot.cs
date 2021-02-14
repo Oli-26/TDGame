@@ -12,13 +12,13 @@ public class Nanobot : ShotBasic
     const float __timeBetweenHoverPoints = 0.2f;
     Vector3 positionOffset = new Vector3(0f, 0f, 0f);
 
-    public void Start()
+    new public void Start()
     {
         lifeTime = 10f;
         Destroy(gameObject, lifeTime);
     }
 
-    public void Update()
+    new public void Update()
     {
         Move();
         Cooldown -= TimePassed();

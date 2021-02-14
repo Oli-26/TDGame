@@ -6,15 +6,17 @@ public class SplitShot : ShotBasic
 {
     public GameObject babyShot;
     public GameObject explosionPNG;
+    public GameObject AcidPool;
 
     List<GameObject> cannotTargetAgain;
 
     // Until we put it inside splitshotproperties
-    private float splitRange = 2f;
+    private float splitRange = 3f;
 
     new void Start()
     {
         base.Start();
+        
     }
 
     new void Update()
@@ -31,15 +33,27 @@ public class SplitShot : ShotBasic
             col.gameObject.GetComponent<BaseEnemy>().TakeDamage(properties.Damage);
 
             // Explosive Shots
+            if(tempProperties.AbilityStripping)
             if(tempProperties.ExplosiveShots && tempProperties.IsFirstInstance){
-                List<GameObject> enemies = FindAllEnemiesInArea(transform.position, 0.5f);
+                List<GameObject> enemies = FindAllEnemiesInArea(transform.position, 1f);
                 
                 Destroy(Instantiate(explosionPNG, col.transform.position, Quaternion.identity), 0.4f);
                 foreach (var enemy in enemies)
                 {
                     enemy.transform.position += new Vector3(Random.Range(-0.3f, 0.3f), Random.Range(-0.3f, 0.3f), 0f);
                     enemy.GetComponent<BaseEnemy>().Stun(tempProperties.StunLength);
+                    if(tempProperties.AbilityStripping){
+                        enemy.GetComponent<BaseEnemy>().BlockAbility(tempProperties.StrippingTime);
+                    }
                 }
+            }
+
+            // Acid pools
+            if(tempProperties.CreateAcidPool){
+                GameObject acid = Instantiate(AcidPool, col.transform.position, Quaternion.identity);
+                Destroy(acid, 4f/TimeEffect(1f));
+                acid.GetComponent<Acid>().DamagePerSeconds = tempProperties.Damage * tempProperties.AcidPoolDamageMultiplier;
+                 acid.GetComponent<Acid>().MaxDamage = tempProperties.AcidPoolMaxDamage;
             }
 
 
@@ -123,11 +137,18 @@ public class SplitShotProperties : ShotProperties {
     public int SplitNumber {get; set;}
     public float SplitDamage {get; set;}
     public int SplitRecurrenceNumber {get; set;}
+
     public bool ExplosiveShots {get; set;}
+    public bool AbilityStripping {get; set;}
+
+    public bool CreateAcidPool {get; set;}
+    public float AcidPoolDamageMultiplier {get; set;}
+    public float AcidPoolMaxDamage {get; set;}
 
 
     // Internal
     public float StunLength {get; set;}
+    public float StrippingTime {get; set;}
     public bool IsFirstInstance {get; set;}
 
     public SplitShotProperties(float speed, float damage, int damageInstances, bool homingShot, int splitNumber) : base(speed, damage, damageInstances, homingShot) {
@@ -136,7 +157,12 @@ public class SplitShotProperties : ShotProperties {
         SplitRecurrenceNumber = 0;
         ExplosiveShots = false;
         IsFirstInstance = true;
-        StunLength = 1f;
+        StunLength = 0.5f;
+        CreateAcidPool = false;
+        AcidPoolDamageMultiplier = 0.2f;
+        AcidPoolMaxDamage = 30f;
+        AbilityStripping = false;
+        StrippingTime = 2f;
     }
     public SplitShotProperties() : base() {  
     }
@@ -150,12 +176,22 @@ public class SplitShotProperties : ShotProperties {
         newProperties.DamageInstances = properties.DamageInstances;
         newProperties.HomingShot = properties.HomingShot;
 
-        // Upgrade     
+        // Upgrade 
+
+        //path 0
         newProperties.SplitNumber = properties.SplitNumber;
         newProperties.SplitDamage = properties.SplitDamage;
         newProperties.SplitRecurrenceNumber = properties.SplitRecurrenceNumber;
+        //path1
         newProperties.ExplosiveShots = properties.ExplosiveShots;
         newProperties.StunLength = properties.StunLength;
+        newProperties.AbilityStripping = properties.AbilityStripping;
+        newProperties.StrippingTime = properties.StrippingTime;
+
+        //path2
+        newProperties.CreateAcidPool = properties.CreateAcidPool;
+        newProperties.AcidPoolDamageMultiplier = properties.AcidPoolDamageMultiplier;
+        newProperties.AcidPoolMaxDamage = properties.AcidPoolMaxDamage;
 
         //Internal
         newProperties.IsFirstInstance = properties.IsFirstInstance;

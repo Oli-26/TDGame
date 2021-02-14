@@ -20,7 +20,11 @@ public class BaseEnemy : TimeEffected
     protected GameObject control;
 
     protected float distanceTraveled = 0f;
+
+    // Effects
     protected float stunTime = 0f;
+    protected float blockedAbilityTime = 0f;
+    protected bool acidDamageBlocker = false;
 
     bool ScheduledForDeath = false;
 
@@ -44,6 +48,7 @@ public class BaseEnemy : TimeEffected
         }else{
             stunTime -= TimePassed();
         }
+        acidDamageBlocker = false;
         
     }
 
@@ -120,10 +125,30 @@ public class BaseEnemy : TimeEffected
         return ScheduledForDeath;
     }
 
+
+    // Effects
+
     public void Stun(float time){
         if(stunTime > 0){
             return;
         }
         stunTime += time;
+    }
+
+    public void BlockAbility(float time){
+        Debug.Log("Blocked ability on " + gameObject.name);
+        if(blockedAbilityTime > 0){
+            return;
+        }
+        blockedAbilityTime += time;
+    }
+
+    public void AcidDamage(float d){
+        if(acidDamageBlocker){
+            return;
+        }else{
+            TakeDamage(d);
+            acidDamageBlocker = true;
+        }
     }
 }

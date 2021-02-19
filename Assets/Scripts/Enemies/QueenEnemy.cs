@@ -12,6 +12,7 @@ public class QueenEnemy : BaseEnemy
         health = 200;
         moneyDropped = 25;
         damageDealt = 20;
+        Tier = 5;
     }
 
     protected override void Update()

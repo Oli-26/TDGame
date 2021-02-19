@@ -86,12 +86,12 @@ public class SplitShot : ShotBasic
     void CreateChildShot(){
         GameObject maybeTarget = FindTarget(out bool targetFound);
         SplitShotProperties p = (SplitShotProperties)properties;
-        if(targetFound){
-            if(p.SplitRecurrenceNumber > 0 ){
+        
+            if(p.SplitRecurrence && p.IsFirstInstance && targetFound){
                 GameObject childShot = Instantiate(gameObject, gameObject.transform.position, Quaternion.identity);
-                p.SplitRecurrenceNumber--;
-                p.IsFirstInstance = false;
+                //p.IsFirstInstance = false;
                 childShot.GetComponent<SplitShot>().setSplitProperties(p);
+                ((SplitShotProperties)childShot.GetComponent<SplitShot>().properties).IsFirstInstance = false;
                 childShot.GetComponent<SplitShot>().SetTarget(maybeTarget);
                 childShot.GetComponent<SplitShot>().SetIgnoreEnemy(target);
             }else{
@@ -99,10 +99,9 @@ public class SplitShot : ShotBasic
                 GameObject childShot = Instantiate(babyShot, gameObject.transform.position, Quaternion.identity);
                 childShot.GetComponent<ShotBasic>().setProperties(new ShotProperties(2f, properties.Damage*((SplitShotProperties)properties).SplitDamage, 1, false));
                 childShot.GetComponent<ShotBasic>().properties.ExplodeOutwards = true;
-                childShot.GetComponent<ShotBasic>().SetTarget(maybeTarget);
+                childShot.GetComponent<ShotBasic>().SetTarget(targetFound ? maybeTarget : null);
                 childShot.GetComponent<ShotBasic>().SetIgnoreEnemy(target);
             }
-        }
         
     }
       
@@ -138,7 +137,7 @@ public class SplitShotProperties : ShotProperties {
     // Upgrades
     public int SplitNumber {get; set;}
     public float SplitDamage {get; set;}
-    public int SplitRecurrenceNumber {get; set;}
+    public bool SplitRecurrence {get; set;}
 
     public bool ExplosiveShots {get; set;}
     public bool AbilityStripping {get; set;}
@@ -160,7 +159,7 @@ public class SplitShotProperties : ShotProperties {
     public SplitShotProperties(float speed, float damage, int damageInstances, bool homingShot, int splitNumber) : base(speed, damage, damageInstances, homingShot) {
         SplitNumber = splitNumber;    
         SplitDamage = 0.5f;
-        SplitRecurrenceNumber = 0;
+        SplitRecurrence = false;
         ExplosiveShots = false;
         IsFirstInstance = true;
 
@@ -194,7 +193,7 @@ public class SplitShotProperties : ShotProperties {
         ////path 0
         newProperties.SplitNumber = properties.SplitNumber;
         newProperties.SplitDamage = properties.SplitDamage;
-        newProperties.SplitRecurrenceNumber = properties.SplitRecurrenceNumber;
+        newProperties.SplitRecurrence = properties.SplitRecurrence;
         ////path1
         newProperties.ExplosiveShots = properties.ExplosiveShots;
         newProperties.StunLength = properties.StunLength;

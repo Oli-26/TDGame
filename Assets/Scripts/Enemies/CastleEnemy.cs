@@ -5,16 +5,17 @@ using UnityEngine;
 public class CastleEnemy : BaseEnemy
 {
    
-    float damageReduction = 0.5f;
+    float damageReduction = 0.8f;
     public GameObject effectField;
 
     protected override void Start()
     {
         base.Start();
         speed = 1f;
-        health = 70;
+        health = 180;
         moneyDropped = 10;
         damageDealt = 10;
+        Tier = 4;
     }
 
     protected override void Update()

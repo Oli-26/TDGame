@@ -82,17 +82,17 @@ public abstract class BaseTower : TowerUI
 
     protected virtual void TargetStrongest(float range){
         GameObject[] enemies = control.GetComponent<RoundManager>().GetAliveEnemies();
-        float highestHealth = 0f;
+        float highestTier = 0f;
         float maxDistanceTraveled = 0f;
         TargetSet = false;
 
         for(int i = 0; i<enemies.Length; i++){
             if(Vector3.Distance(enemies[i].transform.position, transform.position) < range){
-                float enemyHealth = enemies[i].GetComponent<BaseEnemy>().health;
+                float enemyTier = enemies[i].GetComponent<BaseEnemy>().Tier;
                 float lengthTraveled = enemies[i].GetComponent<BaseEnemy>().GetDistanceTraveled();
-                if(enemyHealth > highestHealth && maxDistanceTraveled < lengthTraveled){
+                if(enemyTier > highestTier && maxDistanceTraveled < lengthTraveled){
                     Target = enemies[i];
-                    highestHealth = enemyHealth;
+                    highestTier = enemyTier;
                     maxDistanceTraveled = lengthTraveled;
                     TargetSet = true;
                 }
@@ -102,15 +102,18 @@ public abstract class BaseTower : TowerUI
 
     protected virtual void TargetWeakest(float range){
         GameObject[] enemies = control.GetComponent<RoundManager>().GetAliveEnemies();
-        float lowestHealth = 100000000f;
+        float lowestTier = 0f;
+        float maxDistanceTraveled = 0f;
         TargetSet = false;
 
         for(int i = 0; i<enemies.Length; i++){
             if(Vector3.Distance(enemies[i].transform.position, transform.position) < range){
-                float enemyHealth = enemies[i].GetComponent<BaseEnemy>().health;
-                if(enemyHealth < lowestHealth){
+                float enemyTier = enemies[i].GetComponent<BaseEnemy>().Tier;
+                float lengthTraveled = enemies[i].GetComponent<BaseEnemy>().GetDistanceTraveled();
+                if(enemyTier < lowestTier && maxDistanceTraveled < lengthTraveled){
                     Target = enemies[i];
-                    lowestHealth = enemyHealth;
+                    lowestTier = enemyTier;
+                    maxDistanceTraveled = lengthTraveled;
                     TargetSet = true;
                 }
             }
@@ -162,6 +165,15 @@ public abstract class BaseTower : TowerUI
         if (!GetBuyableUpgrades().Exists(u => u == upgrade)) return;
         Upgrades.Add(upgrade);
         upgrade.Apply(TowerProperties, ShotProperties);
+        VisualUpdatesForUpgrades();
+    }
+
+    public void VisualUpdatesForUpgrades(){
+        ResizeRangeIndicator(TowerProperties.Range);
+    }
+
+    public void IncreaseWorth(int amount){
+        TowerProperties.Worth += amount;
     }
 }
 

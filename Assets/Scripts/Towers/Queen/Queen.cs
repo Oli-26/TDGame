@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class Queen : BaseTower
 {
-    protected override TowerProperties TowerProperties { get; set; } = new QueenProperties(2f, 3f, 400);
-    protected override ShotProperties ShotProperties { get; set; } = new ShotProperties(3f, 2f, 3, true);
+    protected override TowerProperties TowerProperties { get; set; } = new QueenProperties(3f, 3f, 400);
+    protected override ShotProperties ShotProperties { get; set; } = new NanoBotProperties(1.5f, 2f, 3, true);
 
     new void Start()
     {

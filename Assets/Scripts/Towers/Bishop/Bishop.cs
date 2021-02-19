@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class Bishop : BaseTower
 {
-    protected override TowerProperties TowerProperties { get; set; } = new BishopProperties(2.2f, 2.5f, 150);
-    protected override ShotProperties ShotProperties { get; set; } = new ShotProperties(8f, 4.5f, 2, true);
+    protected override TowerProperties TowerProperties { get; set; } = new BishopProperties(2.5f, 2.5f, 150);
+    protected override ShotProperties ShotProperties { get; set; } = new ShotProperties(2f, 3.5f, 1, true);
 
     new void Start()
     {
@@ -33,7 +33,9 @@ public class Bishop : BaseTower
         shot.SetTarget(Target);
         return true;
     }
-
+    protected override List<TowerUpgrade> PossibleUpgrades() { 
+        return BishopUpgrades.AllUpgrades();
+    }
 
 }
 

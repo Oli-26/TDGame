@@ -40,7 +40,7 @@ public class KnightUpgrades {
         cost = 800,
         track = 0,
         level = 2,
-        effect = (p, s) => { s.SplitRecurrenceNumber += 1; }
+        effect = (p, s) => { s.SplitRecurrence = true; }
     };
 
     public static KnightUpgrade knightUpgrade1_0 = new KnightUpgrade {
@@ -91,11 +91,11 @@ public class KnightUpgrades {
 
     public static KnightUpgrade knightUpgrade2_2 = new KnightUpgrade {
         name = "Sticky acid",
-        description = "Acid slows enemies for 25% speed",
+        description = "Acid slows enemies for 50% speed lasting 5 seconds",
         cost = 600,
         track = 2,
         level = 2,
-        effect = (p, s) => { s.AcidSlow = true; s.AcidSlowTime = 5f; s.AcidSlowPercent = 0.25f; }
+        effect = (p, s) => { s.AcidSlow = true; s.AcidSlowTime = 5f; s.AcidSlowPercent = 0.5f; }
     };
     public static List<TowerUpgrade> AllUpgrades() {
         List<TowerUpgrade> list = new List<TowerUpgrade>();

@@ -13,6 +13,7 @@ public class BishopEnemy : BaseEnemy
         health = 14f;
         moneyDropped = 3;
         damageDealt = 5;
+        Tier = 3;
     }
 
     protected override void Update()

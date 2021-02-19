@@ -17,7 +17,7 @@ public class TowerUpgradeButton : Button, IPointerEnterHandler, IPointerExitHand
         myCanvas = GetComponentInParent<Canvas>();
     }
 
-    protected void Update()
+    new protected void Update()
     {
         base.Update();
         if (mouseIsOver)
@@ -35,7 +35,8 @@ public class TowerUpgradeButton : Button, IPointerEnterHandler, IPointerExitHand
         if(GetAssociatedUpgrade() == null)
             return;
         if (control.GetComponent<Stats>().SpendMoney(towerUpgrade.cost)) {
-            GetSelectedTower().BuyUpgrade(towerUpgrade);
+            GetSelectedTower().BuyUpgrade(towerUpgrade);    
+            GetSelectedTower().IncreaseWorth(towerUpgrade.cost/2);
             UpdateDescriptionBox();
         }
     }

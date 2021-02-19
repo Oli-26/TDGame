@@ -14,6 +14,7 @@ public class Magnus : BaseEnemy
         health = 80;
         moneyDropped = 100;
         damageDealt = 100;
+        Tier = 10;
     }
 
     protected override void Update()

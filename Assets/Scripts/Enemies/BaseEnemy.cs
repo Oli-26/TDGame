@@ -22,6 +22,7 @@ public class BaseEnemy : TimeEffected
     public float health = 1f;
     protected int moneyDropped = 1;
     protected int damageDealt = 1; 
+    public float Tier {get; set;} = 1;
 
     // Effects
     protected StatusEffects effects = new StatusEffects();

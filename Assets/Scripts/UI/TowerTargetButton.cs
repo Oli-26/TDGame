@@ -15,7 +15,7 @@ public class TowerTargetButton :  Button, IPointerEnterHandler, IPointerExitHand
         myCanvas = GetComponentInParent<Canvas>();
     }
 
-    protected void Update()
+    new protected void Update()
     {
         base.Update();
     }

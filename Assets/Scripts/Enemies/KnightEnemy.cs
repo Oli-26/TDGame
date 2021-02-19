@@ -17,6 +17,7 @@ public class KnightEnemy : BaseEnemy
         health = 4f;
         moneyDropped = 2;
         damageDealt = 2;
+        Tier = 2;
     }
 
     protected override void Update()

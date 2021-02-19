@@ -15,13 +15,13 @@ public class ShotBasic : TimeEffected
     protected bool ignoreEnemySet = false;
 
 
-    private float explodeOutwardsTime = 0.15f;
+    private float explodeOutwardsTime = 0.1f;
     private Vector3 outwardsVector;
 
     public void Start()
     {
         Destroy(gameObject, lifeTime);
-        outwardsVector = Vector3.Normalize(new Vector3(Random.Range(-1,1), Random.Range(-1,1), 0));
+        outwardsVector = Vector3.Normalize(new Vector3(Random.Range(-1f,1f), Random.Range(-1f,1f), 0));
     }
 
     public void Update()
@@ -29,36 +29,46 @@ public class ShotBasic : TimeEffected
         Move();
     }
 
-    public void SetTarget(GameObject obj){
+    public bool SetTarget(GameObject obj){
         if(obj == null)
-            return;
+            return false;
         target = obj;
         Vector3 targetPos = target.transform.position;
         direction = Vector3.Normalize(new Vector3(targetPos.x-transform.position.x, targetPos.y-transform.position.y, 0));
+        return true;
     }
 
     public virtual void Move(){
         Vector3 changeVector;
-        if(properties.HomingShot && target != null){
-            changeVector = Vector3.Normalize(target.transform.position-transform.position) *TimePassed()*properties.Speed;
-        }else{
-            changeVector = direction *TimePassed()*properties.Speed;
-        }
-        changeVector = reverseDirection ? -changeVector : changeVector;
-        
 
-        // Make split shot look cooler with exploding outwards property
         if(properties.ExplodeOutwards){
             if(explodeOutwardsTime >= 0){
                 explodeOutwardsTime -= TimePassed();
-                changeVector = outwardsVector *TimePassed()*properties.Speed*2.5f;
+                changeVector = outwardsVector *TimePassed()*properties.Speed*2f;
             }else{
-                SetTarget(target);
+                if(!SetTarget(target)){
+                    explodeOutwardsTime = 15f;
+                }else{
+                    properties.ExplodeOutwards = false;
+                }
+                return;
             }
             
+        }else{
+            if(properties.HomingShot && target != null){
+                changeVector = Vector3.Normalize(target.transform.position-transform.position) *TimePassed()*properties.Speed;
+            }else{
+                if(target != null){
+                    changeVector = (Vector3.Normalize(target.transform.position-transform.position)*0.35f + direction*0.65f) *TimePassed()*properties.Speed;
+                }else{
+                    changeVector = direction *TimePassed()*properties.Speed;
+                }
+                
+            }
+            changeVector = reverseDirection ? -changeVector : changeVector;
         }
-        transform.position += changeVector;
         
+        transform.position += changeVector;
         gainDamageFromRange(Vector3.Distance(new Vector3(0,0,0), changeVector));
     }
 
@@ -93,6 +103,11 @@ public class ShotBasic : TimeEffected
             
             if (properties.decrementDamageInstances() == 0) {
                 Destroy(gameObject);
+            }else{
+                if(properties.PiercePerfect){
+                    properties.Damage += properties.Damage*0.2f;
+                }
+                properties.HomingShot = false;
             }
             
         }
@@ -132,9 +147,14 @@ public class ShotProperties {
         public bool HomingShot {get; set;}
 
         // Upgraded properties
+        // PAWN
         public bool GainsDamageWithRange {get; set;}
         public float CritChance = 0f;
         public float CritMultiplier = 0f;
+
+        // BISHOP
+        public bool PiercePerfect {get; set;} = false;
+
 
         //Internal Propeties
         public bool DamageReduced {get; set;}
@@ -152,7 +172,8 @@ public class ShotProperties {
             HomingShot = homingShot;
             DamageReduced = false;         
             RangeBonusDamage = 0f;
-            ExplodeOutwards = false;       
+            ExplodeOutwards = false;
+            PiercePerfect = false;       
         }
 
         public int decrementDamageInstances() {
@@ -163,7 +184,10 @@ public class ShotProperties {
             if(DamageReduced){
                 return;
             }else{
-                Damage = Damage * (1f-reduceAmount);
+                Damage = Damage - reduceAmount;
+                if(Damage <= 0f){
+                    Damage = 0f;
+                }
                 DamageReduced = true;
             }
         }
@@ -181,6 +205,8 @@ public class ShotProperties {
             newProperties.GainsDamageWithRange = properties.GainsDamageWithRange;
             newProperties.CritChance = properties.CritChance;
             newProperties.CritMultiplier = properties.CritMultiplier;
+
+            newProperties.PiercePerfect = properties.PiercePerfect;
 
             return newProperties;
         }

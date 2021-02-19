@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class Castle : BaseTower
 {
-    protected override TowerProperties TowerProperties { get; set; } = new CastleProperties(0.2f, 1.2f, 250);
-    protected override ShotProperties ShotProperties { get; set; } = new ShotProperties(7f, 0.3f, 1, true);
+    protected override TowerProperties TowerProperties { get; set; } = new CastleProperties(0.65f, 1.2f, 250);
+    protected override ShotProperties ShotProperties { get; set; } = new ShotProperties(3f, 1f, 1, true);
 
     new void Start()
     {
@@ -13,7 +13,6 @@ public class Castle : BaseTower
         Tower = this;
 
         ResizeRangeIndicator(TowerProperties.Range);
-        //mode = TargetingMode.Strongest;
     }
 
     protected override void Update()

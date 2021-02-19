@@ -89,7 +89,6 @@ public class SplitShot : ShotBasic
         
             if(p.SplitRecurrence && p.IsFirstInstance && targetFound){
                 GameObject childShot = Instantiate(gameObject, gameObject.transform.position, Quaternion.identity);
-                //p.IsFirstInstance = false;
                 childShot.GetComponent<SplitShot>().setSplitProperties(p);
                 ((SplitShotProperties)childShot.GetComponent<SplitShot>().properties).IsFirstInstance = false;
                 childShot.GetComponent<SplitShot>().SetTarget(maybeTarget);

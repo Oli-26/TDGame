@@ -20,9 +20,8 @@ public class CastleEnemy : BaseEnemy
     protected override void Update()
     {
         base.Update();
-        if(blockedAbilityTime >= 0){
+        if(effects.AbilityBlocked){
             effectField.SetActive(false);
-            blockedAbilityTime -= TimePassed();
         }else{
             effectField.SetActive(true);
         }

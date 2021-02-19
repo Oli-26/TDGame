@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 7353154248764161822}
   - component: {fileID: 5669857844591659440}
   m_Layer: 8
-  m_Name: PathFlag (14)
+  m_Name: l
   m_TagString: pathflag
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -107,7 +107,7 @@ GameObject:
   - component: {fileID: 8149389924599142348}
   - component: {fileID: 5011625287435111494}
   m_Layer: 8
-  m_Name: PathFlag (21)
+  m_Name: s
   m_TagString: pathflag
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -202,7 +202,7 @@ GameObject:
   - component: {fileID: 8979475703349610512}
   - component: {fileID: 5671121880334076995}
   m_Layer: 8
-  m_Name: PathFlag (13)
+  m_Name: k
   m_TagString: pathflag
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -297,7 +297,7 @@ GameObject:
   - component: {fileID: 3246699700514437440}
   - component: {fileID: 3246699700514437443}
   m_Layer: 8
-  m_Name: PathFlag (12)
+  m_Name: j
   m_TagString: pathflag
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -392,7 +392,7 @@ GameObject:
   - component: {fileID: 3246699700813180786}
   - component: {fileID: 3246699700813180784}
   m_Layer: 8
-  m_Name: PathFlag (6)
+  m_Name: e
   m_TagString: pathflag
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -487,7 +487,7 @@ GameObject:
   - component: {fileID: 3246699701008912097}
   - component: {fileID: 3246699701008912111}
   m_Layer: 8
-  m_Name: PathFlag (9)
+  m_Name: g
   m_TagString: pathflag
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -582,7 +582,7 @@ GameObject:
   - component: {fileID: 3246699701017655800}
   - component: {fileID: 3246699701017655686}
   m_Layer: 8
-  m_Name: PathFlag (7)
+  m_Name: f
   m_TagString: pathflag
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -677,7 +677,7 @@ GameObject:
   - component: {fileID: 3246699701106940128}
   - component: {fileID: 3246699701106940131}
   m_Layer: 8
-  m_Name: PathFlag (10)
+  m_Name: h
   m_TagString: pathflag
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -772,7 +772,7 @@ GameObject:
   - component: {fileID: 3246699701432886683}
   - component: {fileID: 3246699701432886682}
   m_Layer: 8
-  m_Name: PathFlag (11)
+  m_Name: i
   m_TagString: pathflag
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -867,7 +867,7 @@ GameObject:
   - component: {fileID: 3246699701448749171}
   - component: {fileID: 3246699701448749170}
   m_Layer: 8
-  m_Name: PathFlag (1)
+  m_Name: a
   m_TagString: pathflag
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -962,7 +962,7 @@ GameObject:
   - component: {fileID: 3246699701519856516}
   - component: {fileID: 3246699701519856514}
   m_Layer: 8
-  m_Name: PathFlag
+  m_Name: b
   m_TagString: pathflag
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1057,7 +1057,7 @@ GameObject:
   - component: {fileID: 3246699701689419496}
   - component: {fileID: 3246699701689419510}
   m_Layer: 8
-  m_Name: PathFlag (2)
+  m_Name: c
   m_TagString: pathflag
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1152,7 +1152,7 @@ GameObject:
   - component: {fileID: 3246699702079395207}
   - component: {fileID: 3246699702079395205}
   m_Layer: 8
-  m_Name: PathFlag (4)
+  m_Name: d
   m_TagString: pathflag
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1247,7 +1247,7 @@ GameObject:
   - component: {fileID: 1014289549303020528}
   - component: {fileID: 5022912557899808350}
   m_Layer: 8
-  m_Name: PathFlag (17)
+  m_Name: o
   m_TagString: pathflag
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1391,7 +1391,7 @@ GameObject:
   - component: {fileID: 7803910722975337990}
   - component: {fileID: 3186883380737208064}
   m_Layer: 8
-  m_Name: PathFlag (18)
+  m_Name: p
   m_TagString: pathflag
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1486,7 +1486,7 @@ GameObject:
   - component: {fileID: 8105781725637328956}
   - component: {fileID: 6611113892142122501}
   m_Layer: 8
-  m_Name: PathFlag (19)
+  m_Name: q
   m_TagString: pathflag
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1581,7 +1581,7 @@ GameObject:
   - component: {fileID: 5753581448136849886}
   - component: {fileID: 6051738351369291324}
   m_Layer: 8
-  m_Name: PathFlag (20)
+  m_Name: r
   m_TagString: pathflag
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1676,7 +1676,7 @@ GameObject:
   - component: {fileID: 3094454092293368496}
   - component: {fileID: 2532753318314477944}
   m_Layer: 8
-  m_Name: PathFlag (15)
+  m_Name: m
   m_TagString: pathflag
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1771,7 +1771,7 @@ GameObject:
   - component: {fileID: 3583440012776623565}
   - component: {fileID: 7789387235803016965}
   m_Layer: 8
-  m_Name: PathFlag (16)
+  m_Name: n
   m_TagString: pathflag
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

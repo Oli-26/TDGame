@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-public enum TargetingMode {First, Strongest, Weakest, Last};
+public enum TargetingMode {First, Strong, Weak, Last};
 
 public abstract class BaseTower : TowerUI
 {
@@ -36,6 +36,9 @@ public abstract class BaseTower : TowerUI
         Active = true;
     }
 
+    public TargetingMode GetTargetingMode(){
+        return Mode;
+    }
     public void SetTargetingMode(TargetingMode m){
         Mode = m;
     }
@@ -45,10 +48,10 @@ public abstract class BaseTower : TowerUI
                 case TargetingMode.First:
                     TargetFirst(range);
                     break;
-                case TargetingMode.Strongest:
+                case TargetingMode.Strong:
                     TargetStrongest(range);
                     break;
-                case TargetingMode.Weakest:
+                case TargetingMode.Weak:
                     TargetWeakest(range);
                     break;
                 case TargetingMode.Last:

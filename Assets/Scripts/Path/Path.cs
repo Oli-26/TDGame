@@ -8,21 +8,27 @@ public class Path : MonoBehaviour
 
     public GameObject EasyPath;
     public string Mode = "easy";
+
+    private GameObject spawnedPath;
     // Start is called before the first frame update
     void Start()
     {
         switch(Mode){
             case "easy":
                 Debug.Log("Easy map");
-                GameObject p = Instantiate(EasyPath, new Vector3(0f,0f,0f), Quaternion.identity);
-                p.transform.parent = gameObject.transform;
+                spawnedPath = Instantiate(EasyPath, new Vector3(0f,0f,0f), Quaternion.identity);
+                spawnedPath.transform.parent = gameObject.transform;
                 break;
             default:
                 GetComponent<PathGenerator>().CreatePath(25);
                 break;
         }
 
-        flags = GameObject.FindGameObjectsWithTag("pathflag");
+        List<GameObject> tempList = new List<GameObject>();
+        foreach (Transform child in spawnedPath.transform){
+            tempList.Add(child.gameObject);
+        }
+        flags = tempList.ToArray();
         LinkFlags();
     }
 

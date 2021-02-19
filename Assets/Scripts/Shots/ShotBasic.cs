@@ -51,7 +51,7 @@ public class ShotBasic : TimeEffected
         if(properties.ExplodeOutwards){
             if(explodeOutwardsTime >= 0){
                 explodeOutwardsTime -= TimePassed();
-                changeVector = outwardsVector *TimePassed()*properties.Speed;
+                changeVector = outwardsVector *TimePassed()*properties.Speed*2.5f;
             }else{
                 SetTarget(target);
             }

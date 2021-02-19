@@ -13,7 +13,6 @@ public class Queen : BaseTower
         Tower = this;
 
         ResizeRangeIndicator(TowerProperties.Range);
-        Mode = TargetingMode.Strongest;
     }
 
     protected override void Update()

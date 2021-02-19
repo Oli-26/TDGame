@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 
-public class KnightUpgrade : TowerUpgrade
+public class BishopUpgrade : TowerUpgrade
 {
     public Action<KnightProperties, SplitShotProperties> effect { get; set; }
 
@@ -14,9 +14,9 @@ public class KnightUpgrade : TowerUpgrade
         effect(p as KnightProperties, s as SplitShotProperties);
     }
 }
-public class KnightUpgrades {
+public class BishopUpgrades {
 
-    public static KnightUpgrade knightUpgrade0_0 = new KnightUpgrade {
+    public static BishopUpgrade bishopUpgrade0_0 = new BishopUpgrade {
         name = "Bonus shots",
         description = "Split shots now split into 4 projectiles",
         cost = 200,
@@ -25,7 +25,7 @@ public class KnightUpgrades {
         effect = (p, s) => { s.SplitNumber += 2; }
     };
 
-    public static KnightUpgrade knightUpgrade0_1 = new KnightUpgrade {
+    public static BishopUpgrade bishopUpgrade0_1 = new BishopUpgrade {
         name = "Split damage up",
         description = "Split damage up to 80% from 50%",
         cost = 200,
@@ -34,7 +34,7 @@ public class KnightUpgrades {
         effect = (p, s) => { s.SplitDamage = 0.8f; }
     };
 
-    public static KnightUpgrade knightUpgrade0_2 = new KnightUpgrade {
+    public static BishopUpgrade bishopUpgrade0_2 = new BishopUpgrade {
         name = "Split shots split!",
         description = "Shots now split into shots that split!",
         cost = 800,
@@ -43,34 +43,34 @@ public class KnightUpgrades {
         effect = (p, s) => { s.SplitRecurrenceNumber += 1; }
     };
 
-    public static KnightUpgrade knightUpgrade1_0 = new KnightUpgrade {
+    public static BishopUpgrade bishopUpgrade1_0 = new BishopUpgrade {
         name = "Shock Shots",
-        description = "Shots now knock enemies about and stun them for 2.5 seconds",
+        description = "Shots now knock enemies about and stun them for 1 seconds, but slows your attacks by 50%",
         cost = 250,
         track = 1,
         level = 0,
-        effect = (p, s) => { s.ExplosiveShots = true; s.StunLength = 2.5f; }
+        effect = (p, s) => { s.ExplosiveShots = true; p.Cooldown += 1.5f;}
     };
 
-    public static KnightUpgrade knightUpgrade1_1 = new KnightUpgrade {
+    public static BishopUpgrade bishopUpgrade1_1 = new BishopUpgrade {
         name = "Ability stripper",
-        description = "Strips the abilities of powerful pieces for 4 seconds",
+        description = "Strips the abilities of powerful pieces for 2seconds",
         cost = 250,
         track = 1,
         level = 1,
         effect = (p, s) => { s.AbilityStripping = true; }
     };
 
-    public static KnightUpgrade knightUpgrade1_2 = new KnightUpgrade {
-        name = "Kick em while they're down",
-        description = "Enemies take 2X damage while stunned",
-        cost = 800,
+    public static BishopUpgrade bishopUpgrade1_2 = new BishopUpgrade {
+        name = "Crippling shrapnel",
+        description = "Stunned enemies are slowed for 30% for 10 seconds",
+        cost = 5000000,
         track = 1,
         level = 2,
-        effect = (p, s) => { s.StunBonusDamage = true; s.StunBonusDamageMultiplier = 2f;}
+        effect = (p, s) => { Debug.Log("TODO:  Crippling shrapnel "); }
     };
 
-    public static KnightUpgrade knightUpgrade2_0 = new KnightUpgrade {
+    public static BishopUpgrade bishopUpgrade2_0 = new BishopUpgrade {
         name = "Pools of acid",
         description = "First shot spawns a pool of acid that damages for 0.3x tower damage per second. Pools last upto 4 seconds. Upto 30 damage per pool",
         cost = 250,
@@ -80,7 +80,7 @@ public class KnightUpgrades {
     };
 
 
-    public static KnightUpgrade knightUpgrade2_1 = new KnightUpgrade {
+    public static BishopUpgrade bishopUpgrade2_1 = new BishopUpgrade {
         name = "Stronger acid",
         description = "First shot spawns a pool of acid that damages for 0.5x tower damage per second. Pools last upto 4 seconds. Upto 60 damage per pool",
         cost = 400,
@@ -89,25 +89,25 @@ public class KnightUpgrades {
         effect = (p, s) => { s.AcidPoolDamageMultiplier = 0.5f; s.AcidPoolMaxDamage = 60;}
     };
 
-    public static KnightUpgrade knightUpgrade2_2 = new KnightUpgrade {
-        name = "Sticky acid",
-        description = "Acid slows enemies for 25% speed",
-        cost = 600,
+    public static BishopUpgrade bishopUpgrade2_2 = new BishopUpgrade {
+        name = "Upgrade 2-0",
+        description = "50% base range increase",
+        cost = 50000000,
         track = 2,
         level = 2,
-        effect = (p, s) => { s.AcidSlow = true; s.AcidSlowTime = 5f; s.AcidSlowPercent = 0.25f; }
+        effect = (p, s) => { p.Range += 1; }
     };
     public static List<TowerUpgrade> AllUpgrades() {
         List<TowerUpgrade> list = new List<TowerUpgrade>();
-        list.Add(knightUpgrade0_0);
-        list.Add(knightUpgrade0_1);
-        list.Add(knightUpgrade0_2);
-        list.Add(knightUpgrade1_0);
-        list.Add(knightUpgrade1_1);
-        list.Add(knightUpgrade1_2);
-        list.Add(knightUpgrade2_0);
-        list.Add(knightUpgrade2_1);
-        list.Add(knightUpgrade2_2);
+        list.Add(bishopUpgrade0_0);
+        list.Add(bishopUpgrade0_1);
+        list.Add(bishopUpgrade0_2);
+        list.Add(bishopUpgrade1_0);
+        list.Add(bishopUpgrade1_1);
+        list.Add(bishopUpgrade1_2);
+        list.Add(bishopUpgrade2_0);
+        list.Add(bishopUpgrade2_1);
+        list.Add(bishopUpgrade2_2);
         return list;
     }
 

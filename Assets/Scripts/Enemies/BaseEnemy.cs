@@ -4,30 +4,30 @@ using UnityEngine;
 
 public class BaseEnemy : TimeEffected
 {
+    protected GameObject control;
+
+    //Pathing
     protected GameObject lastFlag;
     protected GameObject nextFlag;
     protected bool nextFlagExists = false;
     protected bool initalFlagSet = false;
-
     protected Path pathScript;
 
-    protected float speed = 1f;
+    // Misc
+    bool ScheduledForDeath = false;
+    protected float distanceTraveled = 0f;
 
+    // Properties
+    protected float speed = 1f;
     public float health = 1f;
     protected int moneyDropped = 1;
     protected int damageDealt = 1; 
 
-    protected GameObject control;
-
-    protected float distanceTraveled = 0f;
-
     // Effects
-    protected float stunTime = 0f;
-    protected float blockedAbilityTime = 0f;
+    protected StatusEffects effects = new StatusEffects();
     protected bool acidDamageBlocker = false;
 
-    bool ScheduledForDeath = false;
-
+    
     protected virtual void Start()
     {
         pathScript = GameObject.FindWithTag("Path").GetComponent<Path>();
@@ -43,13 +43,11 @@ public class BaseEnemy : TimeEffected
                 transform.position = lastFlag.transform.position;
             }   
         }
-        if(stunTime <= 0f){
+        if(!effects.Stunned){
             Move();
-        }else{
-            stunTime -= TimePassed();
         }
         acidDamageBlocker = false;
-        
+        effects.ReduceEffects(TimePassed());
     }
 
     public void SetLastFlag(GameObject flag){
@@ -86,12 +84,18 @@ public class BaseEnemy : TimeEffected
     protected void moveBetween(Vector3 from, Vector3 to, float multi){
         Vector3 changeVector = new Vector3(to.x-from.x, to.y-from.y, 0);
         changeVector = Vector3.Normalize(changeVector)*TimePassed()*speed*multi;
+        if(effects.Slowed){
+            changeVector = changeVector*(1f-effects.SlowPercent);
+        }
         transform.position += changeVector;
         distanceTraveled += Vector3.Distance(new Vector3(0f, 0f, 0f), changeVector);
     }
 
 
     public virtual void TakeDamage(float d){
+        if(effects.StunBonusDamage){
+            d = d * effects.StunBonusDamageMultiplier;
+        }
         health -= d;
         CheckDead();
     }
@@ -128,26 +132,29 @@ public class BaseEnemy : TimeEffected
 
     // Effects
 
-    public void Stun(float time){
-        if(stunTime > 0){
+    public void Stun(float time, bool bonusDamage, float bonusAmount){
+        if(effects.StunImmune)
             return;
+        effects.AddEffect(EffectType.STUN, time);
+        effects.AddEffect(EffectType.STUNRESIST, time*2f);
+
+        if(bonusDamage){
+            effects.AddEffect(EffectType.STUNBONUS, time, bonusAmount);
         }
-        stunTime += time;
        
         GameObject effect = Instantiate((GameObject)Resources.Load("StunEffect"), gameObject.transform.position, Quaternion.identity);
-        Destroy(effect, stunTime/TimeEffect(1f));
+        Destroy(effect, time/TimeEffect(1f));
         effect.transform.parent = gameObject.transform;
     }
 
     public void BlockAbility(float time){
-        Debug.Log("Blocked ability on " + gameObject.name);
-        if(blockedAbilityTime > 0){
-            return;
-        }
-        blockedAbilityTime += time;
+        effects.AddEffect(EffectType.ABILITYBLOCK, time);
     }
 
-    public void AcidDamage(float d){
+    public void AcidDamage(float d, bool slow, float slowTime, float slowPercent){
+        if(!effects.Slowed && slow){
+            effects.AddEffect(EffectType.SLOW, slowTime, slowPercent);
+        }
         if(acidDamageBlocker){
             return;
         }else{

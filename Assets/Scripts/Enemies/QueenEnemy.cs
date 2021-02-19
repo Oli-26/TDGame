@@ -18,9 +18,8 @@ public class QueenEnemy : BaseEnemy
     {
         base.Update();
         
-        if(blockedAbilityTime >= 0){
+        if(effects.AbilityBlocked){
             pulseMode = false;
-            blockedAbilityTime -= TimePassed();
         }else{
             pulseMode = true;
         }

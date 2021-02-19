@@ -30,9 +30,10 @@ public class TowerUpgradeButton : Button, IPointerEnterHandler, IPointerExitHand
     
 
     public override void clicked(){
-        Debug.Log(upgrade + " clicked");
+        //  Debug.Log(upgrade + " clicked");
         var towerUpgrade = GetAssociatedUpgrade();
-
+        if(GetAssociatedUpgrade() == null)
+            return;
         if (control.GetComponent<Stats>().SpendMoney(towerUpgrade.cost)) {
             GetSelectedTower().BuyUpgrade(towerUpgrade);
             UpdateDescriptionBox();
@@ -59,6 +60,8 @@ public class TowerUpgradeButton : Button, IPointerEnterHandler, IPointerExitHand
 
     private void UpdateDescriptionBox()
     {
+        if(GetAssociatedUpgrade() == null)
+            return;
         upgradeDescriptionBox.transform.GetChild(0).gameObject.GetComponent<Text>().text =
             GetAssociatedUpgrade().description;
     }

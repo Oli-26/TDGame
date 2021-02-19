@@ -36,11 +36,11 @@ public class SplitShot : ShotBasic
             if(tempProperties.ExplosiveShots && tempProperties.IsFirstInstance){
                 List<GameObject> enemies = FindAllEnemiesInArea(transform.position, 1f);
                 
-                Destroy(Instantiate(explosionPNG, col.transform.position, Quaternion.identity), 0.25f);
+                //Destroy(Instantiate(explosionPNG, col.transform.position, Quaternion.identity), 0.25f);
                 foreach (var enemy in enemies)
                 {
                     enemy.transform.position += new Vector3(Random.Range(-0.3f, 0.3f), Random.Range(-0.3f, 0.3f), 0f);
-                    enemy.GetComponent<BaseEnemy>().Stun(tempProperties.StunLength);
+                    enemy.GetComponent<BaseEnemy>().Stun(tempProperties.StunLength, tempProperties.StunBonusDamage, tempProperties.StunBonusDamageMultiplier);
                     if(tempProperties.AbilityStripping){
                         enemy.GetComponent<BaseEnemy>().BlockAbility(tempProperties.StrippingTime);
                     }
@@ -52,7 +52,10 @@ public class SplitShot : ShotBasic
                 GameObject acid = Instantiate(AcidPool, col.transform.position, Quaternion.identity);
                 Destroy(acid, 4f/TimeEffect(1f));
                 acid.GetComponent<Acid>().DamagePerSeconds = tempProperties.Damage * tempProperties.AcidPoolDamageMultiplier;
-                 acid.GetComponent<Acid>().MaxDamage = tempProperties.AcidPoolMaxDamage;
+                acid.GetComponent<Acid>().MaxDamage = tempProperties.AcidPoolMaxDamage;
+                acid.GetComponent<Acid>().Slow = tempProperties.AcidSlow;
+                acid.GetComponent<Acid>().SlowPercent = tempProperties.AcidSlowPercent;
+                acid.GetComponent<Acid>().SlowTime = tempProperties.AcidSlowTime;
             }
 
 
@@ -94,7 +97,7 @@ public class SplitShot : ShotBasic
             }else{
                 Vector3 offset = new Vector3(Random.Range(-0.2f, 0.2f), Random.Range(-0.2f, 0.2f), 0);
                 GameObject childShot = Instantiate(babyShot, gameObject.transform.position, Quaternion.identity);
-                childShot.GetComponent<ShotBasic>().setProperties(new ShotProperties(4f, properties.Damage*((SplitShotProperties)properties).SplitDamage, 1, false));
+                childShot.GetComponent<ShotBasic>().setProperties(new ShotProperties(2f, properties.Damage*((SplitShotProperties)properties).SplitDamage, 1, false));
                 childShot.GetComponent<ShotBasic>().properties.ExplodeOutwards = true;
                 childShot.GetComponent<ShotBasic>().SetTarget(maybeTarget);
                 childShot.GetComponent<ShotBasic>().SetIgnoreEnemy(target);
@@ -139,11 +142,15 @@ public class SplitShotProperties : ShotProperties {
 
     public bool ExplosiveShots {get; set;}
     public bool AbilityStripping {get; set;}
+    public bool StunBonusDamage {get; set;}
+    public float StunBonusDamageMultiplier {get; set;}
 
     public bool CreateAcidPool {get; set;}
     public float AcidPoolDamageMultiplier {get; set;}
     public float AcidPoolMaxDamage {get; set;}
-
+    public bool AcidSlow {get; set;}
+    public float AcidSlowPercent {get; set;}
+    public float AcidSlowTime {get; set;}
 
     // Internal
     public float StunLength {get; set;}
@@ -156,12 +163,20 @@ public class SplitShotProperties : ShotProperties {
         SplitRecurrenceNumber = 0;
         ExplosiveShots = false;
         IsFirstInstance = true;
-        StunLength = 1f;
+
+        StunLength = 2f;
+        AbilityStripping = false;
+        StrippingTime = 4f;
+        StunBonusDamage = false;
+
         CreateAcidPool = false;
         AcidPoolDamageMultiplier = 0.2f;
         AcidPoolMaxDamage = 30f;
-        AbilityStripping = false;
-        StrippingTime = 2f;
+        AcidSlow = false;
+        AcidSlowPercent = 0f;
+        AcidSlowTime = 0f;
+        
+        
     }
     public SplitShotProperties() : base() {  
     }
@@ -176,21 +191,25 @@ public class SplitShotProperties : ShotProperties {
         newProperties.HomingShot = properties.HomingShot;
 
         // Upgrade 
-
-        //path 0
+        ////path 0
         newProperties.SplitNumber = properties.SplitNumber;
         newProperties.SplitDamage = properties.SplitDamage;
         newProperties.SplitRecurrenceNumber = properties.SplitRecurrenceNumber;
-        //path1
+        ////path1
         newProperties.ExplosiveShots = properties.ExplosiveShots;
         newProperties.StunLength = properties.StunLength;
         newProperties.AbilityStripping = properties.AbilityStripping;
         newProperties.StrippingTime = properties.StrippingTime;
+        newProperties.StunBonusDamage = properties.StunBonusDamage;
+        newProperties.StunBonusDamageMultiplier = properties.StunBonusDamageMultiplier;
 
-        //path2
+        ////path2
         newProperties.CreateAcidPool = properties.CreateAcidPool;
         newProperties.AcidPoolDamageMultiplier = properties.AcidPoolDamageMultiplier;
         newProperties.AcidPoolMaxDamage = properties.AcidPoolMaxDamage;
+        newProperties.AcidSlow = properties.AcidSlow;
+        newProperties.AcidSlowPercent = properties.AcidSlowPercent;
+        newProperties.AcidSlowTime = properties.AcidSlowTime;
 
         //Internal
         newProperties.IsFirstInstance = properties.IsFirstInstance;

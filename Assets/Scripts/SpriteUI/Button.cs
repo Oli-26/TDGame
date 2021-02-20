@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Button : MonoBehaviour
 {
-    public GameObject control;
+    public GameObject control = null;
     // Start is called before the first frame update
     void Start()
     {
@@ -14,6 +14,7 @@ public class Button : MonoBehaviour
     protected void Update()
     {
         if(Input.GetMouseButtonDown(0)){
+            Debug.Log("Trying to click");
             if(GetComponent<Collider2D>().bounds.Contains(GetMouseToWorld())){
                 clicked();
             }

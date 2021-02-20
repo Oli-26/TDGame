@@ -15,7 +15,7 @@ public class PathGenerator : MonoBehaviour
     float xStart = -5.67f;
     float yStart = 3f;
 
-    public void CreatePath(int length){
+    public GameObject CreatePath(int length){
         grid =  new Node[8,8];
         for(int i = 0; i < 8; i++){
             for(int j = 0; j < 8; j++){
@@ -25,9 +25,9 @@ public class PathGenerator : MonoBehaviour
 
         List<Node> path = CreateRoute(length);
         CreateNodesInPathAsObjects(path);
+        return PathObject;
     }
     void CreateNodesInPathAsObjects(List<Node> path){
-
         foreach(Node n in path){
             Vector3 flagPosition = new Vector3(xStart + xSize*n.position.x, yStart - ySize*n.position.y, 0f);
             GameObject newFlag = Instantiate(nodeObjectPrefab, flagPosition, Quaternion.identity);

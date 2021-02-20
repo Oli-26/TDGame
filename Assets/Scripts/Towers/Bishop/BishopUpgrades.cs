@@ -35,58 +35,58 @@ public class BishopUpgrades {
     };
 
     public static BishopUpgrade bishopUpgrade0_2 = new BishopUpgrade {
-        name = "TODO",
-        description = "",
-        cost = 80000000,
+        name = "Diamond tipped",
+        description = "Shots now pierce upto 6 enemies",
+        cost = 700,
         track = 0,
         level = 2,
-        effect = (p, s) => {  }
+        effect = (p, s) => { s.DamageInstances += 3; }
     };
 
     public static BishopUpgrade bishopUpgrade1_0 = new BishopUpgrade {
-        name = "TODO",
-        description = "",
-        cost = 250,
+        name = "World wide",
+        description = "Increase range by 2",
+        cost = 300,
         track = 1,
         level = 0,
-        effect = (p, s) => { }
+        effect = (p, s) => {p.Range += 2; }
     };
 
     public static BishopUpgrade bishopUpgrade1_1 = new BishopUpgrade {
-        name = "TODO",
-        description = "",
-        cost = 80000000,
+        name = "Precision targeting",
+        description = "Shots only hit their target (initially)",
+        cost = 300,
         track = 1,
         level = 1,
-        effect = (p, s) => {  }
+        effect = (p, s) => { s.Precision = true; s.Speed += 1f; }
     };
 
     public static BishopUpgrade bishopUpgrade1_2 = new BishopUpgrade {
-        name = "TODO",
-        description = "",
-        cost = 80000000,
+        name = "Aim for the head",
+        description = "5% chance damage to critial hit for 9X",
+        cost = 500,
         track = 1,
         level = 2,
-        effect = (p, s) => {  }
+        effect = (p, s) => { s.CritChance = 0.05f; s.CritMultiplier = 9f; }
     };
 
     public static BishopUpgrade bishopUpgrade2_0 = new BishopUpgrade {
-        name = "TODO",
-        description = "",
-        cost = 80000000,
+        name = "Heated Shots",
+        description = "Instead shot damage by 3",
+        cost = 300,
         track = 2,
         level = 0,
-        effect = (p, s) => {  }
+        effect = (p, s) => { s.Damage += 3f; }
     };
 
 
     public static BishopUpgrade bishopUpgrade2_1 = new BishopUpgrade {
-        name = "TODO",
-        description = "",
-        cost = 80000000,
+        name = "Over charging",
+        description = "Halfs attack speed, adds 10 damage to shots",
+        cost = 800,
         track = 2,
         level = 1,
-        effect = (p, s) => { }
+        effect = (p, s) => { s.Damage += 10f; p.Cooldown += 2.1f; }
     };
 
     public static BishopUpgrade bishopUpgrade2_2 = new BishopUpgrade {

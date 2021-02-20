@@ -6,6 +6,7 @@ public class PlacementManager : MonoBehaviour
 {
     bool towerIndicatorExists = false;
     GameObject towerIndicator;
+    int currentCost = 0;
     float shortPlacementBlocker = 0f;
 
     public GameObject Tower1;
@@ -36,7 +37,13 @@ public class PlacementManager : MonoBehaviour
         }
 
         if (Input.GetMouseButtonDown(0) && shortPlacementBlocker <= 0 && towerIndicatorExists){
-            if(!IsInsideGameObjectWithTag(GetMouseToGrid(), "Tower")){
+            if(IsInsideGameObjectWithTag(GetMouseToWorld(), "SellZone")){
+                Destroy(towerIndicator);
+                towerIndicatorExists = false;
+                currentCost = 0;
+            }
+            else if(!IsInsideGameObjectWithTag(GetMouseToGrid(), "Tower")){
+                GetComponent<Stats>().SpendMoney(currentCost);
                 towerIndicatorExists = false;
                 towerIndicator.GetComponent<BaseTower>().Place();
                 towerIndicator.transform.position = GetMouseToGrid();
@@ -93,28 +100,33 @@ public class PlacementManager : MonoBehaviour
     public void CreateTower(int type){
         switch(type){
             case 1:
-                if(GetComponent<Stats>().SpendMoney(tower1Cost)){
+                if(GetComponent<Stats>().HasMoney(tower1Cost)){
                     CreateNewTowerIndicator(Tower1);
+                    currentCost = tower1Cost;
                 }
                 break;
             case 2:
-                if(GetComponent<Stats>().SpendMoney(tower2Cost)){
+                if(GetComponent<Stats>().HasMoney(tower2Cost)){
                     CreateNewTowerIndicator(Tower2);
+                    currentCost = tower2Cost;
                 }
                 break;
             case 3:
-                if(GetComponent<Stats>().SpendMoney(tower3Cost)){
+                if(GetComponent<Stats>().HasMoney(tower3Cost)){
                     CreateNewTowerIndicator(Tower3);
+                    currentCost = tower3Cost;
                 }
                 break;
             case 4:
-                if(GetComponent<Stats>().SpendMoney(tower4Cost)){
+                if(GetComponent<Stats>().HasMoney(tower4Cost)){
                     CreateNewTowerIndicator(Tower4);
+                    currentCost = tower4Cost;
                 }
                 break;
             case 5:
-                if(GetComponent<Stats>().SpendMoney(tower5Cost)){
+                if(GetComponent<Stats>().HasMoney(tower5Cost)){
                     CreateNewTowerIndicator(Tower5);
+                    currentCost = tower5Cost;
                 }
                 break;
             default:

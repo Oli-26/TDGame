@@ -13,14 +13,19 @@ public class Stats : MonoBehaviour
          uiUpdater = GetComponent<UiUpdater>();
     }
 
-    
+    public bool HasMoney(int m){
+        if(money >= m){
+            return true;
+        }
+        return false;
+    }
     public void GainMoney(int m){
         money += m;
         uiUpdater.UpdateMoney();
     }
 
     public bool SpendMoney(int amount){
-        if(money >= amount){
+        if(HasMoney(amount)){
             money -= amount;  
             uiUpdater.UpdateMoney();
             return true;

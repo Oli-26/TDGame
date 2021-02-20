@@ -13,6 +13,7 @@ TagManager:
   - Tower
   - DamageReduction
   - shot
+  - SellZone
   layers:
   - Default
   - TransparentFX

@@ -7,35 +7,38 @@ public class Path : MonoBehaviour
     GameObject[] flags;
 
     public GameObject EasyPath;
-    public string Mode = "easy";
-
+    public GameObject MediumPath;
+    public GameObject HardPath;
+    
     private GameObject spawnedPath;
     // Start is called before the first frame update
     void Start()
     {
-        switch(Mode){
-            case "easy":
-                Debug.Log("Easy map");
+        Debug.Log(GameInfo.difficulty);
+        switch(GameInfo.difficulty){
+            case "Easy":
                 spawnedPath = Instantiate(EasyPath, new Vector3(0f,0f,0f), Quaternion.identity);
-                spawnedPath.transform.parent = gameObject.transform;
                 break;
+            case "Medium":
+                spawnedPath = Instantiate(MediumPath, new Vector3(0f,0f,0f), Quaternion.identity);
+                break;
+            case "Hard":
+                spawnedPath = Instantiate(HardPath, new Vector3(0f,0f,0f), Quaternion.identity);
+                break;
+            case "Random":
             default:
-                GetComponent<PathGenerator>().CreatePath(25);
+                spawnedPath = GetComponent<PathGenerator>().CreatePath(25);
                 break;
         }
 
+        spawnedPath.transform.parent = gameObject.transform;
         List<GameObject> tempList = new List<GameObject>();
         foreach (Transform child in spawnedPath.transform){
             tempList.Add(child.gameObject);
+            Debug.Log("Added child");
         }
         flags = tempList.ToArray();
         LinkFlags();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 
 

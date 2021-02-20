@@ -96,6 +96,11 @@ public class ShotBasic : TimeEffected
             if(col.gameObject.GetComponent<BaseEnemy>().IsScheduledForDeath()){
                 return;
             }
+            if(properties.Precision){
+                if(col.gameObject != target){
+                    return;
+                }
+            }
             float bonusAdjustedDamage = properties.Damage + (properties.GainsDamageWithRange ? properties.RangeBonusDamage : 0f);
             float randomNumber = UnityEngine.Random.Range(0f,1f);
             float critAdjustedDamage = randomNumber < properties.CritChance ? bonusAdjustedDamage* properties.CritMultiplier : bonusAdjustedDamage;
@@ -154,6 +159,7 @@ public class ShotProperties {
 
         // BISHOP
         public bool PiercePerfect {get; set;} = false;
+        public bool Precision {get; set;} = false;
 
 
         //Internal Propeties
@@ -207,6 +213,7 @@ public class ShotProperties {
             newProperties.CritMultiplier = properties.CritMultiplier;
 
             newProperties.PiercePerfect = properties.PiercePerfect;
+            newProperties.Precision = properties.Precision;
 
             return newProperties;
         }

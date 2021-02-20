@@ -6,14 +6,9 @@ using UnityEngine.UI;
 using System;
 public class TowerTargetButton :  Button, IPointerEnterHandler, IPointerExitHandler
 {
-    private Canvas myCanvas;
     private bool mouseIsOver { get; set; }
     private TargetingMode[] targetModeArray= {TargetingMode.First, TargetingMode.Last, TargetingMode.Strong, TargetingMode.Weak};
     private int currentModeIndex = 0;
-    void Start()
-    {
-        myCanvas = GetComponentInParent<Canvas>();
-    }
 
     new protected void Update()
     {

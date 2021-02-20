@@ -19,6 +19,7 @@ public class TowerSelection : MonoBehaviour, IPointerEnterHandler, IPointerExitH
     public GameObject Upgrade2;
 
     public GameObject TargetButton;
+    public GameObject SellButton;
 
     public void Update() {
         Populate();
@@ -65,6 +66,7 @@ public class TowerSelection : MonoBehaviour, IPointerEnterHandler, IPointerExitH
         Upgrade2.GetComponent<Text>().text = buyableUpgrades.Exists(u => u.track == 2) ? createUpgradeLabel(buyableUpgrades.Find(u => u.track == 2)) : "Maxed!";
 
         TargetButton.GetComponent<TowerTargetButton>().SetText(tower.GetTargetingMode());
+        SellButton.GetComponent<TowerSellButton>().SetText(tower.GetTowerWorth().ToString());
 
     }
 

@@ -16,7 +16,6 @@ public class SplitShot : ShotBasic
     new void Start()
     {
         base.Start();
-        
     }
 
     new void Update()
@@ -101,7 +100,6 @@ public class SplitShot : ShotBasic
                 childShot.GetComponent<ShotBasic>().SetTarget(targetFound ? maybeTarget : null);
                 childShot.GetComponent<ShotBasic>().SetIgnoreEnemy(target);
             }
-        
     }
       
     protected GameObject FindTarget(out bool targetFound){

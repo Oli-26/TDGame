@@ -37,7 +37,7 @@ public class PawnUpgrades {
 
     public static PawnUpgrade pawnUpgrade0_2 = new PawnUpgrade {
         name = "Super charge",
-        description = "Increase attack speed by 2% per shot for the round, upto 50%",
+        description = "Increase attack speed by 2% per shot for the round, upto 100%",
         cost = 250,
         track = 0,
         level = 2,

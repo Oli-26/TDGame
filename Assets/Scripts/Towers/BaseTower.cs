@@ -175,6 +175,14 @@ public abstract class BaseTower : TowerUI
     public void IncreaseWorth(int amount){
         TowerProperties.Worth += amount;
     }
+
+    public int GetTowerWorth(){
+        return (int)TowerProperties.Worth;
+    }
+
+    public void SellTower(){
+        Destroy(gameObject);
+    }
 }
 
 public class TowerProperties{

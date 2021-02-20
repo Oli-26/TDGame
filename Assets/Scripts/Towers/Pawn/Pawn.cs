@@ -7,7 +7,7 @@ using UnityEngine;
 public class Pawn : BaseTower
 {
     protected override TowerProperties TowerProperties { get; set; } = new PawnProperties(1f, 2f, 50);
-    protected override ShotProperties ShotProperties { get; set; } = new ShotProperties(2f, 1f, 1, false);
+    protected override ShotProperties ShotProperties { get; set; } = new ShotProperties(2.8f, 1f, 1, false);
 
     new void Start()
     {

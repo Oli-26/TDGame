@@ -15,7 +15,7 @@ public class RoundGenerator : MonoBehaviour
 
     public List<(int, GameObject)> readRoundFromFile(int round){
         try{
-            TextAsset textasset = (TextAsset)Resources.Load("rounds/round" + round.ToString());
+            TextAsset textasset = (TextAsset)Resources.Load("rounds/" + GameInfo.difficulty + "/round" + round.ToString());
             string text = textasset.text;
             string[] lines = text.Split('\n');
 

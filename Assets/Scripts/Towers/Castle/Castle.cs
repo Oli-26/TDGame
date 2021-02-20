@@ -37,6 +37,10 @@ public class Castle : BaseTower
         return true;
     }
 
+    protected override List<TowerUpgrade> PossibleUpgrades() { 
+        return CastleUpgrades.AllUpgrades();
+    }
+
 
 }
 

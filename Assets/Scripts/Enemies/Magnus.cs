@@ -11,7 +11,7 @@ public class Magnus : BaseEnemy
     {
         base.Start();
         speed = 0.25f;
-        health = 80;
+        health = 500;
         moneyDropped = 100;
         damageDealt = 100;
         Tier = 10;
@@ -25,7 +25,7 @@ public class Magnus : BaseEnemy
     
     protected override void CheckDead(){
         if(health <= 0){
-            for(int i = 0; i < 10; i++)
+            for(int i = 0; i < 25; i++)
             {
                 GameObject newEnemy = control.GetComponent<RoundManager>().CreateEnemy((int) Random.Range(1, 5));
                 control.GetComponent<RoundManager>().AddEnemyToAliveList(newEnemy);

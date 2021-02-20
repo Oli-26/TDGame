@@ -5,7 +5,7 @@ using UnityEngine;
 public class Bishop : BaseTower
 {
     protected override TowerProperties TowerProperties { get; set; } = new BishopProperties(2.1f, 2.5f, 150);
-    protected override ShotProperties ShotProperties { get; set; } = new ShotProperties(2f, 3.5f, 1, true);
+    protected override ShotProperties ShotProperties { get; set; } = new ShotProperties(2f, 5f, 1, true);
 
     new void Start()
     {

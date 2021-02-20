@@ -17,21 +17,21 @@ public class QueenUpgrade : TowerUpgrade
 public class QueenUpgrades {
 
     public static QueenUpgrade queenUpgrade0_0 = new QueenUpgrade {
-        name = "TODO",
-        description = "",
-        cost = 80000000,
+        name = "Telsa batteries",
+        description = "Swarm bots last 50% longer",
+        cost = 500,
         track = 0,
         level = 0,
-        effect = (p, s) => {  }
+        effect = (p, s) => { s.LifeTime += 6; }
     };
 
     public static QueenUpgrade queenUpgrade0_1 = new QueenUpgrade {
-        name = "TODO",
-        description = "",
-        cost = 80000000,
+        name = "Factory overclocking",
+        description = "Queen outputs swarm bots 25% faster",
+        cost = 550,
         track = 0,
         level = 1,
-        effect = (p, s) => {  }
+        effect = (p, s) => { p.Cooldown = 2.25f; }
     };
 
     public static QueenUpgrade queenUpgrade0_2 = new QueenUpgrade {
@@ -44,12 +44,12 @@ public class QueenUpgrades {
     };
 
     public static QueenUpgrade queenUpgrade1_0 = new QueenUpgrade {
-        name = "TODO",
-        description = "",
-        cost = 250,
+        name = "Hyper Aggressive AI",
+        description = "Swarm bots attack 30% faster",
+        cost = 450,
         track = 1,
         level = 0,
-        effect = (p, s) => { }
+        effect = (p, s) => {s.CooldownTime = 0.768f; }
     };
 
     public static QueenUpgrade queenUpgrade1_1 = new QueenUpgrade {
@@ -71,12 +71,12 @@ public class QueenUpgrades {
     };
 
     public static QueenUpgrade queenUpgrade2_0 = new QueenUpgrade {
-        name = "TODO",
-        description = "",
-        cost = 80000000,
+        name = "Internal tampering",
+        description = "Bots explode and deal AOE damage in a small area (5 damage)",
+        cost = 600,
         track = 2,
         level = 0,
-        effect = (p, s) => {  }
+        effect = (p, s) => { s.InternalTampering = true; }
     };
 
 

@@ -1,22 +1,26 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using System;
+using System.Linq;
 public class Nanobot : ShotBasic
 {
     float Cooldown = 0f;
-    float CooldownTime = 1f;
+    
     float JumpRange = 3.5f;
 
-    float __timeUntilNewHoverPoint = 0f;
+    float __timeUntilNewHoverPoint = 1f;
     const float __timeBetweenHoverPoints = 0.5f;
     Vector3 positionOffset = new Vector3(0f, 0f, 0f);
+
+    public GameObject explosion;
+
+    
 
     float LifeTime = 12f;
 
     new public void Start()
     {
-        
     }
 
     new public void Update()
@@ -25,18 +29,24 @@ public class Nanobot : ShotBasic
         Cooldown -= TimePassed();
         __timeUntilNewHoverPoint -= TimePassed();
         if(__timeUntilNewHoverPoint <= 0){
-            __timeUntilNewHoverPoint = __timeBetweenHoverPoints;
-            positionOffset = new Vector3(Random.Range(-0.3f, 0.3f), Random.Range(-0.3f, 0.3f), 0f);
+            __timeUntilNewHoverPoint = ((NanoBotProperties)properties).CooldownTime;
+            positionOffset = new Vector3(UnityEngine.Random.Range(-0.3f, 0.3f), UnityEngine.Random.Range(-0.3f, 0.3f), 0f);
         }
 
         if(Cooldown <= 0){
            AttackTarget();
-           Cooldown = CooldownTime;
+           Cooldown = ((NanoBotProperties)properties).CooldownTime;
         }
 
         LifeTime -= TimePassed();
         if(LifeTime < 0){
             Destroy(gameObject);
+            
+            if(((NanoBotProperties)properties).InternalTampering && properties.IsFirstInstance){
+                Destroy(Instantiate(explosion, transform.position, Quaternion.identity), 0.3f);
+                List<GameObject> enemies = FindAllEnemiesInArea(transform.position, 1f);
+                enemies.ForEach(enemy => enemy.GetComponent<BaseEnemy>().TakeDamage(5f));
+            }
         }
     }
 
@@ -76,22 +86,19 @@ public class Nanobot : ShotBasic
     }
 
 
-    public override void OnCollisionEnter2D(Collision2D col){
-        if(col.gameObject.tag == "DamageReduction"){
-            ReduceDamage(col.gameObject);
-        }
-    }
-
     public void setProperties(NanoBotProperties p){
-
+        this.properties = NanoBotProperties.Duplicate(p);
     }
 }
 
 public class NanoBotProperties : ShotProperties {
+    public float LifeTime {get; set;} = 12f;
+    public float CooldownTime {get; set;} = 1f;
+    public bool InternalTampering {get; set;} = false;
     public NanoBotProperties(float speed, float damage, int damageInstances, bool homingShot) : base(speed, damage, damageInstances, homingShot){ }
     public NanoBotProperties() : base() {}
 
-    new public static NanoBotProperties Duplicate(ShotProperties properties){
+    public static NanoBotProperties Duplicate(NanoBotProperties properties){
             NanoBotProperties newProperties = new NanoBotProperties();
             // Base
             newProperties.Speed = properties.Speed;
@@ -99,12 +106,13 @@ public class NanoBotProperties : ShotProperties {
             newProperties.DamageInstances = properties.DamageInstances;
             newProperties.HomingShot = properties.HomingShot;
 
-            // Upgrade     
-            newProperties.GainsDamageWithRange = properties.GainsDamageWithRange;
-            newProperties.CritChance = properties.CritChance;
-            newProperties.CritMultiplier = properties.CritMultiplier;
+            // Upgrade
+            newProperties.LifeTime = properties.LifeTime;
+            newProperties.CooldownTime = properties.CooldownTime;
+            newProperties.InternalTampering = properties.InternalTampering;
 
-            newProperties.PiercePerfect = properties.PiercePerfect;
+            //Intrernal
+            newProperties.IsFirstInstance = properties.IsFirstInstance;
 
             return newProperties;
         }

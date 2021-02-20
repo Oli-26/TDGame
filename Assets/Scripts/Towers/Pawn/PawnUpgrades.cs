@@ -19,11 +19,11 @@ public class PawnUpgrade : TowerUpgrade
 public class PawnUpgrades {
     public static PawnUpgrade pawnUpgrade0_0 = new PawnUpgrade {
         name = "Liquid cooling",
-        description = "30% shot cooldown reduction",
+        description = "30% attack speed increase",
         cost = 80,
         track = 0,
         level = 0,
-        effect = (p, s) => { p.Cooldown -= 0.3f; }
+        effect = (p, s) => { p.Cooldown = 0.768f;}
     };
 
     public static PawnUpgrade pawnUpgrade0_1 = new PawnUpgrade {

@@ -5,7 +5,7 @@ using UnityEngine;
 public class Knight : BaseTower
 {
     protected override TowerProperties TowerProperties { get; set; } = new KnightProperties(3f, 2.5f, 150);
-    protected override ShotProperties ShotProperties { get; set; } = new SplitShotProperties(3f, 3f, 1, true ,2);
+    protected override ShotProperties ShotProperties { get; set; } = new SplitShotProperties(3f, 3f, 1, true , 3);
 
     new void Start()
     {

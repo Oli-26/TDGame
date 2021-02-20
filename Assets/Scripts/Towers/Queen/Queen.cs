@@ -29,12 +29,15 @@ public class Queen : BaseTower
             return false;
         CurrentCooldown = TowerProperties.Cooldown;    
 
-        ShotBasic shot = Instantiate(shotPrefab, transform.position, Quaternion.identity).GetComponent<ShotBasic>();
-        shot.setProperties(ShotProperties);
+        Nanobot shot = Instantiate(shotPrefab, transform.position, Quaternion.identity).GetComponent<Nanobot>();
+        shot.setProperties(ShotProperties as NanoBotProperties);
         shot.SetTarget(Target);
         return true;
     }
 
+    protected override List<TowerUpgrade> PossibleUpgrades() { 
+        return QueenUpgrades.AllUpgrades();
+    }
 
 }
 

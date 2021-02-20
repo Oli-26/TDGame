@@ -76,7 +76,7 @@ public class BishopUpgrades {
         cost = 300,
         track = 2,
         level = 0,
-        effect = (p, s) => { s.Damage += 3f; }
+        effect = (p, s) => { s.Damage += 5f; }
     };
 
 

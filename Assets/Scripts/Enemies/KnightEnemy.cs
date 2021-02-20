@@ -14,7 +14,7 @@ public class KnightEnemy : BaseEnemy
     {
         base.Start();
         speed = 1f;
-        health = 4f;
+        health = 5.5f;
         moneyDropped = 2;
         damageDealt = 2;
         Tier = 2;

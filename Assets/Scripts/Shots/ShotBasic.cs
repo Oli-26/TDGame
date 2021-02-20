@@ -15,7 +15,7 @@ public class ShotBasic : TimeEffected
     protected bool ignoreEnemySet = false;
 
 
-    private float explodeOutwardsTime = 0.1f;
+    private float explodeOutwardsTime = 0.2f;
     private Vector3 outwardsVector;
 
     public void Start()
@@ -44,7 +44,7 @@ public class ShotBasic : TimeEffected
         if(properties.ExplodeOutwards){
             if(explodeOutwardsTime >= 0){
                 explodeOutwardsTime -= TimePassed();
-                changeVector = outwardsVector *TimePassed()*properties.Speed*2f;
+                changeVector = outwardsVector *TimePassed()*properties.Speed*1.2f;
             }else{
                 if(!SetTarget(target)){
                     explodeOutwardsTime = 15f;
@@ -59,7 +59,7 @@ public class ShotBasic : TimeEffected
                 changeVector = Vector3.Normalize(target.transform.position-transform.position) *TimePassed()*properties.Speed;
             }else{
                 if(target != null){
-                    changeVector = (Vector3.Normalize(target.transform.position-transform.position)*0.35f + direction*0.65f) *TimePassed()*properties.Speed;
+                    changeVector = (Vector3.Normalize(target.transform.position-transform.position)*0.3f + direction*0.7f) *TimePassed()*properties.Speed;
                 }else{
                     changeVector = direction *TimePassed()*properties.Speed;
                 }
@@ -79,16 +79,13 @@ public class ShotBasic : TimeEffected
         }
     }
 
-    protected void ReduceDamage(GameObject g){
-        GameObject castleEnemy = g.transform.parent.gameObject;
-        CastleEnemy CastleScript = castleEnemy.GetComponent<CastleEnemy>();
-        properties.reduceDamage(CastleScript.GetDamageReduction());
+    public void ReduceDamage(float reduction){
+        properties.reduceDamage(reduction);
     }
 
     public virtual void OnCollisionEnter2D(Collision2D col){
-        if(col.gameObject.tag == "DamageReduction"){
-            ReduceDamage(col.gameObject);
-        }
+        Debug.Log("Colliding with " + col.gameObject.name + "   " + col.gameObject.tag);
+        
         if(col.gameObject.tag == "Enemy" && properties.DamageInstances >= 1){
             if(ignoreEnemySet && col.gameObject.GetInstanceID() == ignoreEnemy.GetInstanceID()){
                 return;
@@ -100,6 +97,9 @@ public class ShotBasic : TimeEffected
                 if(col.gameObject != target){
                     return;
                 }
+            }
+            if(properties.ExplodeOutwards){
+                return;
             }
             float bonusAdjustedDamage = properties.Damage + (properties.GainsDamageWithRange ? properties.RangeBonusDamage : 0f);
             float randomNumber = UnityEngine.Random.Range(0f,1f);
@@ -115,6 +115,14 @@ public class ShotBasic : TimeEffected
                 properties.HomingShot = false;
             }
             
+        }
+    }
+
+    public void OnTriggerEnter2D(Collider2D col){
+        if(col.gameObject.tag == "DamageReduction"){
+            GameObject castleEnemy = col.transform.parent.gameObject;
+            CastleEnemy CastleScript = castleEnemy.GetComponent<CastleEnemy>();
+            ReduceDamage(CastleScript.GetDamageReduction());
         }
     }
     
@@ -141,6 +149,18 @@ public class ShotBasic : TimeEffected
         
     }
 
+    protected List<GameObject> FindAllEnemiesInArea(Vector3 point, float diameter){
+        GameObject[] enemies = GameObject.Find("Control").GetComponent<RoundManager>().GetAliveEnemies();
+        List<GameObject> targets = new List<GameObject>();
+        for(int i = 0; i<enemies.Length; i++){
+            if(Vector3.Distance(enemies[i].transform.position, transform.position) < diameter){
+                targets.Add(enemies[i]);
+            }
+        }
+        return targets;
+    }
+
+
 }
 
 public class ShotProperties {
@@ -166,6 +186,7 @@ public class ShotProperties {
         public bool DamageReduced {get; set;}
         public float RangeBonusDamage {get; set;}
         public bool ExplodeOutwards {get; set;}
+        public bool IsFirstInstance {get; set;} = true;
 
         public ShotProperties(){
             RangeBonusDamage = 0f;

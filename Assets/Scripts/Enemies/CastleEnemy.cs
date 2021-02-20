@@ -12,7 +12,7 @@ public class CastleEnemy : BaseEnemy
     {
         base.Start();
         speed = 1f;
-        health = 180;
+        health = 70;
         moneyDropped = 10;
         damageDealt = 10;
         Tier = 4;
@@ -24,7 +24,7 @@ public class CastleEnemy : BaseEnemy
         if(effects.AbilityBlocked){
             effectField.SetActive(false);
         }else{
-            effectField.SetActive(true);
+            //effectField.SetActive(true);
         }
 
     }

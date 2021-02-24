@@ -5,7 +5,7 @@ using UnityEngine.Events;
 
 public class RoundManager : TimeEffected
 {
-    int roundNumber = 1;
+    public int roundNumber = 1;
     public GameObject path;
     public GameObject ghostPawn;
     bool roundStarted = false;
@@ -35,6 +35,7 @@ public class RoundManager : TimeEffected
            EventCentral.EndRound();
            GetMoneyForRound();
            roundNumber++;
+           GetComponent<UiUpdater>().UpdateRound();
        }
 
        roundTick = Tick(roundTick);

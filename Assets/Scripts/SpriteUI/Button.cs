@@ -14,7 +14,6 @@ public class Button : MonoBehaviour
     protected void Update()
     {
         if(Input.GetMouseButtonDown(0)){
-            Debug.Log("Trying to click");
             if(GetComponent<Collider2D>().bounds.Contains(GetMouseToWorld())){
                 clicked();
             }

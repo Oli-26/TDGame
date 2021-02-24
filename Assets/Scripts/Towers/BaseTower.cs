@@ -102,7 +102,7 @@ public abstract class BaseTower : TowerUI
 
     protected virtual void TargetWeakest(float range){
         GameObject[] enemies = control.GetComponent<RoundManager>().GetAliveEnemies();
-        float lowestTier = 0f;
+        float lowestTier = 100f;
         float maxDistanceTraveled = 0f;
         TargetSet = false;
 

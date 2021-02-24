@@ -89,6 +89,9 @@ public class Nanobot : ShotBasic
     public void setProperties(NanoBotProperties p){
         this.properties = NanoBotProperties.Duplicate(p);
     }
+
+    public override void OnCollisionEnter2D(Collision2D col){
+    }
 }
 
 public class NanoBotProperties : ShotProperties {

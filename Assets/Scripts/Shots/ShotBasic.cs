@@ -35,6 +35,7 @@ public class ShotBasic : TimeEffected
         target = obj;
         Vector3 targetPos = target.transform.position;
         direction = Vector3.Normalize(new Vector3(targetPos.x-transform.position.x, targetPos.y-transform.position.y, 0));
+        outwardsVector = direction;
         return true;
     }
 

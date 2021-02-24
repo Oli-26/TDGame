@@ -45,11 +45,11 @@ public class QueenUpgrades {
 
     public static QueenUpgrade queenUpgrade1_0 = new QueenUpgrade {
         name = "Hyper Aggressive AI",
-        description = "Swarm bots attack 30% faster",
+        description = "Swarm bots attack 50% faster",
         cost = 450,
         track = 1,
         level = 0,
-        effect = (p, s) => {s.CooldownTime = 0.768f; }
+        effect = (p, s) => {s.CooldownTime = 0.65f; }
     };
 
     public static QueenUpgrade queenUpgrade1_1 = new QueenUpgrade {

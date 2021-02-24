@@ -45,17 +45,17 @@ public class BishopUpgrades {
 
     public static BishopUpgrade bishopUpgrade1_0 = new BishopUpgrade {
         name = "World wide",
-        description = "Increase range by 2",
-        cost = 300,
+        description = "Increase range by 2.5",
+        cost = 200,
         track = 1,
         level = 0,
-        effect = (p, s) => {p.Range += 2; }
+        effect = (p, s) => {p.Range += 2.5f; }
     };
 
     public static BishopUpgrade bishopUpgrade1_1 = new BishopUpgrade {
         name = "Precision targeting",
-        description = "Shots only hit their target (initially)",
-        cost = 300,
+        description = "Shots only hit their target (initially). Also provdes shot speed boost.",
+        cost = 250,
         track = 1,
         level = 1,
         effect = (p, s) => { s.Precision = true; s.Speed += 1f; }
@@ -72,7 +72,7 @@ public class BishopUpgrades {
 
     public static BishopUpgrade bishopUpgrade2_0 = new BishopUpgrade {
         name = "Heated Shots",
-        description = "Instead shot damage by 3",
+        description = "Instead shot damage by 5",
         cost = 300,
         track = 2,
         level = 0,
@@ -83,7 +83,7 @@ public class BishopUpgrades {
     public static BishopUpgrade bishopUpgrade2_1 = new BishopUpgrade {
         name = "Over charging",
         description = "Halfs attack speed, adds 10 damage to shots",
-        cost = 800,
+        cost = 700,
         track = 2,
         level = 1,
         effect = (p, s) => { s.Damage += 10f; p.Cooldown += 2.1f; }
